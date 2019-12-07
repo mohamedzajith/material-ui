@@ -5,9 +5,9 @@ components: Hidden
 
 # Hidden
 
-<p class="description">Changer rapidement et de manière réactive la valeur de visibilité des composants et bien plus encore grâce à nos utilitaires cachés.</p>
+<p class="description">Quickly and responsively toggle the visibility value of components and more with the hidden utilities.</p>
 
-Tous les éléments sont visibles à moins **qu'ils soient explicitement cachés**. Pour faciliter l'intégration avec [ les points d'arrêt responsive](/customization/breakpoints/) de Material-UI, ce composant peut être utilisé pour cacher n'importe quel contenu, ou vous pouvez l'utiliser en conjonction avec notre composant [`Grid`](/components/grid/).
+Tous les éléments sont visibles à moins **qu'ils soient explicitement cachés**. To ease integration with Material-UI's [responsive breakpoints](/customization/breakpoints/), this component can be used to hide any content, or you can use it in conjunction with the [`Grid`](/components/grid/) component.
 
 ## Comment ça marche
 
@@ -37,13 +37,13 @@ If you are using server-side rendering, you can set `implementation="css"` if yo
 
 Using any breakpoint `up` property, the given *children* will be hidden *at or above* the breakpoint.
 
-{{"demo": "pages/components/hidden/BreakpointUp.js"}}
+{{"demo": "pages/components/hidden/BreakpointUp.js", "bg": true}}
 
 ## Breakpoint down
 
 Using any breakpoint `down` property, the given *children* will be hidden *at or below* the breakpoint.
 
-{{"demo": "pages/components/hidden/BreakpointDown.js"}}
+{{"demo": "pages/components/hidden/BreakpointDown.js", "bg": true}}
 
 ## Breakpoint only
 
@@ -54,10 +54,10 @@ The `only` property can be used in two ways:
 - list a single breakpoint
 - list an array of breakpoints
 
-{{"demo": "pages/components/hidden/BreakpointOnly.js"}}
+{{"demo": "pages/components/hidden/BreakpointOnly.js", "bg": true}}
 
 ## Integration with Grid
 
 It is quite common to alter `Grid` at different responsive breakpoints, and in many cases, you want to hide some of those elements.
 
-{{"demo": "pages/components/hidden/GridIntegration.js"}}
+{{"demo": "pages/components/hidden/GridIntegration.js", "bg": true}}

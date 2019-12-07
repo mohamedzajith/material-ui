@@ -12,7 +12,7 @@ You might be familiar with [normalize.css](https://github.com/necolas/normalize.
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-function MyApp() {
+export default function MyApp() {
   return (
     <React.Fragment>
       <CssBaseline />
@@ -20,17 +20,15 @@ function MyApp() {
     </React.Fragment>
   );
 }
-
-export default MyApp;
 ```
 
 ## Approach
 
-### Page
+### Страница
 
 The `<html>` and `<body>` elements are updated to provide better page-wide defaults. More specifically:
 
-- The margin in all browsers is removed.
+- Поля во всех браузерах удалены.
 - The default Material Design background color is applied. It's using [`theme.palette.background.default`](/customization/default-theme/?expend-path=$.palette.background) for standard devices and a white background for print devices.
 
 ### Расположение
@@ -42,4 +40,4 @@ The `<html>` and `<body>` elements are updated to provide better page-wide defau
 - No base font-size is declared on the `<html>`, but 16px is assumed (the browser default). You can learn more about the implications of changing the `<html>` default font size in [the theme documentation](/customization/typography/#typography-html-font-size) page.
 - Set the `theme.typography.body2` style on the `<body>` element.
 - Set the font-weight to "bolder" for the `<b>` and `<strong>` elements. Bolder is one font weight heavier than the parent element (among the available weights of the font).
-- Font antialiasing is enabled for better display of the Roboto font.
+- Сглаживание шрифтов включено для лучшего отображения шрифта Roboto.

@@ -27,57 +27,60 @@ Das responsive Raster konzentriert sich auf konsistente Abstandsbreiten und nich
 
 Diese Ausgabetransformationsfunktion kann durch [Verwendung des Themes](/customization/spacing/) angepasst werden.
 
-{{"demo": "pages/components/grid/SpacingGrid.js"}}
+{{"demo": "pages/components/grid/SpacingGrid.js", "bg": true}}
 
 ## Fluides Raster
 
-Im fluiden Rastern werden Säulen verwendet, die den Inhalt skalieren und dessen Größe ändern. Das Layout eines Fluidrasters kann anhand von Rasterpunkte bestimmen, ob sich das Layout drastisch ändern muss.
+Fluid grids use columns that scale and resize content. A fluid grid’s layout can use breakpoints to determine if the layout needs to change dramatically.
 
 ### Grundraster
 
 Die Spaltenbreiten gelten für alle Rasterpunkte (d.h. `xs` und höher).
 
-{{"demo": "pages/components/grid/CenteredGrid.js"}}
+{{"demo": "pages/components/grid/CenteredGrid.js", "bg": true}}
 
 ### Raster mit Rasterpunkten
 
 Für einige Spalten sind mehrere Breiten definiert, wodurch sich das Layout am definierten Rasterpunkten ändert.
 
-{{"demo": "pages/components/grid/FullWidthGrid.js"}}
+{{"demo": "pages/components/grid/FullWidthGrid.js", "bg": true}}
 
 ## Interaktive Liste
 
 Nachfolgend finden Sie eine interaktive Demo, mit der Sie die visuellen Ergebnisse der verschiedenen Einstellungen untersuchen können:
 
-{{"demo": "pages/components/grid/InteractiveGrid.js", "hideHeader": true}}
+{{"demo": "pages/components/grid/InteractiveGrid.js", "hideHeader": true, "bg": true}}
 
 ## Automatisches Layout
 
-Das Auto-Layout sorgt dafür, dass die *Elemente* den verfügbaren Speicherplatz gleichermaßen teilen. Das bedeutet auch, dass Sie die Breite von *Elementen* einstellen können. Die Größe der anderen Elemente wird automatisch angepasst.
+The Auto-layout makes the *items* equitably share the available space. That also means you can set the width of one *item* and the others will automatically resize around it.
 
-{{"demo": "pages/components/grid/AutoGrid.js"}}
+{{"demo": "pages/components/grid/AutoGrid.js", "bg": true}}
 
 ## Komplexes Raster
 
 Die folgende Demo folgt nicht der Material Design-Spezifikation, sondern zeigt, wie das Raster zum Erstellen komplexer Layouts verwendet werden kann.
 
-{{"demo": "pages/components/grid/ComplexGrid.js"}}
+{{"demo": "pages/components/grid/ComplexGrid.js", "bg": true}}
 
 ## Verschachteltes Raster
 
-Die Eigenschaften von `container` und `item` sind zwei unabhängige Booleans. Sie können kombiniert werden.
+The `container` and `item` properties are two independent booleans. They can be combined.
 
 > Ein Flex **container** ist die Box, die von einem Element mit einer berechneten Anzeige von `flex` oder `Iinline-flex`. In-Flow-Kinder eines Flex-Containers heißen Flex **Elemente** und werden mit dem Flex-Layout-Modell angeordnet.
 
 https://www.w3.org/TR/css-flexbox-1/#box-model
 
-{{"demo": "pages/components/grid/NestedGrid.js"}}
+{{"demo": "pages/components/grid/NestedGrid.js", "bg": true}}
 
 ## Einschränkungen
 
 ### Negative Abstände
 
-Es gibt eine Einschränkung beim negativen Rand, den wir verwenden, um den Abstand zwischen den Elementen zu implementieren. Ein horizontaler Bildlauf wird angezeigt, wenn ein negativer Rand weiter als `<body>` geht. Es gibt 3 verfügbare Problemumgehungen: 1. Nicht die Abstands-Funktion benutzen und den Abstand in Anzeigeraum `spacing={0}` (Standard) setzen. 2. Anwenden von Paddings auf das übergeordnete Element, wobei mindestens der halbe Abstand auf das untergeordnete Element angewendet wird:
+Es gibt eine Einschränkung beim negativen Rand, den wir verwenden, um den Abstand zwischen den Elementen zu implementieren. Ein horizontaler Bildlauf wird angezeigt, wenn ein negativer Rand weiter als `<body>` geht. There are 3 available workarounds:
+
+1. Nicht die Abstands-Funktion benutzen und den Abstand in Anzeigeraum `spacing={0}` (Standard) setzen.
+2. Anwenden von Paddings auf das übergeordnete Element, wobei mindestens der halbe Abstand auf das untergeordnete Element angewendet wird:
 
 ```jsx
   <body>
@@ -89,25 +92,25 @@ Es gibt eine Einschränkung beim negativen Rand, den wir verwenden, um den Absta
   </body>
 ```
 
-1. Hinzufügen von `overflow-x: hidden;` zum Elternteil.
+3. Hinzufügen von `overflow-x: hidden;` zum Elternteil.
 
 ### white-space: nowrap;
 
-Die Anfangseinstellung für Flex-Elemente ist `min-width: auto`. Es verursacht einen Positionierungskonflikt, wenn die Kinder `white-space: nowrap;` verwenden. Sie können das Problem erleben mit:
+The initial setting on flex items is `min-width: auto`. It's causing a positioning conflict when the children is using `white-space: nowrap;`. You can experience the issue with:
 
 ```jsx
 <Grid item xs>
   <Typography noWrap>
 ```
 
-Damit der Artikel im Container bleibt, müssen Sie `min-width: 0` setzten. In der Praxis können Sie die Eigenschaft `zeroMinWidth` festlegen:
+In order for the item to stay within the container you need to set `min-width: 0`. In practice, you can set the `zeroMinWidth` property:
 
 ```jsx
 <Grid item xs zeroMinWidth>
   <Typography noWrap>
 ```
 
-{{"demo": "pages/components/grid/AutoGridNoWrap.js"}}
+{{"demo": "pages/components/grid/AutoGridNoWrap.js", "bg": true}}
 
 ### direction: column | column-reverse
 
@@ -117,4 +120,4 @@ Obwohl die `Grid-` Komponente eine `direction-` Eigenschaft hat, die Werte von `
 
 Die Material-UI bietet selbst keine CSS-Grid-Funktionalität. Wie Sie jedoch unten sehen, können Sie CSS-Grid einfach zum Layout Ihrer Seiten hinzufügen.
 
-{{"demo": "pages/components/grid/CSSGrid.js"}}
+{{"demo": "pages/components/grid/CSSGrid.js", "bg": true}}

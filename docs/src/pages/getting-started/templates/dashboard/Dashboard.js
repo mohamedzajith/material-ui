@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
+import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -22,14 +23,15 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 
-function MadeWithLove() {
+function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
+      {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
     </Typography>
   );
 }
@@ -190,8 +192,10 @@ export default function Dashboard() {
               </Paper>
             </Grid>
           </Grid>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
         </Container>
-        <MadeWithLove />
       </main>
     </div>
   );

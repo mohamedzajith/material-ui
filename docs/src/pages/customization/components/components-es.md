@@ -1,6 +1,6 @@
-# Customizing components
+# Personalizando componentes
 
-<p class="description">You can easily customize the appearance of a Material-UI component.</p>
+<p class="description">Usted puede personalizar fácilmente la apariencia de un Material-componente de interfaz de usuario.</p>
 
 As components can be used in different contexts, there are several approaches to this. Going from the narrowest use-case to the broadest, these are:
 
@@ -24,13 +24,19 @@ This example uses the [`withStyles()`](/styles/basics/#higher-order-component-ap
 
 ### Overriding styles with classes
 
-When the `className` property isn't enough, and you need to access deeper elements, you can take advantage of the `classes` object property to customize all the CSS injected by Material-UI for a given component. La lista de clases para cada componente se documenta en la sección **API de Component**. Por ejemplo, puedes echar un vistazo a la [API CSS de Button](/api/button/#css). Como alternativa, puedes utilizar las [herramientas de desarrollo del navegador](#using-the-dev-tools).
+When the `className` property isn't enough, and you need to access deeper elements, you can take advantage of the `classes` object property to customize all the CSS injected by Material-UI for a given component.
+
+The list of classes for each component is documented in the component API page, you should refer to the **CSS section** and **rule name column**. Por ejemplo, puedes echar un vistazo a la [API CSS de Button](/api/button/#css). Como alternativa, puedes utilizar las [herramientas de desarrollo del navegador](#using-the-dev-tools).
 
 This example also uses `withStyles()` (see above), but here, `ClassesNesting` is using `Button`'s `classes` prop to provide an object that maps the **names of classes to override** (style rules) to the **CSS class names to apply** (values). The component's existing classes will continue to be injected, so it is only necessary to provide the specific styles you wish to add or override.
 
 Notice that in addition to the button styling, the button label's capitalization has been changed:
 
 {{"demo": "pages/customization/components/ClassesNesting.js"}}
+
+### Overriding styles with global class names
+
+[Follow this section](/styles/advanced/#with-material-ui-core).
 
 ### Usando las herramientas de dev
 
@@ -79,7 +85,7 @@ In order to override the components special states, **you need to increase speci
 .Button {
   color: black;
 }
-.Button:disabled { /* We increase the specificity */
+.Button:disabled { /* Increase the specificity */
   color: white;
 }
 ```
@@ -94,7 +100,7 @@ A veces, no puedes usar **pseudo-class** ya que el estado no existe en la plataf
 .MenuItem {
   color: black;
 }
-.MenuItem.selected { /* We increase the specificity */
+.MenuItem.selected { /* Increase the specificity */
   color: blue;
 }
 ```
@@ -122,11 +128,12 @@ Instead of providing values to the `classes` prop API, you can rely on [the glob
 | expanded     | Mui-expanded      |
 | selected     | Mui-selected      |
 
+
 ```css
 .MenuItem {
   color: black;
 }
-.MenuItem.Mui-selected { /* We increase the specificity */
+.MenuItem.Mui-selected { /* Increase the specificity */
   color: blue;
 }
 ```
@@ -228,7 +235,7 @@ The demos of this section covers how to the change the button's font size.
 
 ### Theme variables
 
-You can adjusting the [theme configuration variables](/customization/themes/#theme-configuration-variables).
+You can adjust the [theme configuration variables](/customization/theming/#theme-configuration-variables).
 
 ```jsx
 const theme = createMuiTheme({
@@ -244,7 +251,7 @@ const theme = createMuiTheme({
 
 ### Global CSS override
 
-You can also customize all instances of a component with CSS. We expose [global class names](/styles/advanced/#with-material-ui-core) to do so. It's very similar to how you would customize Bootstrap.
+You can also customize all instances of a component with CSS. Components expose [global class names](/styles/advanced/#with-material-ui-core) to enable this. It's very similar to how you would customize Bootstrap.
 
 ```jsx
 const GlobalCss = withStyles({

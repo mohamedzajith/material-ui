@@ -7,16 +7,16 @@ components: Modal
 
 <p class="description">O componente modal fornece uma base sólida para criar diálogos, popovers, lightboxes ou qualquer outra coisa.</p>
 
-O componente torna seus nós `children` na frente de um componente de plano de fundo. O `Modal` oferece recursos importantes:
+O componente renderiza o conteúdo de seu `children` sobre um componente backdrop. O `Modal` oferece recursos importantes:
 
-- 
-- 
-- 
+- 💄 Gerencia o empilhamento de chamadas quando ter um de cada vez não for suficiente.
+- 🔐 Cria um pano de fundo para desabilitar a interação abaixo do modal.
+- 🔐 Desativa a rolagem do conteúdo da página enquanto estiver aberta.
 - ♿️ Gerencia adequadamente o foco; movendo para o conteúdo modal, e mantendo-o lá até que o modal seja fechado.
 - ♿️ Adiciona as funções ARIA apropriadas automaticamente.
-- 
+- 📦 [5 kB gzipado](/size-snapshot).
 
-> **Nota sobre a terminologia**. O termo "modal" algumas vezes é usado com o sentido de "diálogo", mas isto é um equívoco. Uma janela Modal descreve partes de uma UI. Um elemento é considerado modal se [ele bloqueia interações com o resto da aplicação](https://en.wikipedia.org/wiki/Modal_window).
+> **Nota sobre a terminologia**. O termo "modal" algumas vezes é usado com o sentido de "diálogo", mas isto é um equívoco. Uma janela modal descreve partes de uma UI. Um elemento é considerado modal se [ele bloqueia interações com o resto da aplicação](https://en.wikipedia.org/wiki/Modal_window).
 
 Se você está criando um diálogo Modal, você provavelmente quer usar o componente [Dialog](/components/dialogs/) em vez de diretamente um Modal. Modal é uma estrutura de baixo-nível que é alavancada pelos seguintes componentes:
 
@@ -29,63 +29,50 @@ Se você está criando um diálogo Modal, você provavelmente quer usar o compon
 
 {{"demo": "pages/components/modal/SimpleModal.js"}}
 
-## Performance
+Você pode desativar o contorno (muitas vezes azul ou ouro) com a propriedade CSS `outline: 0`.
 
-O conteúdo dos modais são **montados lentamente** dentro do DOM. Isso garante que, mesmo tendo muitos modais fechados em sua árvore React, o carregamento da sua página não será afetado.
+## Transições
 
-Porém, criar elementos React tem um preço também. Considere o caso a seguir:
+O estado de aberto/fechado do modal pode ser animado com um componente de transição. Este componente deve respeitar as seguintes condições:
 
-```jsx
-<Modal open={false}>
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Dessert (100g serving)</TableCell>
-        <TableCell align="right">Calories</TableCell>
-        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {rows.map(row => (
-        <TableRow key={row.id}>
-          <TableCell component="th" scope="row">
-            {row.name}
-          </TableCell>
-          <TableCell align="right">{row.calories}</TableCell>
-          <TableCell align="right">{row.fat}</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-</Modal>
-```
+- Seja um filho direto descendente do modal.
+- Tenha uma propriedade `in`. Isso corresponde ao estado de aberto/fechado.
+- Chamar a propriedade de callback `onEnter` quando a transição de entrada iniciar.
+- Chamar a propriedade de callback `onExited` quando a transição de saída for concluída. Esses dois callbacks permitem que o modal desmonte o conteúdo filho quando fechado e seja totalmente transitado.
 
-Criamos muitos elementos React que nunca serão montados. É um desperdício 🐢. Você pode ** acelerar ** a renderização movendo o corpo do modal para seu próprio componente. 
+O modal possui suporte interno para [react-transition-group](https://github.com/reactjs/react-transition-group).
 
-```jsx
-<Modal open={false}>
-  <TableComponent />
-</Modal>
-```
+{{"demo": "pages/components/modal/TransitionsModal.js"}}
 
-Desta forma, você tem a vantagem do [React render laziness evaluation](https://overreacted.io/react-as-a-ui-runtime/#lazy-evaluation). A renderização do `TableComponent` só irá ocorrer quando a janela modal for aberta.
+Como alternativa, você pode usar [react-spring](https://github.com/react-spring/react-spring).
+
+{{"demo": "pages/components/modal/SpringModal.js"}}
+
+## Modal do lado do servidor
+
+React [não suporta](https://github.com/facebook/react/issues/13097) a API [`createPortal()`](https://reactjs.org/docs/portals.html) no servidor. Para exibir o modal, você precisa desativar o recurso portal com a propriedade `disablePortal`:
+
+{{"demo": "pages/components/modal/ServerModal.js"}}
 
 ## Acessibilidade
 
-- Certifique-se de adicionar `aria-labelledby="id..."`, referenciando o título modal, ao `Modal`. Adicionalmente, você pode dar uma descrição do seu modal com a propriedade `aria-describedby = "id..."` no `Modal`.
+(WAI-ARIA: https://www.w3.org/TR/wai-aria-practices/#dialog_modal)
 
-```jsx
-<Modal
-  aria-labelledby="simple-modal-title"
-  aria-describedby="simple-modal-description"
->
-  <h2 id="modal-title">
-    Meu título
-  </h2>
-  <p id="simple-modal-description">
-    Minha descrição
-  </p>
-</Modal>
-```
+- Be sure to add `aria-labelledby="id..."`, referencing the modal title, to the `Modal`. Additionally, you may give a description of your modal with the `aria-describedby="id..."` prop on the `Modal`.
+    
+    ```jsx
+    <Modal
+    aria-labelledby="modal-title"
+    aria-describedby="modal-description"
+    >
+    <h2 id="modal-title">
+      My Title
+    </h2>
+    <p id="modal-description">
+      My Description
+    </p>
+    </Modal>
+    ```
 
-- O [WAI-ARIA Authoring Practices 1.1](https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/dialog.html) pode ajudá-lo a definir o foco inicial no elemento mais relevante, com base no seu conteúdo modal.
+- The [WAI-ARIA authoring practices](https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/dialog.html) can help you set the initial focus on the most relevant element, based on your modal content.
+- A modal window overlys on either the primary window or another modal window. Windows under a modal are **inert**. That is, users cannot interact with content outside an active modal window.

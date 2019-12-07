@@ -7,99 +7,125 @@ components: FilledInput, FormControl, FormHelperText, Input, InputAdornment, Inp
 
 <p class="description">Campos de texto permitem que os usuários digitem e editem texto.</p>
 
-[Campos de Texto](https://material.io/design/components/text-fields.html) permitem que os usuários insiram texto em uma interface de usuário. Eles geralmente aparecem em formulários e diálogos.
+[Campos de texto](https://material.io/design/components/text-fields.html) permitem que os usuários insiram texto em uma interface de usuário. Eles geralmente aparecem em formulários e diálogos.
 
 ## TextField
 
 O componente wrapper `TextField` é um controle de formulário completo, incluindo um rótulo, entrada e texto de ajuda.
 
-{{"demo": "pages/components/text-fields/TextFields.js"}}
+It supports standard, outlined and filled styling.
 
-> **Note:** This version of the text field is no longer documented in the [Material Design guidelines](https://material.io/), but Material-UI will continue to support it.
+{{"demo": "pages/components/text-fields/BasicTextFields.js"}}
 
-## Delineado
+**Note:** The standard variant of the `TextField` is no longer documented in the [Material Design guidelines](https://material.io/) ([here's why](https://medium.com/google-design/the-evolution-of-material-designs-text-fields-603688b3fe03)), but Material-UI will continue to support it.
 
-`TextField` suporta estilo delineado.
+## Form props
 
-{{"demo": "pages/components/text-fields/OutlinedTextFields.js"}}
+Standard form attributes are supported e.g. `required`, `readOnly`, `type`, etc. as well as a `helperText` which is used to give context about a field’s input, such as how the input will be used.
 
-## Preenchido
+{{"demo": "pages/components/text-fields/FormPropsTextFields.js"}}
 
-`TextField` suporta estilo preenchido.
+## Validation
 
-{{"demo": "pages/components/text-fields/FilledTextFields.js"}}
+The `error` prop toggles the error state, the `helperText` prop can then be used to provide feedback to the user about the error.
 
-## Componentes
+{{"demo": "pages/components/text-fields/ValidationTextFields.js"}}
 
-`TextField` é composto por componentes menores ([`FormControl`](/api/form-control/), [`Input`](/api/input/), [`FilledInput`](/api/filled-input/), [`InputLabel`](/api/input-label/), [`OutlinedInput`](/api/outlined-input/), e [`FormHelperText`](/api/form-helper-text/)) que você pode aproveitar diretamente para personalizar significativamente as entradas do seu formulário.
+## Multiline
 
-Você também pode ter notado que algumas propriedades de entrada nativas do HTML estão faltando no componente `TextField`. Isto é intencional. O componente cuida das propriedades mais usadas, depois cabe ao usuário usar o componente exibido na demonstração. Ainda, você pode usar `inputProps` (`InputProps` e `InputLabelProps`) se você quiser evitar algum boilerplate.
+The `multiline` prop transforms the text field into a [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) or a [TextareaAutosize](/components/textarea-autosize/).
 
-{{"demo": "pages/components/text-fields/ComposedTextField.js"}}
+{{"demo": "pages/components/text-fields/MultilineTextFields.js"}}
 
-## Inputs
+## Select
 
-{{"demo": "pages/components/text-fields/Inputs.js"}}
+The `select` prop makes the text field use the [Select](/components/selects/) component internally.
 
-## Inputs Costumizados
+{{"demo": "pages/components/text-fields/SelectTextFields.js"}}
 
-Aqui estão alguns exemplos de customização do componente. Você pode aprender mais sobre isso na [página de documentação de substituições](/customization/components/).
+## Ícones
 
-{{"demo": "pages/components/text-fields/CustomizedInputs.js"}}
-
-A customização não para no CSS, você pode usar composição para criar componentes personalizados e dar ao seu aplicativo uma sensação única. Abaixo há um exemplo usando o componente [`InputBase`](/api/input-base/), inspirado pelo Google Maps.
-
-{{"demo": "pages/components/text-fields/CustomizedInputBase.js"}}
-
-## Decoração de inputs
-
-`Input` permite o uso de `InputAdornment`. Estes podem ser usados para adicionar um prefixo, sufixo ou uma ação para uma entrada. Por exemplo, você pode usar um botão com ícone para ocultar ou revelar a senha.
-
-{{"demo": "pages/components/text-fields/InputAdornments.js"}}
-
-### Com ícone
-
-Ícones podem ser especificados previamente ou anexados ao input.
+There are multiple ways to display an icon with a text field.
 
 {{"demo": "pages/components/text-fields/InputWithIcon.js"}}
 
-### Input com bordas preenchidas
+### Input Adornments
 
-{{"demo": "pages/components/text-fields/FilledInputAdornments.js"}}
+The main way is with an `InputAdornment`. These can be used to add a prefix, a suffix or an action to an input. For instance, you can use an icon button to hide or reveal the password.
 
-### Inputs com contornos delineados
-
-{{"demo": "pages/components/text-fields/OutlinedInputAdornments.js"}}
+{{"demo": "pages/components/text-fields/InputAdornments.js"}}
 
 ## Leiaute
 
-`TextField`,`FormControl` permite a especificação de `margin` para alterar os espaços verticais do input. Usando `none` (padrão) não irá aplicar margens para o `FormControl`, enquanto que `dense` e `normal` irá também alterar outros estilos para atender as especificações.
+`margin` can be used to alter the vertical spacing of inputs. Using `none` (default) will not apply margins to the `FormControl`, whereas `dense` and `normal` will. `dense` and `normal` alter other styles to meet the specification.
 
-{{"demo": "pages/components/text-fields/TextFieldMargins.js"}}
+`fullWidth` can be used to make the input take up the full width of its container.
+
+{{"demo": "pages/components/text-fields/LayoutTextFields.js"}}
+
+## Uncontrolled vs Controlled
+
+The component can be controlled or uncontrolled
+
+{{"demo": "pages/components/text-fields/StateTextFields.js"}}
+
+## Componentes
+
+`TextField` is composed of smaller components ( [`FormControl`](/api/form-control/), [`Input`](/api/input/), [`FilledInput`](/api/filled-input/), [`InputLabel`](/api/input-label/), [`OutlinedInput`](/api/outlined-input/), and [`FormHelperText`](/api/form-helper-text/) ) that you can leverage directly to significantly customize your form inputs.
+
+You might also have noticed that some native HTML input properties are missing from the `TextField` component. This is on purpose. The component takes care of the most used properties, then it's up to the user to use the underlying component shown in the following demo. Still, you can use `inputProps` (and `InputProps`, `InputLabelProps` properties) if you want to avoid some boilerplate.
+
+{{"demo": "pages/components/text-fields/ComposedTextField.js"}}
+
+## Entradas
+
+{{"demo": "pages/components/text-fields/Inputs.js"}}
+
+## Cor
+
+The `color` prop changes the highlight color of the text field when focused.
+
+{{"demo": "pages/components/text-fields/ColorTextFields.js"}}
+
+## Customized inputs
+
+Aqui estão alguns exemplos de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescritas](/customization/components/).
+
+{{"demo": "pages/components/text-fields/CustomizedInputs.js"}}
+
+Customization does not stop at CSS, you can use composition to build custom components and give your app a unique feel. Below is an example using the [`InputBase`](/api/input-base/) component, inspired by Google Maps.
+
+{{"demo": "pages/components/text-fields/CustomizedInputBase.js", "bg": true}}
 
 ## Limitações
 
-O label de entrada "shrink" nem sempre está correto. O input label deve encolher assim que o input estiver exibindo algo. Em algumas circunstâncias, não podemos determinar o estado de "srink" (input numérico, input datetime, input Stripe). Você pode notar uma sobreposição.
+### Shrink
 
-![minimizar](/static/images/text-fields/shrink.png)
+The input label "shrink" state isn't always correct. The input label is supposed to shrink as soon as the input is displaying something. In some circumstances, we can't determine the "shrink" state (number input, datetime input, Stripe input). You might notice an overlap.
 
-Para contornar o problema, você pode forçar a "shrink" do label.
+![shrink](/static/images/text-fields/shrink.png)
+
+To workaround the issue, you can force the "shrink" state of the label.
 
 ```jsx
 <TextField InputLabelProps={{ shrink: true }} />
 ```
 
-ou
+or
 
 ```jsx
 <InputLabel shrink>Contagem</InputLabel>
 ```
 
+### Floating label
+
+The floating label is absolutely positioned, it won't impact the layout of the page. You need to make sure that the input is larger than the label to display correctly.
+
 ## Integration with 3rd party input libraries
 
 You can use third-party libraries to format an input. You have to provide a custom implementation of the `<input>` element with the `inputComponent` property.
 
-A seguinte demonstração usa as bibliotecas [react-text-mask](https://github.com/text-mask/text-mask) e [react-number-format](https://github.com/s-yadav/react-number-format). The same concept could be applied to [e.g. react-stripe-element](https://github.com/mui-org/material-ui/issues/16037).
+The following demo uses the [react-text-mask](https://github.com/text-mask/text-mask) and [react-number-format](https://github.com/s-yadav/react-number-format) libraries. The same concept could be applied to [e.g. react-stripe-element](https://github.com/mui-org/material-ui/issues/16037).
 
 {{"demo": "pages/components/text-fields/FormattedInputs.js"}}
 
@@ -113,33 +139,33 @@ interface InputElement {
 ```
 
 ```jsx
-function MyInputComponent(props) {
+function MeuInputComponente(props) {
   const { component: Component, inputRef, ...other } = props;
 
-  // implement `InputElement` interface
+  // implementa a interface `InputElement`
   React.useImperativeHandle(inputRef, () => ({
     focus: () => {
-      // logic to focus the rendered component from 3rd party belongs here
+      // logica para focar o componente renderizado de terceiros entra aquito focus
     },
-    // hiding the value e.g. react-stripe-elements
+    // ocultando o valor p.ex. react-stripe-elements
   }));
 
-  // `Component` will be your `SomeThirdPartyComponent` from below
+  // O `Component` abaixo será seu `AlgumComponentDeTerceiro`
   return <Component {...other} />;
 }
 
-// usage
+// uso
 <TextField
   InputProps={{
-    inputComponent: MyInputComponent,
-    inputProps: { component: SomeThirdPartyComponent },
+    inputComponent: MeuInputComponente,
+    inputProps: { component: AlgumComponentDeTerceiro },
   }}
 />;
 ```
 
 ## Acessibilidade
 
-Para que o campo de texto seja acessível, **a entrada deve estar vinculada ao label e ao texto auxiliar**. Os nós DOM subjacentes devem ter essa estrutura.
+In order for the text field to be accessible, **the input should be linked to the label and the helper text**. The underlying DOM nodes should have this structure.
 
 ```jsx
 <div class="form-control">
@@ -162,8 +188,9 @@ Para que o campo de texto seja acessível, **a entrada deve estar vinculada ao l
 
 ## Projetos Complementares
 
-Para os usos mais avançados, você é capaz de aproveita:
+Para usos mais avançados, você pode tirar vantagem com:
 
-- [redux-form-material-ui](https://github.com/erikras/redux-form-material-ui) Um conjunto de componentes do wrapper para facilitar o uso do Material UI com Redux Form.
 - [formik-material-ui](https://github.com/stackworx/formik-material-ui) Ligações para usar Mateiral-UI com formik.
+- [redux-form-material-ui](https://github.com/erikras/redux-form-material-ui) Um conjunto de componentes do wrapper para facilitar o uso do Material UI com Redux Form.
 - [final-form-material-ui](https://github.com/Deadly0/final-form-material-ui) Um conjunto de componentes wrapper para facilitar o uso do Material UI com Final Form.
+- [mui-rff](https://github.com/lookfirst/mui-rff) A set of wrapper components to facilitate using Material UI with React Final Form.

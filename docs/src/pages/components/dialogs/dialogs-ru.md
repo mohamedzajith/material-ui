@@ -13,7 +13,7 @@ components: Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 
 ## Простые диалоги
 
-Простые диалоги могут предоставить дополнительные детали или действия по элементу списка. Например, они могут отображать аватары, значки, уточняющий подтекст или ортогональные действия (например, добавление учетной записи).
+Простые диалоговые окна могут предоставить дополнительные сведения или действия об элементе списка. Например, они могут отображать аватары, иконки, уточнение подтекста, или действия (например, добавление учетной записи).
 
 Особенности механики касаний:
 
@@ -26,12 +26,12 @@ components: Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 
 Оповещения - это срочные сообщения, требующие подтверждения, которые информируют пользователя о ситуации.
 
-Большинству оповещений не нужны названия. Они суммируют решение в предложении или два:
+Большинство предупреждений не нужны заголовки. They summarize a decision in a sentence or two by either:
 
 - Задать вопрос (например, «Удалить этот разговор?»)
 - Создать заявления, связанное с кнопками действий
 
-Используйте предупреждения в строке заголовка только для ситуаций с высоким риском, таких как потенциальная потеря подключения. Пользователи должны уметь понимать варианты, основываясь только на заголовке и тексте кнопки.
+Use title bar alerts only for high-risk situations, such as the potential loss of connectivity. Users should be able to understand the choices based on the title and button text alone.
 
 Если требуется название:
 
@@ -40,7 +40,7 @@ components: Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 
 {{"demo": "pages/components/dialogs/AlertDialog.js"}}
 
-## Transições
+## Переходы
 
 Вы также можете поменять анимацию, в следующем примере используется `Slide`.
 
@@ -52,11 +52,11 @@ components: Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 
 {{"demo": "pages/components/dialogs/FormDialog.js"}}
 
-## Customized dialogs
+## Индивидуальные диалоги
 
-Here is an example of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
+Ниже находится пример кастомизации компонента. You can learn more about this in the [overrides documentation page](/customization/components/).
 
-The dialog has a close button added to aide usability.
+Данный диалог имеет кнопку закрытия, добавленную для удобства использования.
 
 {{"demo": "pages/components/dialogs/CustomizedDialogs.js"}}
 
@@ -95,13 +95,15 @@ function MyComponent() {
 
 {{"demo": "pages/components/dialogs/ConfirmationDialog.js"}}
 
-## Доступность
+## Перетаскиваемый диалог
 
-Смотри [раздел доступности модальных окон](/components/modal/#accessibility).
+Вы можете создать перетаскиваемый диалог, используя [react-draggable](https://github.com/mzabriskie/react-draggable). To do so, you can pass the the imported `Draggable` component as the `PaperComponent` of the `Dialog` component. This will make the entire dialog draggable.
+
+{{"demo": "pages/components/dialogs/DraggableDialog.js"}}
 
 ## Прокрутка длинного контента
 
-Когда диалоги становятся слишком длинными для окна просмотра или устройства пользователя, они их прокручивают.
+When dialogs become too long for the user’s viewport or device, they scroll.
 
 - `scroll = paper` содержимое диалогового окна прокручивается внутри элемента paper.
 - `scroll = body` содержимое диалога прокручивается внутри элемента body.
@@ -110,12 +112,6 @@ function MyComponent() {
 
 {{"demo": "pages/components/dialogs/ScrollDialog.js"}}
 
-## Перетаскиваемый диалог
+## Доступность
 
-Вы можете создать перетаскиваемый диалог, используя [react-draggable](https://github.com/mzabriskie/react-draggable). Для этого вы можете передать импортированный компонент `Draggable` как компонент `PaperComponent` компонента `Dialog`. Это сделает весь диалог перетаскиваемым.
-
-{{"demo": "pages/components/dialogs/DraggableDialog.js"}}
-
-## Производительность
-
-Перейдите в раздел [Modal performance section](/components/modal/#performance).
+Follow the [Modal accessibility section](/components/modal/#accessibility).

@@ -13,19 +13,19 @@ components: Tabs, Tab
 
 一个没有多余装饰的简单例子
 
-{{"demo": "pages/components/tabs/SimpleTabs.js"}}
+{{"demo": "pages/components/tabs/SimpleTabs.js", "bg": true}}
 
 ### 包裹标签
 
-长标签将自动换行标签。 如果标签的标签太长，它将溢出并且文本将不可见。
+Long labels will automatically wrap on tabs. If the label is too long for the tab, it will overflow and the text will not be visible.
 
-{{"demo": "pages/components/tabs/TabsWrappedLabel.js"}}
+{{"demo": "pages/components/tabs/TabsWrappedLabel.js", "bg": true}}
 
 ### 禁用的选项
 
 可以通过设置 ` disabled ` 属性来禁用选项卡。
 
-{{"demo": "pages/components/tabs/DisabledTabs.js"}}
+{{"demo": "pages/components/tabs/DisabledTabs.js", "bg": true}}
 
 ## 固定选项卡
 
@@ -35,52 +35,56 @@ components: Tabs, Tab
 
 `variant="fullWidth"` 属性应该用于较小的视图。 此演示还使用[ react-swipeable-views ](https://github.com/oliviertassinari/react-swipeable-views)来设置 Tab 过渡动画，并允许在触摸设备上滑动标签。
 
-{{"demo": "pages/components/tabs/FullWidthTabs.js"}}
+{{"demo": "pages/components/tabs/FullWidthTabs.js", "bg": true}}
 
 ### 居中对齐
 
 应将 `centered` 属性用于较大的视图.
 
-{{"demo": "pages/components/tabs/CenteredTabs.js"}}
+{{"demo": "pages/components/tabs/CenteredTabs.js", "bg": true}}
 
 ## 可滚动的选项卡
 
 ### 自动滚动按钮
 
-左右滚动按钮将自动显示在桌面上并隐藏在移动设备上。（基于视口宽度）
+Left and right scroll buttons will automatically be presented on desktop and hidden on mobile. (based on viewport width)
 
-{{"demo": "pages/components/tabs/ScrollableTabsButtonAuto.js"}}
+{{"demo": "pages/components/tabs/ScrollableTabsButtonAuto.js", "bg": true}}
 
 ### 强制滚动按钮
 
 无论视口宽度如何，都将显示左右滚动按钮。
 
-{{"demo": "pages/components/tabs/ScrollableTabsButtonForce.js"}}
+{{"demo": "pages/components/tabs/ScrollableTabsButtonForce.js", "bg": true}}
 
 ### 防止滚动按钮
 
-永远不会出现左右滚动按钮。 必须通过用户代理滚动机制（例如左/右滑动，移位 - 鼠标滚轮等）启动所有滚动
+Left and right scroll buttons will never be presented. All scrolling must be initiated through user agent scrolling mechanisms (e.g. left/right swipe, shift-mousewheel, etc.)
 
-{{"demo": "pages/components/tabs/ScrollableTabsButtonPrevent.js"}}
+{{"demo": "pages/components/tabs/ScrollableTabsButtonPrevent.js", "bg": true}}
 
-## Customized tabs
+## 自定义选项卡
 
-以下是自定义组件的一个示例。您可以在[重写文档页面](/customization/components/)中了解有关此内容的更多信息。
+以下是自定义组件的一个示例。 您可以在[重写文档页](/customization/components/)中了解有关此内容的更多信息。
 
-{{"demo": "pages/components/tabs/CustomizedTabs.js"}}
+{{"demo": "pages/components/tabs/CustomizedTabs.js", "bg": true}}
 
+👑 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/components/tabs).
 
+## 垂直选项卡
+
+{{"demo": "pages/components/tabs/VerticalTabs.js", "bg": true}}
 
 ## 导航选项卡
 
-默认情况下，选项卡使用`button`元素，但您可以提供自己的自定义标记或组件。 以下是实现选项卡式导航的示例：
+By default tabs use a `button` element, but you can provide your own custom tag or component. Here's an example of implementing tabbed navigation:
 
-{{"demo": "pages/components/tabs/NavTabs.js"}}
+{{"demo": "pages/components/tabs/NavTabs.js", "bg": true}}
 
 ## 图标选项卡
 
 标签标签可以是所有图标或全文。
 
-{{"demo": "pages/components/tabs/IconTabs.js"}}
+{{"demo": "pages/components/tabs/IconTabs.js", "bg": true}}
 
-{{"demo": "pages/components/tabs/IconLabelTabs.js"}}
+{{"demo": "pages/components/tabs/IconLabelTabs.js", "bg": true}}

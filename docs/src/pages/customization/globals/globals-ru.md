@@ -9,9 +9,12 @@
 ```js
 const theme = createMuiTheme({
   overrides: {
-    MuiButton: { // Название компонента
-      text: { // Название правила
-        color: 'white', // Изменение стилей
+    // Style sheet name ⚛️
+    MuiButton: {
+      // Name of the rule
+      text: {
+        // Some CSS
+        color: 'white',
       },
     },
   },
@@ -24,7 +27,7 @@ const theme = createMuiTheme({
 
 ## Настройка props
 
-Вы можете изменить свойство props любой из компонент Material-UI. Для этого мы предоставляем ключ `props` объекта `theme`.
+Вы можете изменить свойство props любой из компонент Material-UI. A `props` key is exposed in the `theme` for this use case.
 
 ```js
 const theme = createMuiTheme({

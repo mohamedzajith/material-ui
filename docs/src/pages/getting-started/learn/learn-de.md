@@ -2,7 +2,7 @@
 
 <p class="description">Neu bei der Material-UI? Es ist leichter zu lernen, wenn Sie wissen, wo Sie anfangen sollen! Diese Anleitung hilft Ihnen, schnell loszulegen.</p>
 
-Menschen kommen aus unterschiedlichen Bereichen und mit unterschiedlichen Lernstilen zu Material-UI. Egal, ob Sie einen eher theoretischen oder praktischen Ansatz bevorzugen, wir hoffen, Sie finden diesen Abschnitt hilfreich. Wie jede unbekannte Technologie hat Material-UI eine Lernkurve. Mit etwas Übung und Geduld werden Sie bald den Dreh raus haben.
+Developers come to Material-UI from different backgrounds and with different learning styles. Whether you prefer a more theoretical or practical approach, we hope you’ll find this section helpful. Wie jede unbekannte Technologie hat Material-UI eine Lernkurve. Mit etwas Übung und Geduld werden Sie bald den Dreh raus haben.
 
 ## Erstes Beispiel
 
@@ -10,34 +10,39 @@ Die [Verwendungsseite](/getting-started/usage/#quick-start) enthält ein kleines
 
 ## Beispielprojekte
 
-Wir [hosten einige Beispielprojekte](/getting-started/example-projects/) mit der Infrastruktur, die für die Entwicklung und Bereitstellung von Websites in React erforderlich ist.
+There are [some example projects](/getting-started/example-projects/) available, providing the infrastructure needed to develop and deploy websites in React.
 
-## Beispiele für das Seitenlayout
+## Templates
 
-Wir haben eine [Auswahl der grundlegenden Seitenlayouts](/getting-started/page-layout-examples/), um Ihnen beim Einstieg in die App zu helfen.
+This [selection of basic templates](/getting-started/templates/) will help you get started building your app.
 
 ## Empfohlene Ressourcen
 
-Wenn Sie das erste Mal die Material-UI lernen, finden Sie möglicherweise Blogbeiträge, Bücher und Videokurse von Drittanbietern, die hilfreicher sind als die offizielle Dokumentation. Wir führen eine Liste mit häufig empfohlenen Ressourcen, von denen einige kostenlos sind.
+Wenn Sie das erste Mal die Material-UI lernen, finden Sie möglicherweise Blogbeiträge, Bücher und Videokurse von Drittanbietern, die hilfreicher sind als die offizielle Dokumentation. Here are some recommended resources, some of which are free.
 
 ### Kostenlos
 
-- **Meet Material-UI  - Ihre neue bevorzugte Benutzeroberflächenbibliothek**: Ein Blogbeitrag, der Sie beim Erstellen eines Todo MVC unterstützt und einige wichtige Konzepte der Material-UI behandelt. 
+- **Meet Material-UI — your new favorite user interface library**: a blog post that guides you in building a Todo MVC while covering some important concepts of Material-UI. 
   - 📝 [Der Blogbeitrag](https://medium.freecodecamp.org/meet-your-material-ui-your-new-favorite-user-interface-library-6349a1c88a8c)
-- **Learn React & Material-UI**: Eine Videoserie, die alle wichtigen Komponenten der Material-UI enthält. 
+- **Learn React & Material-UI**: a series of videos covering all the important Material-UI components. 
   - 📹 [Die Videos](https://www.youtube.com/watch?v=xm4LX5fJKZ8&list=PLcCp4mjO-z98WAu4sd0eVha1g-NMfzHZk)
-- **Getting Started With Material-UI For React**: Ein Blogpost, der Sie beim Erstellen einer einfachen Kartenliste unterstützt. 
+- **Getting Started With Material-UI For React**: a blog post that guides you in building a simple card list. 
   - 📝 [Der Blogbeitrag](https://medium.com/codingthesmartway-com-blog/getting-started-with-material-ui-for-react-material-design-for-react-364b2688b555)
   - 📹 [Das Video](https://www.youtube.com/watch?v=PWadEeOuv5o)
-- **Elegant UX in React with Material-UI**: ein Blog-Post mit wichtigen Material-UI-Konzepten. 
+- **Elegant UX in React with Material-UI**: a blog post covering some important Material-UI concepts. 
   - 📝 [Der Blogbeitrag](https://alligator.io/react/material-ui/)
 
 ### Kostenpflichtig
 
-- **React Material-UI Cookbook**: Erstellen Sie eine moderne Anwendung, indem Sie Material Design-Prinzipien in React-Anwendungen mithilfe der Material-UI implementieren. 
-  - 📘 [The book](https://www.amazon.com/gp/product/1789615224/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1789615224&linkCode=as2&tag=oliviertassin-20&linkId=79aec1cb9db829135838614ac1953380)
+- **Material-UI with React**: Material-UI is an excellent framework to develop beautiful React components faster! This course teaches the fundamentals of Google Material Design and how to develop an end-to-end flight search and booking application using Material-UI and React.
+  
+  - 📹 [Watch Course Trailer](https://www.youtube.com/watch?v=hhZ6yFvCWho)
+  - 💻 [The Course](https://bonsaiilabs.com/courseDetail/material-ui-with-react)
+- **React Material-UI Cookbook**: Build modern-day applications by implementing Material Design principles in React, using Material-UI.
+  
+  - 📘 [The book](https://www.amazon.com/gp/product/1789615224/)
 
 [![cookbook](/static/blog/material-ui-v4-is-out/cookbook.png)](https://www.amazon.com/gp/product/1789615224/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1789615224&linkCode=as2&tag=oliviertassin-20&linkId=79aec1cb9db829135838614ac1953380)
 
-- **Builder Book**: Erfahren Sie, wie Sie eine vollständig full-stack JavaScript-Webanwendung mit einem modernen JavaScript-Stack und einer Material-UI von Grund auf erstellen. 
+- **Builder Book**: Learn how to build a full-stack JavaScript web application from scratch, using a Modern JavaScript stack and Material-UI. 
   - 📘 [ Das Buch ](https://builderbook.org/book)

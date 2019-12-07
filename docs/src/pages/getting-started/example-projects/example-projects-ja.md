@@ -1,13 +1,15 @@
 # サンプルプロジェクト
 
-<p class="description">最初のサンプルプロジェクトをお探しですか？</p>
+<p class="description">A selection of example projects to get started with.</p>
 
-[GitHubリポジトリ](https://github.com/mui-org/material-ui)の下の[`/examples`](https://github.com/mui-org/material-ui/tree/master/examples)フォルダにいくつかのサンプルプロジェクトを用意しています。
+## Official examples
+
+You can find some example projects in the [GitHub repository](https://github.com/mui-org/material-ui) under the [`/examples`](https://github.com/mui-org/material-ui/tree/master/examples) folder:
 
 - [Create React App](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app)
 - [Gatsby](https://github.com/mui-org/material-ui/tree/master/examples/gatsby)
 - [Next.js](https://github.com/mui-org/material-ui/tree/master/examples/nextjs)
-- [Parcel](https://github.com/mui-org/material-ui/tree/master/examples/parcel)
+- [Preact](https://github.com/mui-org/material-ui/tree/master/examples/preact)
 - [CDN](https://github.com/mui-org/material-ui/tree/master/examples/cdn)
 - [Plain server-side](https://github.com/mui-org/material-ui/tree/master/examples/ssr)
 - E mais
@@ -16,22 +18,40 @@ Create React AppはReactを学ぶのに良いプロジェクトです。 どの�
 
 このドキュメントサイトのソースコードもリポジトリに含まれています。 少しだけ複雑なプロジェクトです。 [`/docs`](https://github.com/mui-org/material-ui/tree/master/docs)フォルダのビルド手順を確認してください。
 
-## 更に高度なサンプルプロジェクト
+## More advanced example projects
 
-更に高度なサンプルプロジェクトをお探しですか？
+If you want to start with a more complete and real-world example, you could take a look at the [premium themes & templates](https://themes.material-ui.com/) or:
 
-もしあなたがより完璧な、実際に使う例から始めたいなら、[free themes](https://themes.material-ui.com/)や、以下を参考にしてください。
+### Gratuit
 
+- [React Most Wanted](https://github.com/TarikHuber/react-most-wanted):
+    
+  - Created with Create React App
+  - 単一のCLIコマンドで新しいプロジェクトを開始するカスタムCreate React Appスクリプト
+  - 公式のFirebase Web Auth UIを使用した認証を含むFirebase用のビルド
+  - エラー処理（404）および遅延ロードを含むReact Routerによるルーティング
+  - All PWA features included (SW, Notifications, deferred installation prompt and more)
+  - 最適化されたスケーラブルなパフォーマンス（すべてLighthouseで最大100ポイント）
 - [React + Material-UI + Firebase](https://github.com/Phoqe/react-material-ui-firebase):
-  
-  - Bootstrapped with Create React App, the same tooling works out of the box
-  - 最初から認証機能の付いたFirebase上に構築されます
-  - Robust routing with React Router including error handling (404)
-  - Extensive mobile support with [react-swipeable-views](https://react-swipeable-views.com) for tabs
-
-- [Material Sense](https://github.com/alexanmtz/material-sense), which includes:
-  
+    
+  - React Appの作成でブートストラップされ、同じツールがすぐに使用できます
+  - 認証、Cloud Firestore、Cloud Functions、Storage、およびPerformance Monitoringを最初から使用できるFirebaseの上に構築
+  - エラー処理を含むReact Routerによる堅牢なルーティング
+  - Extensive mobile support with full-screen dialogs and react-swipeable-views for tabs
+- [Material Sense](https://github.com/alexanmtz/material-sense):
+    
   - rechartsを用いたグラフ
   - ナビゲーションのサンプルに含まれるReact Router
   - プロダクションビルド用のNginxサーバ含むdockerコンテナ
-  - [Create React App](https://facebook.github.io/create-react-app/)による生成
+  - Created with Create React App
+
+### 有料
+
+- [ScaffoldHub](https://scaffoldhub.io/?partner=1):
+    
+  - Build your complete application with this online tool
+  - Choose your framework and library (React & Material-UI!)
+  - Choose your database (SQL, MongoDB or Firestore)
+  - Model your database and application with the intuitive GUI
+  - Generate your application, including a complete scaffolded backend
+  - Preview your application online, and download the generated code

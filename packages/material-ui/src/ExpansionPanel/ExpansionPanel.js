@@ -1,10 +1,12 @@
 import React from 'react';
+import { isFragment } from 'react-is';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { chainPropTypes } from '@material-ui/utils';
 import Collapse from '../Collapse';
 import Paper from '../Paper';
 import withStyles from '../styles/withStyles';
+import ExpansionPanelContext from './ExpansionPanelContext';
 
 export const styles = theme => {
   const transition = {
@@ -96,17 +98,44 @@ const ExpansionPanel = React.forwardRef(function ExpansionPanel(props, ref) {
   const [expandedState, setExpandedState] = React.useState(defaultExpanded);
   const expanded = isControlled ? expandedProp : expandedState;
 
-  const handleChange = event => {
-    if (!isControlled) {
-      setExpandedState(!expanded);
-    }
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React.useEffect(() => {
+      if (isControlled !== (expandedProp != null)) {
+        console.error(
+          [
+            `Material-UI: A component is changing ${
+              isControlled ? 'a ' : 'an un'
+            }controlled ExpansionPanel to be ${isControlled ? 'un' : ''}controlled.`,
+            'Elements should not switch from uncontrolled to controlled (or vice versa).',
+            'Decide between using a controlled or uncontrolled ExpansionPanel ' +
+              'element for the lifetime of the component.',
+            'More info: https://fb.me/react-controlled-components',
+          ].join('\n'),
+        );
+      }
+    }, [expandedProp, isControlled]);
+  }
 
-    if (onChange) {
-      onChange(event, !expanded);
-    }
-  };
+  const handleChange = React.useCallback(
+    event => {
+      if (!isControlled) {
+        setExpandedState(!expanded);
+      }
+
+      if (onChange) {
+        onChange(event, !expanded);
+      }
+    },
+    [expanded, isControlled, onChange],
+  );
 
   const [summary, ...children] = React.Children.toArray(childrenProp);
+  const contextValue = React.useMemo(() => ({ expanded, disabled, toggle: handleChange }), [
+    expanded,
+    disabled,
+    handleChange,
+  ]);
 
   return (
     <Paper
@@ -123,11 +152,9 @@ const ExpansionPanel = React.forwardRef(function ExpansionPanel(props, ref) {
       square={square}
       {...other}
     >
-      {React.cloneElement(summary, {
-        disabled,
-        expanded,
-        onChange: handleChange,
-      })}
+      <ExpansionPanelContext.Provider value={contextValue}>
+        {summary}
+      </ExpansionPanelContext.Provider>
       <TransitionComponent in={expanded} timeout="auto" {...TransitionProps}>
         <div aria-labelledby={summary.props.id} id={summary.props['aria-controls']} role="region">
           {children}
@@ -143,7 +170,7 @@ ExpansionPanel.propTypes = {
    */
   children: chainPropTypes(PropTypes.node.isRequired, props => {
     const summary = React.Children.toArray(props.children)[0];
-    if (summary.type === React.Fragment) {
+    if (isFragment(summary)) {
       return new Error(
         "Material-UI: the ExpansionPanel doesn't accept a Fragment as a child. " +
           'Consider providing an array instead.',
@@ -183,8 +210,8 @@ ExpansionPanel.propTypes = {
   /**
    * Callback fired when the expand/collapse state is changed.
    *
-   * @param {object} event The event source of the callback
-   * @param {boolean} expanded The `expanded` state of the panel
+   * @param {object} event The event source of the callback.
+   * @param {boolean} expanded The `expanded` state of the panel.
    */
   onChange: PropTypes.func,
   /**

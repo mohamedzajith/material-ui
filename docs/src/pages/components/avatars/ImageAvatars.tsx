@@ -1,15 +1,16 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    avatar: {
-      margin: 10,
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
     },
     bigAvatar: {
-      margin: 10,
       width: 60,
       height: 60,
     },
@@ -20,9 +21,9 @@ export default function ImageAvatars() {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" alignItems="center">
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.avatar} />
+    <div className={classes.root}>
+      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.bigAvatar} />
-    </Grid>
+    </div>
   );
 }

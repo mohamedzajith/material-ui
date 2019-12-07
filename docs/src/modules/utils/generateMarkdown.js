@@ -1,9 +1,7 @@
-/* eslint-disable react/forbid-foreign-prop-types, no-underscore-dangle */
-
 import { parse as parseDoctrine } from 'doctrine';
 import * as recast from 'recast';
 import { parse as docgenParse } from 'react-docgen';
-import { Router } from 'next/router';
+import { Router as Router2 } from 'next/router';
 import { pageToTitle } from './helpers';
 import { LANGUAGES_IN_PROGRESS } from 'docs/src/modules/constants';
 
@@ -76,6 +74,10 @@ function escapeCell(value) {
 
 function isElementTypeAcceptingRefProp(type) {
   return type.raw === 'elementTypeAcceptingRef';
+}
+
+function isRefType(type) {
+  return type.raw === 'refType';
 }
 
 function isElementAcceptingRefProp(type) {
@@ -170,10 +172,14 @@ function generatePropType(type) {
       if (isElementAcceptingRefProp(type)) {
         return `element`;
       }
+      if (isRefType(type)) {
+        return `ref`;
+      }
 
       const deprecatedInfo = getDeprecatedInfo(type);
       if (deprecatedInfo !== false) {
         return generatePropType({
+          // eslint-disable-next-line react/forbid-foreign-prop-types
           name: deprecatedInfo.propTypes,
         });
       }
@@ -211,8 +217,16 @@ function generatePropType(type) {
     }
 
     case 'arrayOf': {
-      return `Array<${generatePropType(type.value)}>`;
+      return `Array&lt;${generatePropType(type.value)}&gt;`;
     }
+
+    case 'instanceOf': {
+      if (type.value.startsWith('typeof')) {
+        return /typeof (.*) ===/.exec(type.value)[1];
+      }
+      return type.value;
+    }
+
     default:
       return type.name;
   }
@@ -298,9 +312,9 @@ function generateProps(reactAPI) {
 
   if (reactAPI.spread) {
     text = `${text}
-Any other properties supplied will be provided to the root element (${
+Any other props supplied will be provided to the root element (${
       reactAPI.inheritance
-        ? `[${reactAPI.inheritance.component}](${Router._rewriteUrlForNextExport(
+        ? `[${reactAPI.inheritance.component}](${Router2._rewriteUrlForNextExport(
             reactAPI.inheritance.pathname,
           )})`
         : 'native element'
@@ -326,7 +340,7 @@ function generateClasses(reactAPI) {
     text += reactAPI.styles.classes
       .map(
         styleRule =>
-          `| <span class="prop-name">${styleRule}</span> | <span class="prop-name">${
+          `| <span class="prop-name">${styleRule}</span> | <span class="prop-name">.${
             reactAPI.styles.globalClasses[styleRule]
           }</span> | ${
             reactAPI.styles.descriptions[styleRule]
@@ -346,13 +360,13 @@ function generateClasses(reactAPI) {
 
 ${text}
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [\`classes\` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [\`overrides\` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](${SOURCE_CODE_ROOT_URL}${normalizePath(
+If that's not sufficient, you can check the [implementation of the component](${SOURCE_CODE_ROOT_URL}${normalizePath(
     reactAPI.filename,
   )}) for more detail.
 
@@ -379,7 +393,7 @@ function generateInheritance(reactAPI) {
 
   return `## Inheritance
 
-The properties of the [${inheritance.component}](${Router._rewriteUrlForNextExport(
+The props of the [${inheritance.component}](${Router2._rewriteUrlForNextExport(
     inheritance.pathname,
   )}) component${suffix} are also available.
 You can take advantage of this behavior to [target nested components](/guides/api/#spread).
@@ -403,7 +417,7 @@ function generateDemos(reactAPI) {
   return `## Demos
 
 ${pagesMarkdown
-  .map(page => `- [${pageToTitle(page)}](${Router._rewriteUrlForNextExport(page.pathname)})`)
+  .map(page => `- [${pageToTitle(page)}](${Router2._rewriteUrlForNextExport(page.pathname)})`)
   .join('\n')}
 
 `;
@@ -418,23 +432,15 @@ function generateImportStatement(reactAPI) {
     )
     // convert things like `/Table/Table.js` to ``
     .replace(/\/([^/]+)\/\1\.js$/, '');
-  return `\`\`\`js
+  return `## Import
+
+\`\`\`js
+import ${reactAPI.name} from '${source}/${reactAPI.name}';
+// or
 import { ${reactAPI.name} } from '${source}';
-\`\`\``;
-}
+\`\`\`
 
-function generateNotes(reactAPI) {
-  const { strictModeReady } = reactAPI;
-  const strictModeLinked = '[StrictMode](https://reactjs.org/docs/strict-mode.html)';
-  return `## Notes
-
-The component ${
-    !strictModeReady
-      ? `can cause issues in ${strictModeLinked}`
-      : `is fully ${strictModeLinked} compatible`
-  }.
-
-`;
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).`;
 }
 
 export default function generateMarkdown(reactAPI) {
@@ -446,7 +452,7 @@ export default function generateMarkdown(reactAPI) {
     `# ${reactAPI.name} API`,
     '',
     `<p class="description">The API documentation of the ${reactAPI.name} React component. ` +
-      'Learn more about the properties and the CSS customization points.</p>',
+      'Learn more about the props and the CSS customization points.</p>',
     '',
     generateImportStatement(reactAPI),
     '',
@@ -454,8 +460,6 @@ export default function generateMarkdown(reactAPI) {
     '',
     generateProps(reactAPI),
     '',
-    `${generateClasses(reactAPI)}${generateInheritance(reactAPI)}${generateNotes(
-      reactAPI,
-    )}${generateDemos(reactAPI)}`,
+    `${generateClasses(reactAPI)}${generateInheritance(reactAPI)}${generateDemos(reactAPI)}`,
   ].join('\n');
 }

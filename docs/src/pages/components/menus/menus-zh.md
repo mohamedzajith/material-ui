@@ -7,7 +7,7 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 <p class="description">菜单在临时出现的位置上展示一系列的选项列表。</p>
 
-一个[菜单](https://material.io/design/components/menus.html)在临时的界面上列出了一系列的选项。当用户和按钮，或其他控件交互的时候，菜单会再次出现。
+A [Menu](https://material.io/design/components/menus.html) displays a list of choices on a temporary surface. It appears when the user interacts with a button, or other control.
 
 ## 简单菜单
 
@@ -31,15 +31,15 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 `MenuList`组件的主要任务是处理焦点。
 
-{{"demo": "pages/components/menus/MenuListComposition.js"}}
+{{"demo": "pages/components/menus/MenuListComposition.js", "bg": true}}
 
 ## 自定义菜单
 
-以下是自定义组件的一个示例。您可以在[重写文档页面](/customization/components/)中了解有关此内容的更多信息。
+以下是自定义组件的一个示例。 您可以在[重写文档页](/customization/components/)中了解有关此内容的更多信息。
 
 {{"demo": "pages/components/menus/CustomizedMenus.js"}}
 
-`MenuItem` 实际上是在 `ListItem` 之上增加了一些样式的封装。 因此你可以使用和 `MenuItem` 组件相同的列表组合特性：
+The `MenuItem` is a wrapper around `ListItem` with some additional styles. You can use the same list composition features with the `MenuItem` component:
 
 ## 限高菜单
 
@@ -51,7 +51,7 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 有 [一个 flexbox 的 错误](https://bugs.chromium.org/p/chromium/issues/detail?id=327437)，使 `text-overflow: ellipsis` 在 Flexbox 布局中不工作。 您可以使用 `Typography` 组件和 `noWrap` 来解决此问题：
 
-{{"demo": "pages/components/menus/TypographyMenu.js"}}
+{{"demo": "pages/components/menus/TypographyMenu.js", "bg": true}}
 
 ## 更改过渡动画
 
@@ -59,12 +59,18 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 {{"demo": "pages/components/menus/FadeMenu.js"}}
 
+## 快捷菜单
+
+这是快捷菜单的示例。 （右键单击以打开。）
+
+{{"demo": "pages/components/menus/ContextMenu.js"}}
+
 ## 补充项目
 
 对于更高级的用例，您可以利用：
 
 ### PopupState helper
 
-这里有一个第三方包 [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) 在大部分情况下，它都能帮你处理好菜单状态
+There is a 3rd party package [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) that takes care of menu state for you in most cases.
 
 {{"demo": "pages/components/menus/MenuPopupState.js"}}

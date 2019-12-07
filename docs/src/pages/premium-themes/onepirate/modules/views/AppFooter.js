@@ -6,6 +6,18 @@ import Container from '@material-ui/core/Container';
 import Typography from '../components/Typography';
 import TextField from '../components/TextField';
 
+function Copyright() {
+  return (
+    <React.Fragment>
+      {'© '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+    </React.Fragment>
+  );
+}
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -83,7 +95,9 @@ export default function AppFooter() {
                   <img src="/static/themes/onepirate/appFooterTwitter.png" alt="Twitter" />
                 </a>
               </Grid>
-              <Grid item>© 2018 Onepirate</Grid>
+              <Grid item>
+                <Copyright />
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
@@ -120,11 +134,11 @@ export default function AppFooter() {
           <Grid item>
             <Typography variant="caption">
               {'Icons made by '}
-              <Link href="https://www.freepik.com" rel="nofollow" title="Freepik">
+              <Link href="https://www.freepik.com" rel="sponsored" title="Freepik">
                 Freepik
               </Link>
               {' from '}
-              <Link href="https://www.flaticon.com" rel="nofollow" title="Flaticon">
+              <Link href="https://www.flaticon.com" rel="sponsored" title="Flaticon">
                 www.flaticon.com
               </Link>
               {' is licensed by '}

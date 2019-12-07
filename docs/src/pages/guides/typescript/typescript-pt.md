@@ -4,15 +4,28 @@
 
 Dê uma olhada no exemplo [Create React App com TypeScript](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript). É necessário estar no mínimo com a versão 2.8 do TypeScript.
 
-Nossas definições são testadas com a seguinte configuração [tsconfig.json](https://github.com/mui-org/material-ui/tree/master/tsconfig.json). Usando uma `tsconfig.json` menos rigorosa ou omitindo algumas das bibliotecas podem causar erros.
+In order for types to work, you have to at least have the following options enabled in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
+  }
+}
+```
+
+The strict mode options are the same that are required for every types package published in the `@types/` namespace. Using a less strict `tsconfig.json` or omitting some of the libraries might cause errors. To get the best type experience with the types we recommend setting `"strict": true`.
 
 ## Uso de `withStyles`
 
-Utilizando `withStyles` no TypeScript pode ser um pouco complicado, mas há alguns utilitários que tornam a experiência menos dolorosa possível.
+Using `withStyles` in TypeScript can be a little tricky, but there are some utilities to make the experience as painless as possible.
 
 ### Utilizando `createStyles` para evitar a ampliação de tipo (type widening)
 
-Uma fonte frequente de confusão é a ampliação de tipos ([type widening](https://mariusschulz.com/blog/typescript-2-1-literal-type-widening)) do TypeScript, que faz com que este exemplo não funcione como o esperado:
+A frequent source of confusion is TypeScript's [type widening](https://mariusschulz.com/blog/typescript-2-1-literal-type-widening), which causes this example not to work as expected:
 
 ```ts
 const styles = {
@@ -24,11 +37,11 @@ const styles = {
 
 withStyles(styles);
 //         ^^^^^^
-//         Os tipos de propriedade 'flexDirection' são incompatíveis.
-//           Tipo 'string' não pode ser atribuído para o tipo '"-moz-initial" | "inherit" | "initial" | "revert" | "unset" | "column" | "column-reverse" | "row"...'.
+//         Types of property 'flexDirection' are incompatible.
+//           Type 'string' is not assignable to type '"-moz-initial" | "inherit" | "initial" | "revert" | "unset" | "column" | "column-reverse" | "row"...'.
 ```
 
-O problema é que o tipo da propriedade `flexDirection` é convertido como `string`, no qual é o tipo mais conveniente. Para corrigir isto, você pode passar o objeto de estilos diretamente para `withStyles`:
+The problem is that the type of the `flexDirection` property is inferred as `string`, which is too arbitrary. To fix this, you can pass the styles object directly to `withStyles`:
 
 ```ts
 withStyles({
@@ -55,7 +68,7 @@ withStyles(({ palette, spacing }) => ({
 
 Isso ocorre pois o TypeScript [amplia o retorno de tipos de expressões de função](https://github.com/Microsoft/TypeScript/issues/241).
 
-Por causa disto, nós recomendamos utilizar nossa função auxiliar `createStyles` para construir seu objeto de regras de estilo:
+Because of this, using the `createStyles` helper function to construct your style rules object is recommended:
 
 ```ts
 // Estilos sem dependência
@@ -249,7 +262,7 @@ const theme = createMyTheme({ appDrawer: { breakpoint: 'md' }});
 
 ## Uso da propriedade `component`
 
-Material-UI permite que você substitua o nó raiz de um componente através de uma propriedade `component`. Por exemplo, a raiz de um componente `Button` pode ser substituída com um React Router `Link`, e quaisquer propriedades adicionais passadas para o `Button`, como `to`, será repassada para o componente `Link`. Para um exemplo de código relativo ao `Button` e `react-router-dom` verifique [esta demonstração](/components/buttons/#third-party-routing-library).
+Material-UI permite que você substitua o nó raiz de um componente através de uma propriedade `component`. For example, a Button's root node can be replaced with a React Router's Link, and any additional props that are passed to Button, such as `to`, will be spread to the Link component. For a code example concerning Button and react-router-dom checkout [these demos](/guides/composition/#routing-libraries).
 
 Nem todos os componentes suportam totalmente qualquer tipo de componente que você passe. Se você encontrar algum componente que rejeita sua propriedade `component` no TypeScript por favor abra um issue. Há um esforço contínuo para corrigir isso fazendo com que a propriedade component seja genérica.
 
@@ -259,4 +272,4 @@ Muitos componentes preocupados com a entrada do usuário oferecem uma propriedad
 
 No entanto, esse tipo não pode ser verificado em tempo de compilação em situações em que depende de nós filhos do componente, por exemplo, para `Select` ou `RadioGroup`. Isso significa que a opção mais segura é tipando como `unknown` e deixar que o desenvolvedor decida como deseja restringir esse tipo. Não oferecemos a possibilidade de usar um tipo genérico nesses casos, devido [as mesmas razões que `event.target` não é genérico no React](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682).
 
-Nossas demonstrações incluem variantes tipadas que usam conversão de tipo. É uma troca aceitável porque os tipos estão todos localizados em um único arquivo e são muito básicos. Você tem que decidir por si mesmo se a mesma troca é aceitável para você. Queremos que a nossa biblioteca de tipos seja estrita por padrão e livre através de opt-in.
+As demonstrações incluem variantes tipadas que usam conversão de tipo. É uma troca aceitável porque os tipos estão todos localizados em um único arquivo e são muito básicos. Você tem que decidir por si mesmo se a mesma troca é aceitável para você. The library types are be strict by default and loose via opt-in.

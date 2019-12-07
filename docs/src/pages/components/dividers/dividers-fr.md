@@ -11,22 +11,28 @@ components: Divider
 
 ## Liste diviseurs
 
-Le diviseur s'affiche par défaut sous la forme d'un `<hr>` . Vous pouvez économiser le rendu de cet élément DOM à l'aide de la propriété `divider` du composant `ListItem`.
+The divider renders as an `<hr>` by default. You can save rendering this DOM element by using the `divider` property on the `ListItem` component.
 
-{{"demo": "pages/components/dividers/ListDividers.js"}}
+{{"demo": "pages/components/dividers/ListDividers.js", "bg": true}}
 
 ## Spécification HTML5
 
-Nous devons nous assurer que le `Divider` est rendu en tant que `li` pour correspondre à la spécification HTML5. Les exemples ci-dessous montrent deux manières d'y parvenir.
+In a list, you should ensure the `Divider` is rendered as an `<li>` to match the HTML5 specification. The examples below show two ways of achieving this.
 
 ## Encart De Diviseurs
 
-{{"demo": "pages/components/dividers/InsetDividers.js"}}
+{{"demo": "pages/components/dividers/InsetDividers.js", "bg": true}}
 
 ## Sous-En-Tête Diviseurs
 
-{{"demo": "pages/components/dividers/SubheaderDividers.js"}}
+{{"demo": "pages/components/dividers/SubheaderDividers.js", "bg": true}}
 
 ## Diviseurs moyens
 
-{{"demo": "pages/components/dividers/MiddleDividers.js"}}
+{{"demo": "pages/components/dividers/MiddleDividers.js", "bg": true}}
+
+## Vertical Dividers
+
+You can also render a divider vertically using the `orientation` prop.
+
+{{"demo": "pages/components/dividers/VerticalDividers.js", "bg": true}}

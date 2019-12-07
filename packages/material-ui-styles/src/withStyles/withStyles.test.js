@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { stub } from 'sinon';
 import { SheetsRegistry } from 'jss';
 import { Input } from '@material-ui/core';
 import { createMount } from '@material-ui/core/test-utils';
@@ -55,11 +56,7 @@ describe('withStyles', () => {
       const StyledTarget = withStyles({})(TargetComponent);
 
       const ref = React.createRef();
-      mount(
-        <React.Fragment>
-          <StyledTarget ref={ref} />
-        </React.Fragment>,
-      );
+      mount(<StyledTarget ref={ref} />);
       assert.instanceOf(ref.current, TargetComponent);
     });
 
@@ -69,11 +66,7 @@ describe('withStyles', () => {
       );
 
       const ref = React.createRef();
-      mount(
-        <React.Fragment>
-          <StyledTarget ref={ref} />
-        </React.Fragment>,
-      );
+      mount(<StyledTarget ref={ref} />);
       assert.strictEqual(ref.current.nodeName, 'DIV');
     });
 
@@ -105,7 +98,7 @@ describe('withStyles', () => {
     // });
   });
 
-  it('should forward the properties', () => {
+  it('should forward the props', () => {
     const Test = props => <div>{props.foo}</div>;
     Test.propTypes = {
       foo: PropTypes.any,
@@ -150,10 +143,30 @@ describe('withStyles', () => {
       assert.deepEqual(sheetsRegistry.registry[0].classes, { root: 'Empty-root-1' });
       wrapper.setProps({ theme: createMuiTheme() });
       assert.strictEqual(sheetsRegistry.registry.length, 1);
-      assert.deepEqual(sheetsRegistry.registry[0].classes, { root: 'Empty-root-1' });
+      assert.deepEqual(sheetsRegistry.registry[0].classes, { root: 'Empty-root-2' });
 
       wrapper.unmount();
       assert.strictEqual(sheetsRegistry.registry.length, 0);
+    });
+
+    it('should supply correct props to jss callbacks', () => {
+      const MyComp = () => <div />;
+      MyComp.defaultProps = {
+        myDefaultProp: 111,
+      };
+
+      const jssCallbackStub = stub().returns({});
+      const styles = { root: jssCallbackStub };
+      const StyledComponent = withStyles(styles)(MyComp);
+      mount(<StyledComponent mySuppliedProp={222} />);
+
+      assert.strictEqual(
+        jssCallbackStub.calledWith({
+          myDefaultProp: 111,
+          mySuppliedProp: 222,
+        }),
+        true,
+      );
     });
 
     it('should support theme.props', () => {

@@ -4,7 +4,7 @@
 
 ## Komponenten verpacken
 
-Um maximale Flexibilität und Leistung zu gewährleisten, benötigen wir einen Weg, um die Art der untergeordneten Elemente einer Komponente zu kennen. Zur Lösung dieses Problems haben wir einige unserer Komponenten, wenn nötig, mit der statische Eigenschaft ` muiName ` markiert.
+Um maximale Flexibilität und Leistung zu gewährleisten, benötigen wir einen Weg, um die Art der untergeordneten Elemente einer Komponente zu kennen. To solve this problem we tag some of the components with a `muiName` static property when needed.
 
 You may, however, need to wrap a component in order to enhance it, which can conflict with the `muiName` solution. If you wrap a component, verify if that component has this static property set.
 
@@ -19,82 +19,90 @@ WrappedIcon.muiName = Icon.muiName;
 
 {{"demo": "pages/guides/composition/Composition.js"}}
 
-## Komponenteneigenschaft
+## Component prop
 
-Mit der Material-UI können Sie den Stammknoten der gerendert wird mit der `component` Eigenschaft ändern.
+Material-UI allows you to change the root element that will be rendered via a prop called `component`.
 
 ### Wie funktioniert das?
 
 Die Komponente wird wie folgt gerendert:
 
 ```js
-return React.createElement(this.props.component, props)
+return React.createElement(props.component, props)
 ```
 
-Beispielsweise wird die `List` Komponente mit einem `<ul>`-Element gerendert. Dies kann durch übergeben der [React component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) als `component` Eigenschaft geändert werden. Im folgenden Beispiel wird die Komponente `List` stattdessen mit einem `<nav>` Element als Wurzelknoten gerendert:
+Beispielsweise wird die `List` Komponente mit einem `<ul>`-Element gerendert. This can be changed by passing a [React component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) to the `component` prop. The following example will render the `List` component with a `<nav>` element as root element instead:
 
 ```jsx
 <List component="nav">
-  <ListItem>
+  <ListItem button>
     <ListItemText primary="Trash" />
   </ListItem>
-  <ListItem>
+  <ListItem button>
     <ListItemText primary="Spam" />
   </ListItem>
 </List>
 ```
 
-Dieses Muster ist sehr leistungsfähig und ermöglicht eine große Flexibilität sowie die Möglichkeit, mit anderen Bibliotheken wie dem [`React-Router`](#react-router-demo) oder Ihre Lieblingsformularbibliothek zu arbeiten. Aber es gibt auch eine **kleine Einschränkung!**
+This pattern is very powerful and allows for great flexibility, as well as a way to interoperate with other libraries, such as your favorite routing or forms library. Aber es gibt auch eine **kleine Einschränkung!**
 
 ### Vorbehalt beim Inlining
 
-Verwenden einer Inline-Funktion als Argument für die `component` Eigenschaft kann dazu führen, dass **unerwartetes unmounting** passiert, da Sie jedes mal eine neue Komponente an die `component` Eigenschaft übergeben, wenn React rendert. Zum Beispiel, wenn Sie ein benutzerdefiniertes `ListItem` erstellen möchten, das als Link fungiert, können Sie Folgendes tun:
+Using an inline function as an argument for the `component` prop may result in **unexpected unmounting**, since a new component is passed every time React renders. Zum Beispiel, wenn Sie ein benutzerdefiniertes `ListItem` erstellen möchten, das als Link fungiert, können Sie Folgendes tun:
 
 ```jsx
 import { Link } from 'react-router-dom';
 
-const ListItemLink = ({ icon, primary, secondary, to }) => (
-  <li>
-    <ListItem button component={props => <Link to={to} {...props} />}>
-      {icon && <ListItemIcon>{icon}</ListItemIcon>}
-      <ListItemText inset primary={primary} secondary={secondary} />
-    </ListItem>
-  </li>
-);
+function ListItemLink(props) {
+  const { icon, primary, to } = props;
+
+  return (
+    <li>
+      <ListItem button component={props => <Link to={to} {...props} />}>
+        <ListItemIcon>{icon}</ListItemIcon>
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+}
 ```
 
 ⚠️ Da wir jedoch eine Inline-Funktion verwenden, um die gerenderte Komponente zu ändern, wird die Verknüpfung von React bei jedem Rendern des `ListItemLink ` aufgehoben. React aktualisiert nicht nur das DOM unnötig, sondern die Wellenvisualisierung des `ListItem` funktioniert auch nicht richtig.
 
-Die Lösung ist einfach: ** vermeiden von Inline-Funktionen und stattdessen übergeben eine statische Komponente an die `component` Eigenschaft. Lassen Sie uns unser `ListItemLink` zu dem Folgendem ändern:</p> 
+The solution is simple: **avoid inline functions and pass a static component to the `component` prop** instead. Let's change the `ListItemLink` to the following:
 
 ```jsx
-import { Link as RouterLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-class ListItemLink extends React.Component {
-  renderLink = React.forwardRef((itemProps, ref) => (
-    // with react-router-dom@^5.0.0 use `ref` instead of `innerRef`
-    <RouterLink to={this.props.to} {...itemProps} innerRef={ref} />
-  ));
+function ListItemLink(props) {
+  const { icon, primary, to } = props;
 
-  render() {
-    const { icon, primary, secondary, to } = this.props;
-    return (
-      <li>
-        <ListItem button component={this.renderLink}>
-          {icon && <ListItemIcon>{icon}</ListItemIcon>}
-          <ListItemText inset primary={primary} secondary={secondary} />
-        </ListItem>
-      </li>
-    );
-  }
+  const renderLink = React.useMemo(
+    () =>
+      React.forwardRef((linkProps, ref) => (
+        // With react-router-dom@^6.0.0 use `ref` instead of `innerRef`
+        // See https://github.com/ReactTraining/react-router/issues/6056
+        <Link to={to} {...linkProps} innerRef={ref} />
+      )),
+    [to],
+  );
+
+  return (
+    <li>
+      <ListItem button component={renderLink}>
+        <ListItemIcon>{icon}</ListItemIcon>
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
 }
 ```
 
 `renderLink` wird jetzt immer auf dieselbe Komponente verweisen.
 
-### Vorbehalt mit der Abkürzung
+### Caveat with prop forwarding
 
-Sie können die Weiterleitung von Eigenschaften nutzen, um den Code zu vereinfachen. In diesem Beispiel erstellen wir keine Zwischenkomponente:
+You can take advantage of the prop forwarding to simplify the code. In diesem Beispiel erstellen wir keine Zwischenkomponente:
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -102,19 +110,29 @@ import { Link } from 'react-router-dom';
 <ListItem button component={Link} to="/">
 ```
 
-⚠️ Jedoch weist diese Strategie eine kleine Einschränkung auf: die Kollision der Eigenschaften. Die Komponente, die die `component` Eigenschaft bereitstellt (z.B. ListItem), leitet möglicherweise nicht alle Eigenschaften an das Stammelement weiter(z.B. dense).
+⚠️ However, this strategy suffers from a limitation: prop collisions. The component providing the `component` prop (e.g. ListItem) might not forward all the props (for example dense) to the root element.
 
-### React Router Demo
+### With TypeScript
 
-Hier ist eine Demo mit [React Router DOM](https://github.com/ReactTraining/react-router):
+You can find the details in the [TypeScript guide](/guides/typescript/#usage-of-component-prop).
 
-{{"demo": "pages/guides/composition/ComponentProperty.js"}}
+## Routing libraries
 
-### Mit TypeScript
+The integration with third-party routing libraries is achieved with the `component` prop. The behavior is identical to the description of the prop above. Here are a few demos with [react-router-dom](https://github.com/ReactTraining/react-router). It covers the Button, Link, and List components, you should be able to apply the same strategy with all the components.
 
-Die Details finden Sie im [TypeScript-Handbuch](/guides/typescript/#usage-of-component-property).
+### Button
 
-## Vorbehalt bei Refs
+{{"demo": "pages/guides/composition/ButtonRouter.js"}}
+
+### Link
+
+{{"demo": "pages/guides/composition/LinkRouter.js"}}
+
+### List
+
+{{"demo": "pages/guides/composition/ListRouter.js"}}
+
+## Caveat with refs
 
 This section covers caveats when using a custom component as `children` or for the `component` prop.
 
@@ -133,11 +151,11 @@ If you don't use one of the above types when using your components in conjunctio
 
 Be aware that you will still get this warning for `lazy` and `memo` components if their wrapped component can't hold a ref.
 
-In some instances we issue an additional warning to help debugging, similar to:
+In some instances an additional warning is issued to help with debugging, similar to:
 
 > Ungültige `component` Eigenschaft an `ComponentName` übergeben. Es wurde ein Elementtyp erwartet, der eine Referenz enthalten kann.
 
-We will only cover the two most common use cases. For more information see [this section in the official React docs](https://reactjs.org/docs/forwarding-refs.html).
+Only the two most common use cases are covered. For more information see [this section in the official React docs](https://reactjs.org/docs/forwarding-refs.html).
 
 ```diff
 - const MyButton = props => <div role="button" {...props} />;
@@ -151,11 +169,11 @@ We will only cover the two most common use cases. For more information see [this
 <Tooltip title="Hello, again."><SomeContent /></Tooltip>;
 ```
 
-Um herauszufinden, ob die Material-UI - Komponente, die Sie verwenden, diese Anforderung hat, überprüfen Sie API - Dokumentation für diese Komponente. Wenn Sie Refs weiterleiten müssen, wird die Beschreibung mit diesem Abschnitt verknüpft.
+To find out if the Material-UI component you're using has this requirement, check out the the props API documentation for that component. If you need to forward refs the description will link to this section.
 
-### Vorsicht bei StrictMode oder unstable_ConcurrentMode
+### Caveat with StrictMode
 
-If you use class components for the cases described above you will still see warnings in `React.StrictMode` and `React.unstable_ConcurrentMode`. We use `ReactDOM.findDOMNode` internally for backwards compatibility. You can use `React.forwardRef` and a designated prop in your class component to forward the `ref` to a DOM component. Doing so should not trigger any more warnings related to the deprecation of `ReactDOM.findDOMNode`.
+If you use class components for the cases described above you will still see warnings in `React.StrictMode`. `ReactDOM.findDOMNode` is used internally for backwards compatibility. You can use `React.forwardRef` and a designated prop in your class component to forward the `ref` to a DOM component. Doing so should not trigger any more warnings related to the deprecation of `ReactDOM.findDOMNode`.
 
 ```diff
 class Component extends React.Component {

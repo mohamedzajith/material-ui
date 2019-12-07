@@ -27,11 +27,22 @@ Puede cambiar la ubicación de la etiqueta:
 
 {{"demo": "pages/components/radio-buttons/FormControlLabelPosition.js"}}
 
+## Customized radios
+
+Here is an example of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
+
+{{"demo": "pages/components/radio-buttons/CustomizedRadios.js"}}
+
+## When to use
+
+- [Checkboxes vs. Botones de selección](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/)
+
 ## Accesibilidad
 
-Todos los controles de formulario deben tener etiquetas, y esto incluye radio buttons, checkboxes, and switches. En la mayoría de los casos, esto se hace usando el elemento `<label>` ([FormControlLabel](/api/form-control-label/)).
+(WAI-ARIA: https://www.w3.org/TR/wai-aria-practices/#radiobutton)
 
-Cuando no se puede usar una etiqueta, es necesario agregar un atributo directamente al componente de entrada. En este caso, puede aplicar el atributo adicional (por ejemplo, `aria-label`, `aria-labelledby`, `title`) a través de la propiedad `inputProps`.
+- Todos los controles de formulario deben tener etiquetas, y esto incluye radio buttons, checkboxes, and switches. En la mayoría de los casos, esto se hace usando el elemento `<label>` ([FormControlLabel](/api/form-control-label/)).
+- Cuando no se puede usar una etiqueta, es necesario agregar un atributo directamente al componente de entrada. En este caso, puede aplicar el atributo adicional (por ejemplo, `aria-label`, `aria-labelledby`, `title`) a través de la propiedad `inputProps`.
 
 ```jsx
 <RadioButton
@@ -39,7 +50,3 @@ Cuando no se puede usar una etiqueta, es necesario agregar un atributo directame
   inputProps={{ 'aria-label': 'Radio A' }}
 />
 ```
-
-## Guía
-
-- [Checkboxes vs. Botones de selección](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/)

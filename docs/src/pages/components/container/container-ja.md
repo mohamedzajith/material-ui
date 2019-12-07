@@ -1,5 +1,5 @@
 ---
-title: Container React component
+title: Container Reactコンポーネント
 components: Container
 ---
 
@@ -9,22 +9,22 @@ components: Container
 
 コンテナは入れ子にすることができますが、ほとんどのレイアウトは入れ子になったコンテナを必要としません。
 
-## 可変
+## Fluid(可変)
 
 可変コンテナの幅は、その `maxWidth` プロパティ値によって制限されます。
+
+{{"demo": "pages/components/container/SimpleContainer.js", "iframe": true, "defaultCodeOpen": false}}
 
 ```jsx
 <Container maxWidth="sm">
 ```
 
-{{"demo": "pages/layout/container/SimpleContainer.js", "iframe": true}}
-
-## Fixed
+## 固定
 
 完全に流動的なビューポートに対応するのではなく、固定サイズのセット用に設計したい場合は、 `fixed` プロパティを設定できます。 最大幅は、現在のブレークポイントの最小幅と一致します。
+
+{{"demo": "pages/components/container/FixedContainer.js", "iframe": true, "defaultCodeOpen": false}}
 
 ```jsx
 <Container fixed>
 ```
-
-{{"demo": "pages/layout/container/SimpleContainer.js", "iframe": true}}

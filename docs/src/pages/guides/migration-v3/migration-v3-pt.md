@@ -70,8 +70,10 @@ yarn add @material-ui/styles
 
 ### Estilos
 
-- ⚠️ Material-UI depende do JSS v10. JSS v10 não é compatível com o v9. Certifique-se de que o JSS v9 não esteja instalado em seu ambiente. Remover `react-jss` do seu `package.json` pode ajudar. O componente StylesProvider substitui o componente JssProvider.
-- Remova a primeira opção de argumento do `withTheme()`. O primeiro argumento era um espaço reservado para uma eventual opção futura. Nós não encontramos uma necessidade para ele. É hora de remover esse argumento. Corresponde à [emotion API](https://emotion.sh/docs/introduction) e [styled-components API](https://www.styled-components.com).
+- ⚠️ Material-UI depende do JSS v10. JSS v10 não é compatível com o v9. Certifique-se de que o JSS v9 não esteja instalado em seu ambiente. (Removing `react-jss` from your `package.json` can help). O componente StylesProvider substitui o componente JssProvider.
+- Remove the first option argument of `withTheme()`. (The first argument was a placeholder for a potential future option that never arose.)
+  
+    It matches the [emotion API](https://emotion.sh/docs/introduction) and the [styled-components API](https://www.styled-components.com).
 
 ```diff
   -const DeepChild = withTheme()(DeepChildRaw);
@@ -161,16 +163,16 @@ Tipo da propriedade `value` normalizado para os componentes de entrada utilizare
 
 ```diff
 function MySelect({ children }) {
--  function handleChange(event: any, value: string) {
-+  function handleChange(event: any, value: unknown) {
+- const handleChange = (event: any, value: string) => {
++ const handleChange = (event: any, value: unknown) => {
     // handle value
-  }
+  };
 
   return <Select onChange={handleChange}>{children}</Select>
 }
 ```
 
-Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guides/typescript/#handling-value-and-event-handlers)
+This change is explained in more detail in the [TypeScript guide](/guides/typescript/#handling-value-and-event-handlers)
 
 ### Botão
 
@@ -202,7 +204,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
 
 - [ButtonBase] O componente passado para a propriedade `component` precisa ser capaz de lidar com ref. O [guia de composição](/guides/composition/#caveat-with-refs) explica a estratégia de migração.
   
-  Isso também se aplica a `BottomNavigationAction`, `Button`, `CardActionArea`, `Checkbox`, `ExpansionPanelSummary`, `Fab`, `IconButton`, `MenuItem`, `Radio`, `StepButton`, `Tab`, `TableSortLabel` bem como `ListItem` se a propriedade `button` for `true`.
+    Isso também se aplica a `BottomNavigationAction`, `Button`, `CardActionArea`, `Checkbox`, `ExpansionPanelSummary`, `Fab`, `IconButton`, `MenuItem`, `Radio`, `StepButton`, `Tab`, `TableSortLabel` bem como `ListItem` se a propriedade `button` for `true`.
 
 ### Cartão
 
@@ -233,7 +235,8 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
 ### Painel de expansão
 
 - [ExpansionPanelActions] Renomeie a classe CSS `action` para `spacing`.
-- [ExpansionPanel] Aumente a especificidade CSS da regra de estilo `disabled`.
+- [ExpansionPanel] Increase the CSS specificity of the `disabled` and `expanded` style rules.
+- [ExpansionPanel] Rename the `CollapseProps` prop to `TransitionProps`.
 
 ### Lista
 
@@ -242,8 +245,9 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
   - O componente `ListItemAvatar` é necessário ao usar um avatar.
   - O componente `ListItemIcon` é necessário ao usar uma caixa de seleção à esquerda.
   - A propriedade `edge` deve ser definida para botões de ícone.
+- [List] `dense` no longer reduces the top and bottom padding of the `List` element.
 
-- [ListItem] Aumente a especificidade CSS das regras de estilo `disabled` e `focusVisible`.
+- [ListItem] Increase the CSS specificity of the `disabled` and `focusVisible` style rules.
 
 ### Menu
 
@@ -253,7 +257,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
 
 - [Modal] O elemento filho precisa ser capaz de lidar com ref. O [guia de composição](/guides/composition/#caveat-with-refs) explica a estratégia de migração.
   
-  Isso também se aplica aos componentes `Dialog` e `Popover`.
+    Isso também se aplica aos componentes `Dialog` e `Popover`.
 
 - [Modal] Remova a API de customização de classes para o componente Modal (redução do tamanho do pacote -74% quando usado de forma independente).
 
@@ -268,7 +272,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
   +<Paper elevation={2} />
   ```
   
-  Isso afeta o componente `ExpansionPanel` também.
+    Isso afeta o componente `ExpansionPanel` também.
 
 ### Portal
 
@@ -280,7 +284,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
 
 ### Slider
 
-- [Slider] Move from `@material-ui/lab` to `@material-ui/core`.
+- [Slider] Mova de `@material-ui/lab` para `@material-ui/core`.
   
   ```diff
   -import Slider from '@material-ui/lab/Slider'
@@ -318,7 +322,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
 
 - [Tab] Remova as chaves de classe `labelContainer`, `label` e `labelWrapped` para simplificar. Isso nos permitiu remover 2 elementos DOM intermediários. Você deve conseguir mover os estilos customizados para chave de classe `root`.
   
-  ![Uma estrutura DOM de item de guia mais simples](https://user-images.githubusercontent.com/3165635/53287870-53a35500-3782-11e9-9431-2d1a14a41be0.png)
+    ![Uma estrutura DOM de item de guia mais simples](https://user-images.githubusercontent.com/3165635/53287870-53a35500-3782-11e9-9431-2d1a14a41be0.png)
 
 - [Tabs] Remova as propriedades descontinuadas fullWidth e scrollable:
   
@@ -355,7 +359,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
   - FormLabelClasses={{ asterisk: 'bar' }}
   + classes={{ asterisk: 'bar' }}
   >
-    Foo
+  Foo
   </InputLabel>
   ```
 
@@ -365,7 +369,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
   box-sizing: border-box;
   ```
   
-  Isso resolve problemas com a propriedade `fullWidth`.
+    Isso resolve problemas com a propriedade `fullWidth`.
 
 - [InputBase] Remova a classe `inputType` do `InputBase`.
 
@@ -394,9 +398,9 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
   +<Typography variantMapping={variantMapping}>
   ```
 
-- [Typography] Modifique a variante padrão de `body2` para `body1`. Um tamanho de fonte de 16px é um padrão melhor que 14px. Bootstrap, material.io e até nossa documentação usam 16px como tamanho de fonte padrão. 14px como o Ant Design usa, é compreensível, já que os usuários chineses têm um alfabeto diferente. Recomendamos 12px como o tamanho de fonte padrão para japonês.
+- [Typography] Modifique a variante padrão de `body2` para `body1`. Um tamanho de fonte de 16px é um padrão melhor que 14px. Bootstrap, material.io, and even the documentation use 16px as a default font size. 14px como o Ant Design usa, é compreensível, já que os usuários chineses têm um alfabeto diferente. 12px is recommended as the default font size for Japanese.
 - [Typography] Remova a cor padrão das variantes de tipografia. A cor deve herdar a maior parte do tempo. É o comportamento padrão da web.
-- [Typography] Renomeie `color="default"` para `color="initial"` seguindo a lógica de #13028. O uso de *default* deve ser evitado, isso perde semântica.
+- [Typography] Renomeie `color="default"` para `color="initial"` seguindo a lógica [desta discussão](https://github.com/mui-org/material-ui/issues/13028). O uso de *default* deve ser evitado, isso perde semântica.
 
 ### Node
 
@@ -414,7 +418,7 @@ Esta alteração é explicada em mais detalhes no nosso guia [TypeScript](/guide
   +} = MaterialUI;
   ```
   
-  É consistente com outros projetos do React:
+    É consistente com outros projetos do React:
   
   - material-ui => MaterialUI
   - react-dom => ReactDOM

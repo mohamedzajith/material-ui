@@ -1,8 +1,8 @@
 ---
-components: Typografie
+components: Typography
 ---
 
-# Typografie
+# Typography
 
 <p class="description">Verwenden Sie die Typografie, um Ihr Design und Ihren Inhalt so klar und effizient wie möglich darzustellen.</p>
 
@@ -53,9 +53,9 @@ Die Komponente Typografie verwendet die Eigenschaft `variantMapping` um eine UI-
 - You can change the underlying element for a one time occasion with the `component` property:
 
 ```jsx
-{/ * Wir haben bereits eine h1 auf der Seite, wir wollen diese nicht kopieren. * /}
+{/* There is already an h1 in the page, let's not duplicate it. */}
 <Typography variant="h1" component="h2">
-  h1. Überschrift
+  h1. Heading
 </Typography>
 ```
 
@@ -81,3 +81,11 @@ const theme = createMuiTheme({
   },
 });
 ```
+
+## Barrierefreiheit
+
+A few key factors to follow for an accessible typography:
+
+- **Color**. Provide enough contrast between text and its background, check out the minimum recommended [WCAG 2.0 color contrast ratio](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) (4.5:1).
+- **Font size**. Use [relative units (rem)](/customization/typography/#font-size) to accommodate the user's settings.
+- **Heading hierarchy**. [Don't skip](https://www.w3.org/WAI/tutorials/page-structure/headings/) heading levels. In order to solve this problem, you need to [separate the semantics from the style](#changing-the-semantic-element).

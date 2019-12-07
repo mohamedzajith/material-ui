@@ -4,7 +4,7 @@
 
 ## Applying density
 
-We won't cover possible use cases, or considerations for using density in your application. The Material design guidelines have a [comprehensive guide](https://material.io/design/layout/applying-density.html#typographic-density) covering these topics in more detail.
+This section explains how to apply density. It doesn't cover petential use cases, or considerations for using density in your application. The Material design guidelines have a [comprehensive guide](https://material.io/design/layout/applying-density.html#typographic-density) covering these topics in more detail.
 
 ## Implementing density
 
@@ -14,19 +14,19 @@ Depending on the component, density is applied either via lower spacing, or simp
 
 The following components have props applying higher density:
 
-- [Button](/api/button)
-- [Fab](/api/fab)
-- [FilledInput](/api/filled-input)
-- [FormControl](/api/form-control)
-- [FormHelperText](/api/form-helper-text)
-- [IconButton](/api/icon-button)
-- [InputBase](/api/input-base)
-- [InputLabel](/api/input-label)
-- [ListItem](/api/list-item)
-- [OutlinedInput](/api/outlined-input)
-- [Tabelle](/api/table)
-- [Textfeld](/api/text-field)
-- [Toolbar](/api/toolbar)
+- [Button](/api/button/)
+- [Fab](/api/fab/)
+- [FilledInput](/api/filled-input/)
+- [FormControl](/api/form-control/)
+- [FormHelperText](/api/form-helper-text/)
+- [IconButton](/api/icon-button/)
+- [InputBase](/api/input-base/)
+- [InputLabel](/api/input-label/)
+- [ListItem](/api/list-item/)
+- [OutlinedInput](/api/outlined-input/)
+- [Tabelle](/api/table/)
+- [Textfeld](/api/text-field/)
+- [Toolbar](/api/toolbar/)
 
 ## Explore theme density
 

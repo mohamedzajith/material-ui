@@ -2,7 +2,7 @@
 components: Typography
 ---
 
-# 活版印刷
+# Typography
 
 <p class="description">使用活版印刷可以尽可能清晰、高效地呈现您的设计和内容。</p>
 
@@ -53,7 +53,7 @@ Typography组件使用 `variantMapping` 属性将某一种UI变体与某一种�
 - You can change the underlying element for a one time occasion with the `component` property:
 
 ```jsx
-{/* 在这个页面里，我们已经有了一个h1标签；所以避免重复*/}
+{/* There is already an h1 in the page, let's not duplicate it. */}
 <Typography variant="h1" component="h2">
   h1. Heading
 </Typography>
@@ -81,3 +81,11 @@ const theme = createMuiTheme({
   },
 });
 ```
+
+## 可访问性
+
+A few key factors to follow for an accessible typography:
+
+- **Color**. Provide enough contrast between text and its background, check out the minimum recommended [WCAG 2.0 color contrast ratio](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) (4.5:1).
+- **Font size**. Use [relative units (rem)](/customization/typography/#font-size) to accommodate the user's settings.
+- **Heading hierarchy**. [Don't skip](https://www.w3.org/WAI/tutorials/page-structure/headings/) heading levels. In order to solve this problem, you need to [separate the semantics from the style](#changing-the-semantic-element).

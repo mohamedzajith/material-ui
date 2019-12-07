@@ -7,20 +7,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     width: '100%',
   },
   paper: {
-    marginTop: theme.spacing(3),
     width: '100%',
     overflowX: 'auto',
-    marginBottom: theme.spacing(2),
   },
   table: {
     minWidth: 650,
   },
-}));
+});
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -40,7 +38,7 @@ export default function DenseTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Table className={classes.table} size="small">
+        <Table className={classes.table} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell>Dessert (100g serving)</TableCell>

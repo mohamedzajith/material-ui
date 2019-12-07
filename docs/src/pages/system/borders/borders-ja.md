@@ -1,12 +1,14 @@
-# Borders
+# ボーダー
 
-<p class="description">Use border utilities to quickly style the border and border-radius of an element. Great for images, buttons, or any other element.</p>
+<p class="description">Use border utilities to quickly style the border and border-radius of an element. 画像、ボタン、その他の要素に最適です。</p>
 
 ## Border
 
 Use border utilities to add or remove an element’s borders. Choose from all borders or one at a time.
 
 ### Additive
+
+{{"demo": "pages/system/borders/BorderAdditive.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box border={1}>…
@@ -16,9 +18,9 @@ Use border utilities to add or remove an element’s borders. Choose from all bo
 <Box borderLeft={1}>…
 ```
 
-{{"demo": "pages/system/borders/BorderAdditive.js"}}
-
 ### Subtractive
+
+{{"demo": "pages/system/borders/BorderSubtractive.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box border={0}>…
@@ -28,9 +30,9 @@ Use border utilities to add or remove an element’s borders. Choose from all bo
 <Box borderLeft={0}>…
 ```
 
-{{"demo": "pages/system/borders/BorderSubtractive.js"}}
-
 ## Border color
+
+{{"demo": "pages/system/borders/BorderColor.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box borderColor="primary.main">…
@@ -40,17 +42,15 @@ Use border utilities to add or remove an element’s borders. Choose from all bo
 <Box borderColor="text.primary">…
 ```
 
-{{"demo": "pages/system/borders/BorderColor.js"}}
-
 ## Border-radius
+
+{{"demo": "pages/system/borders/BorderRadius.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box borderRadius="50%">…
 <Box borderRadius="borderRadius">…
 <Box borderRadius={16}>…
 ```
-
-{{"demo": "pages/system/borders/BorderRadius.js"}}
 
 ## API
 

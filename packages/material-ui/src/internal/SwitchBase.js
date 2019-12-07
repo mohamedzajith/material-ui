@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import useFormControl from '../FormControl/useFormControl';
 import withStyles from '../styles/withStyles';
 import IconButton from '../IconButton';
@@ -21,6 +22,7 @@ export const styles = {
     left: 0,
     margin: 0,
     padding: 0,
+    zIndex: 1,
   },
 };
 
@@ -33,7 +35,7 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
     checked: checkedProp,
     checkedIcon,
     classes,
-    className: classNameProp,
+    className,
     defaultChecked,
     disabled: disabledProp,
     icon,
@@ -53,6 +55,7 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
   } = props;
   const { current: isControlled } = React.useRef(checkedProp != null);
   const [checkedState, setCheckedState] = React.useState(Boolean(defaultChecked));
+  const checked = isControlled ? checkedProp : checkedState;
 
   const muiFormControl = useFormControl();
 
@@ -77,14 +80,14 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
   };
 
   const handleInputChange = event => {
-    const checked = event.target.checked;
+    const newChecked = event.target.checked;
 
     if (!isControlled) {
-      setCheckedState(checked);
+      setCheckedState(newChecked);
     }
 
     if (onChange) {
-      onChange(event, checked);
+      onChange(event, newChecked);
     }
   };
 
@@ -96,7 +99,6 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
     }
   }
 
-  const checked = isControlled ? checkedProp : checkedState;
   const hasLabelFor = type === 'checkbox' || type === 'radio';
 
   return (
@@ -108,7 +110,7 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
           [classes.checked]: checked,
           [classes.disabled]: disabled,
         },
-        classNameProp,
+        className,
       )}
       disabled={disabled}
       tabIndex={null}
@@ -118,7 +120,6 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
       ref={ref}
       {...other}
     >
-      {checked ? checkedIcon : icon}
       <input
         autoFocus={autoFocus}
         checked={checkedProp}
@@ -136,6 +137,7 @@ const SwitchBase = React.forwardRef(function SwitchBase(props, ref) {
         value={value}
         {...inputProps}
       />
+      {checked ? checkedIcon : icon}
     </IconButton>
   );
 });
@@ -185,9 +187,9 @@ SwitchBase.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /*
    * @ignore
    */
@@ -200,8 +202,7 @@ SwitchBase.propTypes = {
    * Callback fired when the state is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
+   * You can pull out the new checked state by accessing `event.target.checked` (boolean).
    */
   onChange: PropTypes.func,
   /**

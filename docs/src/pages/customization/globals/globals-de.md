@@ -9,9 +9,12 @@ Wenn die Konfigurationsvariablen nicht ausreichen, können Sie die Vorteile der 
 ```js
 const theme = createMuiTheme({
   overrides: {
-    MuiButton: { // Name der Komponente ⚛️ / Style-Sheet
-      text: { // Name der Regel
-        color: 'white', // Einige CSS
+    // Style sheet name ⚛️
+    MuiButton: {
+      // Name of the rule
+      text: {
+        // Some CSS
+        color: 'white',
       },
     },
   },
@@ -24,7 +27,7 @@ Die Liste dieser Anpassungspunkte für jede Komponente ist unter der **Komponent
 
 ## Standard-Eigenschaften
 
-Sie können die Standard-Eigenschaften aller Komponenten der Material-UI ändern. Wir stellen einen `props` Schlüssel im `Theme` für diesen Anwendungsfall zur Verfügung.
+Sie können die Standard-Eigenschaften aller Komponenten der Material-UI ändern. A `props` key is exposed in the `theme` for this use case.
 
 ```js
 const theme = createMuiTheme({

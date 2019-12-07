@@ -14,17 +14,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
-function MadeWithLove() {
+function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
+      {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
     </Typography>
   );
 }
+
 const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -142,7 +144,7 @@ export default function Album() {
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           Something here to give the footer a purpose!
         </Typography>
-        <MadeWithLove />
+        <Copyright />
       </footer>
       {/* End footer */}
     </React.Fragment>

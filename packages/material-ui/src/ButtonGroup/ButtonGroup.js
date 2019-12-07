@@ -1,9 +1,15 @@
 import React from 'react';
+import { isFragment } from 'react-is';
 import PropTypes from 'prop-types';
-import warning from 'warning';
 import clsx from 'clsx';
+import capitalize from '../utils/capitalize';
+import { fade } from '../styles/colorManipulator';
 import withStyles from '../styles/withStyles';
-import '../Button'; // So we don't have any override priority issue.
+import Button from '../Button';
+
+// Force a side effect so we don't have any override priority issue.
+// eslint-disable-next-line no-unused-expressions
+Button.styles;
 
 export const styles = theme => ({
   /* Styles applied to the root element. */
@@ -11,11 +17,11 @@ export const styles = theme => ({
     display: 'inline-flex',
     borderRadius: theme.shape.borderRadius,
   },
-  /* Styles applied to the root element if variant="contained". */
+  /* Styles applied to the root element if `variant="contained"`. */
   contained: {
     boxShadow: theme.shadows[2],
   },
-  /* Styles applied to the root element if fullWidth={true}. */
+  /* Styles applied to the root element if `fullWidth={true}`. */
   fullWidth: {
     width: '100%',
   },
@@ -31,51 +37,78 @@ export const styles = theme => ({
       borderBottomRightRadius: 0,
     },
   },
-  /* Styles applied to the children if variant="outlined". */
-  groupedOutlined: {
-    '&:not(:first-child)': {
-      borderLeftColor: 'transparent',
-      marginLeft: -1,
+  /* Styles applied to the children if `variant="text"`. */
+  groupedText: {
+    '&:not(:last-child)': {
+      borderRight: `1px solid ${
+        theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'
+      }`,
     },
   },
-  /* Styles applied to the children if variant="outlined" & color="primary". */
+  /* Styles applied to the children if `variant="text"` and `color="primary"`. */
+  groupedTextPrimary: {
+    '&:not(:last-child)': {
+      borderColor: fade(theme.palette.primary.main, 0.5),
+    },
+  },
+  /* Styles applied to the children if `variant="text"` and `color="secondary"`. */
+  groupedTextSecondary: {
+    '&:not(:last-child)': {
+      borderColor: fade(theme.palette.secondary.main, 0.5),
+    },
+  },
+  /* Styles applied to the children if `variant="outlined"`. */
+  groupedOutlined: {
+    '&:not(:first-child)': {
+      marginLeft: -1,
+    },
+    '&:not(:last-child)': {
+      borderRightColor: 'transparent',
+    },
+  },
+  /* Styles applied to the children if `variant="outlined"` and `color="primary"`. */
   groupedOutlinedPrimary: {
     '&:hover': {
       borderColor: theme.palette.primary.main,
     },
   },
-  /* Styles applied to the children if variant="outlined" & color="secondary". */
+  /* Styles applied to the children if `variant="outlined"` and `color="secondary"`. */
   groupedOutlinedSecondary: {
     '&:hover': {
       borderColor: theme.palette.secondary.main,
     },
   },
-  /* Styles applied to the children if variant="contained". */
+  /* Styles applied to the children if `variant="contained"`. */
   groupedContained: {
     boxShadow: 'none',
     '&:not(:last-child)': {
       borderRight: `1px solid ${theme.palette.grey[400]}`,
+      '&$disabled': {
+        borderRight: `1px solid ${theme.palette.action.disabled}`,
+      },
     },
   },
-  /* Styles applied to the children if variant="contained" & color="primary". */
+  /* Styles applied to the children if `variant="contained"` and `color="primary"`. */
   groupedContainedPrimary: {
     '&:not(:last-child)': {
       borderRight: `1px solid ${theme.palette.primary.dark}`,
     },
   },
-  /* Styles applied to the children if variant="contained" & color="secondary". */
+  /* Styles applied to the children if `variant="contained"` and `color="secondary"`. */
   groupedContainedSecondary: {
     '&:not(:last-child)': {
       borderRight: `1px solid ${theme.palette.secondary.dark}`,
     },
   },
+  /* Pseudo-class applied to child elements if `disabled={true}`. */
+  disabled: {},
 });
 
 const ButtonGroup = React.forwardRef(function ButtonGroup(props, ref) {
   const {
     children,
     classes,
-    className: classNameProp,
+    className,
     color = 'default',
     component: Component = 'div',
     disabled = false,
@@ -87,18 +120,14 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(props, ref) {
     ...other
   } = props;
 
-  const outlined = variant === 'outlined';
-  const contained = variant === 'contained';
-  const primary = color === 'primary';
-  const secondary = color === 'secondary';
-  const buttonClassName = clsx(classes.grouped, {
-    [classes.groupedOutlined]: outlined,
-    [classes.groupedOutlinedPrimary]: outlined && primary,
-    [classes.groupedOutlinedSecondary]: outlined && secondary,
-    [classes.groupedContained]: contained,
-    [classes.groupedContainedPrimary]: contained && primary,
-    [classes.groupedContainedSecondary]: contained && secondary,
-  });
+  const buttonClassName = clsx(
+    classes.grouped,
+    classes[`grouped${capitalize(variant)}`],
+    classes[`grouped${capitalize(variant)}${color !== 'default' ? capitalize(color) : ''}`],
+    {
+      [classes.disabled]: disabled,
+    },
+  );
 
   return (
     <Component
@@ -106,10 +135,10 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(props, ref) {
       className={clsx(
         classes.root,
         {
-          [classes.contained]: contained,
+          [classes.contained]: variant === 'contained',
           [classes.fullWidth]: fullWidth,
         },
-        classNameProp,
+        className,
       )}
       ref={ref}
       {...other}
@@ -119,23 +148,26 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(props, ref) {
           return null;
         }
 
-        warning(
-          child.type !== React.Fragment,
-          [
-            "Material-UI: the ButtonGroup component doesn't accept a Fragment as a child.",
-            'Consider providing an array instead.',
-          ].join('\n'),
-        );
+        if (process.env.NODE_ENV !== 'production') {
+          if (isFragment(child)) {
+            console.error(
+              [
+                "Material-UI: the ButtonGroup component doesn't accept a Fragment as a child.",
+                'Consider providing an array instead.',
+              ].join('\n'),
+            );
+          }
+        }
 
         return React.cloneElement(child, {
           className: clsx(buttonClassName, child.props.className),
           disabled: child.props.disabled || disabled,
-          color,
+          color: child.props.color || color,
           disableFocusRipple,
           disableRipple,
           fullWidth,
           size: child.props.size || size,
-          variant,
+          variant: child.props.variant || variant,
         });
       })}
     </Component>
@@ -190,7 +222,7 @@ ButtonGroup.propTypes = {
   /**
    * The variant to use.
    */
-  variant: PropTypes.oneOf(['outlined', 'contained']),
+  variant: PropTypes.oneOf(['text', 'outlined', 'contained']),
 };
 
 export default withStyles(styles, { name: 'MuiButtonGroup' })(ButtonGroup);

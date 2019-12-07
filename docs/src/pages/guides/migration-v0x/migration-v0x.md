@@ -7,8 +7,8 @@
 ### Woah - the API is way different! Does that mean 1.0 is completely different, I’ll have to learn the basics all over again, and migrating will be practically impossible?
 
 I’m glad you asked! The answer is no. The core concepts haven’t changed.
-You will notice that the API provides more flexibility, but this has a cost.
-We have been making lower-level components, abstracting less complexity.
+You will notice that the API provides more flexibility, but this has a cost –
+lower-level components that abstract less complexity.
 
 ### What motivated such a large change?
 
@@ -17,7 +17,7 @@ The ecosystem has evolved a lot since then, we have also learned a lot.
 [@nathanmarks](https://github.com/nathanmarks/) started an ambitious task, rebuilding Material-UI from the **ground-up**
 taking advantage of this knowledge to address long-standing issues. To name some of the major changes:
 - New styling solution using CSS-in-JS (better [customization](/customization/components/) power, better performance)
-- New [theme handling](/customization/themes/) (nesting, self-supporting, etc.)
+- New theme handling (nesting, self-supporting, etc.)
 - Blazing fast documentation thanks to [Next.js](https://github.com/zeit/next.js)
 - Way better [test coverage](/guides/testing/) (99%+, run on all the major browsers, [visual regression tests](https://www.argos-ci.com/mui-org/material-ui))
 - Full [server-side rendering](/guides/server-rendering/) support
@@ -190,4 +190,4 @@ RaisedButton upgrade path:
 ### To be continued…
 
 Have you successfully migrated your app, and wish to help the community?
-Please help us! We have an open issue in order to finish this migration guide [#7195](https://github.com/mui-org/material-ui/issues/7195). Any pull request is welcomed 😊.
+There is an open issue in order to finish this migration guide [#7195](https://github.com/mui-org/material-ui/issues/7195). Any pull request is welcomed 😊.

@@ -81,19 +81,18 @@ import indigo from '@material-ui/core/colors/indigo';
 import pink from '@material-ui/core/colors/pink';
 import red from '@material-ui/core/colors/red';
 
-// Alle folgende Schlüssel sind optional.
-// Wir versuchen unser Bestes, um einen hervorragenden Standardwert bereitzustellen.
+// All the following keys are optional, as default values are provided.
 const theme = createMuiTheme({
   palette: {
     primary: indigo,
     secondary: pink,
     error: red,
-    // Wird von `getContrastText()` benutzt, um den Kontrast zwischen Text und 
-    // Hintergrund zu maximieren.
+    // Used by `getContrastText()` to maximize the contrast between the background and
+    // the text.
     contrastThreshold: 3,
-    // Wird verwendet, um die Luminanz einer Farbe um ungefähr
-    // zwei Indizes in der Tonpalette zu verschieben.
-    // Zum Beispiel von Red 500 zu Red 300 oder Red 700 zu wechseln.
+    // Used to shift a color's luminance by approximately
+    // two indexes within its tonal palette.
+    // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
   },
 });
@@ -163,3 +162,41 @@ const theme = createMuiTheme({
 ```
 
 {{"demo": "pages/customization/palette/DarkTheme.js"}}
+
+### User preference
+
+Users might have specified a preference for a light or dark theme. The method by which the user expresses their preference can vary. It might be a system-wide setting exposed by the Operating System, or a setting controlled by the User Agent.
+
+You can leverage this preference dynamically with the [useMediaQuery](/components/use-media-query/) hook and the [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) media query.
+
+For instance, you can enable the dark mode automatically:
+
+```jsx
+import React from 'react';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { ThemeProvider } from '@material-ui/core/styles';
+
+function App() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  );
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Routes />
+    </ThemeProvider>
+  );
+}
+```
+
+## Default values
+
+You can explore the default values of the palette using [the theme explorer](/customization/default-theme/?expend-path=$.palette) or by opening the dev tools console on this page (`window.theme.palette`).

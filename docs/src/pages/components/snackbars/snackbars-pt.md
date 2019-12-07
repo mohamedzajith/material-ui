@@ -5,7 +5,7 @@ components: Snackbar, SnackbarContent
 
 # Snackbar
 
-<p class="description">Snackbars fornecem mensagens breves sobre processos da aplicação - normalmente na parte inferior da tela.</p>
+<p class="description">Snackbars fornecem mensagens breves sobre os processos de aplicativos. O componente também é conhecido como toast(torrada).</p>
 
 [Snackbars](https://material.io/design/components/snackbars.html) informam aos usuários de um processo que a aplicação realizou ou irá executar. Eles aparecem temporariamente, na parte inferior da tela. Eles não devem interromper a experiência do usuário e não exigem ação do usuário para que desapareça.
 
@@ -23,7 +23,7 @@ Um snackbar básico que tem como objetivo reproduzir o comportamento do Google K
 
 ## Snackbars personalizados
 
-Aqui estão alguns exemplos de personalização do componente. Você pode aprender mais sobre isso na [página de documentação de substituições](/customization/components/).
+Aqui estão alguns exemplos de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescritas](/customization/components/).
 
 {{"demo": "pages/components/snackbars/CustomizedSnackbars.js"}}
 
@@ -73,6 +73,35 @@ Para usos mais avançados, você pode tirar vantagem com:
 
 ![estrelas](https://img.shields.io/github/stars/iamhosseindhv/notistack.svg?style=social&label=Stars) ![npm downloads](https://img.shields.io/npm/dm/notistack.svg)
 
-No exemplo a seguir, demonstramos como usar [notistack](https://github.com/iamhosseindhv/notistack). O notistack facilita a exibição de snackbars (para que você não tenha que lidar com o estado de abertura / fechamento delas). Também permite empilhá-los uns sobre os outros (mas não recomendamos devido a especificação).
+This example demonstrates how to use [notistack](https://github.com/iamhosseindhv/notistack). notistack has an **imperative API** that makes it easy to display snackbars, without having to handle their open/close state. It also enables you to **stack** them on top of one another (although this is discouraged by the Material Design specification).
 
-{{"demo": "pages/components/snackbars/IntegrationNotistack.js"}}
+{{"demo": "pages/components/snackbars/IntegrationNotistack.js", "defaultCodeOpen": false}}
+
+## Acessibilidade
+
+(WAI-ARIA: https://www.w3.org/TR/wai-aria-1.1/#alert)
+
+- Since alerts are not required to receive focus, content authors should not require users to close a Snackbar if the role is set to `alert` through the SnackbarContent `role` prop. This is the default role.
+- If a Snackbar requires focus to close it, then content authors should use the `role` of `alertdialog`.
+
+```jsx
+<SnackbarContent
+  message="This is a Snackbar message."
+  role="alert"
+/>
+```
+
+```jsx
+<Snackbar
+  ContentProps={{
+    'aria-describedby': 'snackbar-fab-message-id',
+    'role': 'alertdialog',
+  }}
+  message={<span id="snackbar-fab-message-id">Archived</span>}
+  action={
+    <Button color="inherit" size="small">
+      Undo
+    </Button>
+  }
+/>
+```

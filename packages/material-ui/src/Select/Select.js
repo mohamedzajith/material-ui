@@ -9,10 +9,10 @@ import ArrowDropDownIcon from '../internal/svg-icons/ArrowDropDown';
 import Input from '../Input';
 import { styles as nativeSelectStyles } from '../NativeSelect/NativeSelect';
 import NativeSelectInput from '../NativeSelect/NativeSelectInput';
+import FilledInput from '../FilledInput';
+import OutlinedInput from '../OutlinedInput';
 
 export const styles = nativeSelectStyles;
-
-const defaultInput = <Input />;
 
 const Select = React.forwardRef(function Select(props, ref) {
   const {
@@ -21,8 +21,11 @@ const Select = React.forwardRef(function Select(props, ref) {
     classes,
     displayEmpty = false,
     IconComponent = ArrowDropDownIcon,
-    input = defaultInput,
+    id,
+    input,
     inputProps,
+    labelId,
+    labelWidth = 0,
     MenuProps,
     multiple = false,
     native = false,
@@ -31,7 +34,7 @@ const Select = React.forwardRef(function Select(props, ref) {
     open,
     renderValue,
     SelectDisplayProps,
-    variant,
+    variant: variantProps = 'standard',
     ...other
   } = props;
 
@@ -44,28 +47,38 @@ const Select = React.forwardRef(function Select(props, ref) {
     states: ['variant'],
   });
 
-  return React.cloneElement(input, {
+  const variant = fcs.variant || variantProps;
+
+  const InputComponent =
+    input ||
+    {
+      standard: <Input />,
+      outlined: <OutlinedInput labelWidth={labelWidth} />,
+      filled: <FilledInput />,
+    }[variant];
+
+  return React.cloneElement(InputComponent, {
     // Most of the logic is implemented in `SelectInput`.
     // The `Select` component is a simple API wrapper to expose something better to play with.
     inputComponent,
-    select: true,
     inputProps: {
       children,
       IconComponent,
-      variant: fcs.variant,
+      variant,
       type: undefined, // We render a select. We can ignore the type provided by the `Input`.
       multiple,
       ...(native
-        ? {}
+        ? { id }
         : {
             autoWidth,
             displayEmpty,
+            labelId,
             MenuProps,
             onClose,
             onOpen,
             open,
             renderValue,
-            SelectDisplayProps,
+            SelectDisplayProps: { id, ...SelectDisplayProps },
           }),
       ...inputProps,
       classes: inputProps
@@ -84,7 +97,7 @@ const Select = React.forwardRef(function Select(props, ref) {
 
 Select.propTypes = {
   /**
-   * If true, the width of the popover will automatically be set according to the items inside the
+   * If `true`, the width of the popover will automatically be set according to the items inside the
    * menu, otherwise it will be at least the width of the select input.
    */
   autoWidth: PropTypes.bool,
@@ -101,6 +114,10 @@ Select.propTypes = {
    */
   classes: PropTypes.object.isRequired,
   /**
+   * The default element value. Use when the component is not controlled.
+   */
+  defaultValue: PropTypes.any,
+  /**
    * If `true`, a value is displayed even if no items are selected.
    *
    * In order to display a meaningful value, a function should be passed to the `renderValue` prop which returns the value to be displayed when no items are selected.
@@ -112,6 +129,10 @@ Select.propTypes = {
    */
   IconComponent: PropTypes.elementType,
   /**
+   * @ignore
+   */
+  id: PropTypes.string,
+  /**
    * An `Input` element; does not have to be a material-ui specific `Input`.
    */
   input: PropTypes.element,
@@ -121,11 +142,21 @@ Select.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
+   * The idea of an element that acts as an additional label. The Select will
+   * be labelled by the additional label and the selected value.
+   */
+  labelId: PropTypes.string,
+  /**
+   * The label width to be used on OutlinedInput.
+   * This prop is required when the `variant` prop is `outlined`.
+   */
+  labelWidth: PropTypes.number,
+  /**
    * Props applied to the [`Menu`](/api/menu/) element.
    */
   MenuProps: PropTypes.object,
   /**
-   * If true, `value` must be an array and the menu will support multiple selections.
+   * If `true`, `value` must be an array and the menu will support multiple selections.
    */
   multiple: PropTypes.bool,
   /**
@@ -136,7 +167,7 @@ Select.propTypes = {
    * Callback function fired when a menu item is selected.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.value`.
+   * You can pull out the new value by accessing `event.target.value` (any).
    * @param {object} [child] The react element that was selected when `native` is `false` (default).
    */
   onChange: PropTypes.func,
@@ -144,14 +175,14 @@ Select.propTypes = {
    * Callback fired when the component requests to be closed.
    * Use in controlled mode (see open).
    *
-   * @param {object} event The event source of the callback
+   * @param {object} event The event source of the callback.
    */
   onClose: PropTypes.func,
   /**
    * Callback fired when the component requests to be opened.
    * Use in controlled mode (see open).
    *
-   * @param {object} event The event source of the callback
+   * @param {object} event The event source of the callback.
    */
   onOpen: PropTypes.func,
   /**
@@ -163,8 +194,8 @@ Select.propTypes = {
    * Render the selected value.
    * You can only use it when the `native` prop is `false` (default).
    *
-   * @param {*} value The `value` provided to the component.
-   * @returns {ReactElement}
+   * @param {any} value The `value` provided to the component.
+   * @returns {ReactNode}
    */
   renderValue: PropTypes.func,
   /**
@@ -172,8 +203,12 @@ Select.propTypes = {
    */
   SelectDisplayProps: PropTypes.object,
   /**
-   * The input value.
+   * The input value. Providing an empty string will select no options.
    * This prop is required when the `native` prop is `false` (default).
+   * Set to an empty string `''` if you don't want any of the available options to be selected.
+   *
+   * If the value is an object it must have reference equality with the option in order to be selected.
+   * If the value is not an object, the string representation must match with the string representation of the option in order to be selected.
    */
   value: PropTypes.any,
   /**

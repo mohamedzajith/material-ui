@@ -1,10 +1,10 @@
-# Spacing
+# 間隔
 
-<p class="description">A wide range of shorthand responsive margin and padding utility classes to modify an element’s appearance.</p>
+<p class="description">要素の外観を変更するための、応答の短いマージンとパディングユーティリティークラス。</p>
 
-## Notation
+## 表記
 
-The space utility converts shorthand margin and padding props to margin and padding CSS declarations. The props are named using the format `{property}{sides}`.
+スペースユーティリティは、簡易マージンとパディングプロップをマージンとパディングのCSS宣言に変換します。 プロップには、`{property}{sides}`という形式で名前が付けられます。
 
 Where *property* is one of:
 
@@ -68,7 +68,9 @@ const theme = {
 <Box mx="auto" /> // margin-left: auto; margin-right: auto;
 ```
 
-## Example
+## 例
+
+{{"demo": "pages/system/spacing/Demo.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box p={1}>…
@@ -76,15 +78,13 @@ const theme = {
 <Box p={2}>…
 ```
 
-{{"demo": "pages/system/spacing/Demo.js"}}
-
 ## Horizontal centering
+
+{{"demo": "pages/system/spacing/HorizontalCentering.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box mx="auto">…
 ```
-
-{{"demo": "pages/system/spacing/HorizontalCentering.js"}}
 
 ## API
 
@@ -108,6 +108,7 @@ import { spacing } from '@material-ui/system';
 | `spacing`   | `pl` | `padding-left`                  | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
 | `spacing`   | `px` | `padding-left`, `padding-right` | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
 | `spacing`   | `py` | `padding-top`, `padding-bottom` | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
+
 
 *Some people find the prop shorthand confusing, you can use the full version if you prefer:*
 

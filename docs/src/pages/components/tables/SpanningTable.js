@@ -9,16 +9,15 @@ import Paper from '@material-ui/core/Paper';
 
 const TAX_RATE = 0.07;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
     overflowX: 'auto',
   },
   table: {
     minWidth: 700,
   },
-}));
+});
 
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
@@ -52,13 +51,19 @@ export default function SpanningTable() {
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table}>
+      <Table className={classes.table} aria-label="spanning table">
         <TableHead>
+          <TableRow>
+            <TableCell align="center" colSpan={3}>
+              Details
+            </TableCell>
+            <TableCell align="right">Price</TableCell>
+          </TableRow>
           <TableRow>
             <TableCell>Desc</TableCell>
             <TableCell align="right">Qty.</TableCell>
-            <TableCell align="right">@</TableCell>
-            <TableCell align="right">Price</TableCell>
+            <TableCell align="right">Unit</TableCell>
+            <TableCell align="right">Sum</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

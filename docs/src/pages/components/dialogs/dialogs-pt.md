@@ -13,7 +13,7 @@ As caixas de diálogo são intencionalmente interruptivas, então elas devem ser
 
 ## Diálogo simples
 
-A caixa de diálogo simples pode providenciar detalhes adicionais ou ações sobre um item de lista. Por exemplo, ele podem mostrar um avatar, ícone, texto esclarecedor ou um ação paralela (como adicionar uma conta).
+Diálogos simples podem fornecer detalhes adicionais ou ações sobre um item da lista. Por exemplo, eles podem exibir avatares, ícones, esclarecer subtexto ou ações ortogonais (como adicionar uma conta).
 
 Mecanismo de Toque:
 
@@ -26,12 +26,12 @@ Mecanismo de Toque:
 
 Alertas são interrupções urgentes, requerendo confirmação que o usuário esta ciente da situação.
 
-Muitos dos alertas não precisam de títulos. Eles resumem uma decisão em uma sentença ou duas, bem como:
+A maioria dos alertas não precisam de títulos. Eles resumem uma decisão em uma sentença ou duas por:
 
 - Fazendo uma pergunta (Exemplo: "Apagar esta conversa?")
 - Fazendo uma declaração relacionada aos botões de ação
 
-Use a barra de título somente para situações de alto risco, como perda de conexão potencial. Os usuários devem ser capazes de entender as escolhas baseando-se apenas no título e texto do botão.
+Use alertas de barra de título apenas para situações de alto risco, como a potencial perda de conectividade. Os usuários devem entender as escolhas com base apenas no título e no texto do botão.
 
 Se um título é necessário:
 
@@ -54,7 +54,7 @@ Os formulários de diálogo permitem que usuários preencham campos dentro de um
 
 ## Diálogos customizados
 
-Aqui está um exemplo de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescrita](/customization/components/).
+Aqui está um exemplo de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescritas](/customization/components/).
 
 A caixa de diálogo tem um botão de fechar para facilitar a utilização.
 
@@ -95,9 +95,11 @@ Tocar em “Cancelar” em uma caixa de diálogo de confirmação ou pressionar 
 
 {{"demo": "pages/components/dialogs/ConfirmationDialog.js"}}
 
-## Acessibilidade
+## Diálogo arrastável
 
-Siga a seção [Acessibilidade Modal](/components/modal/#accessibility).
+Você pode criar uma caixa de diálogo arrastável usando [react-draggable](https://github.com/mzabriskie/react-draggable). Para fazer isso, você deve passar o componente importado `Draggable` como `PaperComponent` do componente `Dialog`. Isso fará com que toda a caixa de diálogo seja arrastável.
+
+{{"demo": "pages/components/dialogs/DraggableDialog.js"}}
 
 ## Rolagem de conteúdo longo
 
@@ -110,12 +112,6 @@ Experimente a demonstração abaixo para ver o que queremos dizer:
 
 {{"demo": "pages/components/dialogs/ScrollDialog.js"}}
 
-## Diálogo arrastável
+## Acessibilidade
 
-Você pode criar uma caixa de diálogo arrastável usando [react-draggable](https://github.com/mzabriskie/react-draggable). Para fazer isso, você deve passar o componente importado `Draggable` como `PaperComponent` do componente `Dialog`. Isso fará com que toda a caixa de diálogo seja arrastável.
-
-{{"demo": "pages/components/dialogs/DraggableDialog.js"}}
-
-## Performance
-
-Siga a seção [Performance Modal](/components/modal/#performance).
+Siga a seção de [ Acessibilidade Modal](/components/modal/#accessibility).

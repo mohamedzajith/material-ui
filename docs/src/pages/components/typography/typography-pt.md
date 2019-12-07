@@ -50,12 +50,12 @@ Em algumas situações, talvez você não consiga usar o componente `Tipografia`
 
 O componente de Tipografia (Typography) usa a propriedade `variantMapping` para associar a variação da UI com um elemento semântico. É importante ressaltar que o estilo de uma tipografia é independente do elemento semântico por baixo dela.
 
-- You can change the underlying element for a one time occasion with the `component` property:
+- Você pode alterar o elemento subjacente para uma ocasião única com a propriedade `component`:
 
 ```jsx
-{/* Já temos um h1 na página, não vamos duplicá-lo. */}
+{/ * Já existe um h1 na página, não vamos duplicá-lo. */}
 <Typography variant="h1" component="h2">
-  h1. Título (Heading)
+  h1. Título
 </Typography>
 ```
 
@@ -81,3 +81,11 @@ const theme = createMuiTheme({
   },
 });
 ```
+
+## Acessibilidade
+
+A few key factors to follow for an accessible typography:
+
+- **Color**. Provide enough contrast between text and its background, check out the minimum recommended [WCAG 2.0 color contrast ratio](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html) (4.5:1).
+- **Font size**. Use [relative units (rem)](/customization/typography/#font-size) to accommodate the user's settings.
+- **Heading hierarchy**. [Don't skip](https://www.w3.org/WAI/tutorials/page-structure/headings/) heading levels. In order to solve this problem, you need to [separate the semantics from the style](#changing-the-semantic-element).

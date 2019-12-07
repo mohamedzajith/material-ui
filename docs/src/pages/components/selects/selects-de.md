@@ -19,32 +19,59 @@ Da die Benutzererfahrung auf mobilen Geräten durch die native Auswahl der Platt
 
 {{"demo": "pages/components/selects/NativeSelects.js"}}
 
-## Benutzerdefinierte Auswahl
+## Text Felder (Text Fields)
 
-Hier einige Beispiele zum Anpassen der Komponente. Mehr dazu erfahren Sie auf der [Überschreibungsdokumentationsseite](/customization/components/).
+Die `TextField` Wrapper-Komponente ist ein vollständiges Formularsteuerelement, das eine Beschriftung, Eingabe und Hilfetext enthält. You can find an example with the select mode [in this section](/components/text-fields/#select).
 
-Der erste Schritt besteht darin, die `InputBase` Komponente zu formatieren. Anschließend können Sie es entweder direkt als Textfeld verwenden oder der Eigenschaft select `input` zuweisen, um ein Feld `select` zu erhalten.
+## Customized selects
+
+Hier sind einige Beispiele, wie man die Komponente anpassen kann. Mehr dazu erfahren Sie auf der [Überschreibungsdokumentationsseite](/customization/components/).
+
+The first step is to style the `InputBase` component. Once it's styled, you can either use it directly as a text field or provide it to the select `input` property to have a `select` field.
 
 {{"demo": "pages/components/selects/CustomizedSelects.js"}}
 
-## Mehrfach Auswahl
+## Multiple Select
 
-Die `Auswahl-` Komponente kann mehrere Auswahlmöglichkeiten verarbeiten. Es wird mit der `multiple` Eigenschaft aktiviert.
+The `Select` component can handle multiple selections. It's enabled with the `multiple` property.
 
-Wie bei der Einzelauswahl können Sie den neuen Wert abrufen, indem Sie auf `event.target.value` im `onChange` Callback zugreifen. Es ist immer ein Array.
+Like with the single selection, you can pull out the new value by accessing `event.target.value` in the `onChange` callback. It's always an array.
 
 {{"demo": "pages/components/selects/MultipleSelect.js"}}
 
-## Kontrollierte Auswahl
+## Controlled Open Select
 
 {{"demo": "pages/components/selects/ControlledOpenSelect.js"}}
 
-## Mit einem Dialog
+## With a Dialog
 
-Während es von der Material Design-Spezifikation nicht empfohlen wird, können Sie eine Auswahl innerhalb eines Dialogfelds verwenden.
+While it's discouraged by the Material Design specification, you can use a select inside a dialog.
 
 {{"demo": "pages/components/selects/DialogSelect.js"}}
 
-## Text Felder (Text Fields)
+## Grouping
 
-Die `TextField` Wrapper-Komponente ist ein vollständiges Formularsteuerelement, das eine Beschriftung, Eingabe und Hilfetext enthält. Ein Beispiel für den Auswahlmodus [in diesem Abschnitt](/components/text-fields/#textfield).
+Display categories with the `ListSubheader` component or the native `<optgroup>` element.
+
+{{"demo": "pages/components/selects/GroupedSelect.js"}}
+
+## Barrierefreiheit
+
+To properly label your `Select` input you need an extra element with an `id` that contains a label. That `id` needs to match the `labelId` of the `Select` e.g.
+
+```jsx
+<InputLabel id="label">Age</InputLabel>
+<Select labelId="label" id="select" value="20">
+  <MenuItem value="10">Ten</MenuItem>
+  <MenuItem value="20">Twenty</MenuItem>
+</Select>
+```
+
+Alternatively a `TextField` with an `id` and `label` creates the proper markup and ids for you:
+
+```jsx
+<TextField id="select" label="Age" value="20">
+  <MenuItem value="10">Ten</MenuItem>
+  <MenuItem value="20">Twenty</MenuItem>
+</TextField>
+```

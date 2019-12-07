@@ -6,11 +6,17 @@ filename: /packages/material-ui/src/Tabs/Tabs.js
 
 # Tabs API
 
-<p class="description">The API documentation of the Tabs React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the Tabs React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import Tabs from '@material-ui/core/Tabs';
+// or
 import { Tabs } from '@material-ui/core';
 ```
+
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
 
 
 
@@ -18,7 +24,7 @@ import { Tabs } from '@material-ui/core';
 
 | Name | Type | Default | Description |
 |:-----|:-----|:--------|:------------|
-| <span class="prop-name">action</span> | <span class="prop-type">func</span> |  | Callback fired when the component mounts. This is useful when you want to trigger an action programmatically. It currently only supports `updateIndicator()` action.<br><br>**Signature:**<br>`function(actions: object) => void`<br>*actions:* This object contains all possible actions that can be triggered programmatically. |
+| <span class="prop-name">action</span> | <span class="prop-type">ref</span> |  | Callback fired when the component mounts. This is useful when you want to trigger an action programmatically. It supports two actions: `updateIndicator()` and `updateScrollButtons()` |
 | <span class="prop-name">centered</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the tabs will be centered. This property is intended for large views. |
 | <span class="prop-name">children</span> | <span class="prop-type">node</span> |  | The content of the component. |
 | <span class="prop-name">classes</span> | <span class="prop-type">object</span> |  | Override or extend the styles applied to the component. See [CSS API](#css) below for more details. |
@@ -35,7 +41,7 @@ import { Tabs } from '@material-ui/core';
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element (native element).
+Any other props supplied will be provided to the root element (native element).
 
 ## CSS
 
@@ -44,29 +50,25 @@ Any other properties supplied will be provided to the root element (native eleme
 
 | Rule name | Global class | Description |
 |:-----|:-------------|:------------|
-| <span class="prop-name">root</span> | <span class="prop-name">MuiTabs-root</span> | Styles applied to the root element.
-| <span class="prop-name">vertical</span> | <span class="prop-name">MuiTabs-vertical</span> | Styles applied to the root element if `orientation="vertical"`.
-| <span class="prop-name">flexContainer</span> | <span class="prop-name">MuiTabs-flexContainer</span> | Styles applied to the flex container element.
-| <span class="prop-name">flexContainerVertical</span> | <span class="prop-name">MuiTabs-flexContainerVertical</span> | Styles applied to the flex container element if `orientation="vertical"`.
-| <span class="prop-name">centered</span> | <span class="prop-name">MuiTabs-centered</span> | Styles applied to the flex container element if `centered={true}` & `!variant="scrollable"`.
-| <span class="prop-name">scroller</span> | <span class="prop-name">MuiTabs-scroller</span> | Styles applied to the tablist element.
-| <span class="prop-name">fixed</span> | <span class="prop-name">MuiTabs-fixed</span> | Styles applied to the tablist element if `!variant="scrollable"`.
-| <span class="prop-name">scrollable</span> | <span class="prop-name">MuiTabs-scrollable</span> | Styles applied to the tablist element if `variant="scrollable"`.
-| <span class="prop-name">scrollButtons</span> | <span class="prop-name">MuiTabs-scrollButtons</span> | Styles applied to the `ScrollButtonComponent` component.
-| <span class="prop-name">scrollButtonsDesktop</span> | <span class="prop-name">MuiTabs-scrollButtonsDesktop</span> | Styles applied to the `ScrollButtonComponent` component if `scrollButtons="auto"` or scrollButtons="desktop"`.
-| <span class="prop-name">indicator</span> | <span class="prop-name">MuiTabs-indicator</span> | Styles applied to the `TabIndicator` component.
+| <span class="prop-name">root</span> | <span class="prop-name">.MuiTabs-root</span> | Styles applied to the root element.
+| <span class="prop-name">vertical</span> | <span class="prop-name">.MuiTabs-vertical</span> | Styles applied to the root element if `orientation="vertical"`.
+| <span class="prop-name">flexContainer</span> | <span class="prop-name">.MuiTabs-flexContainer</span> | Styles applied to the flex container element.
+| <span class="prop-name">flexContainerVertical</span> | <span class="prop-name">.MuiTabs-flexContainerVertical</span> | Styles applied to the flex container element if `orientation="vertical"`.
+| <span class="prop-name">centered</span> | <span class="prop-name">.MuiTabs-centered</span> | Styles applied to the flex container element if `centered={true}` & `!variant="scrollable"`.
+| <span class="prop-name">scroller</span> | <span class="prop-name">.MuiTabs-scroller</span> | Styles applied to the tablist element.
+| <span class="prop-name">fixed</span> | <span class="prop-name">.MuiTabs-fixed</span> | Styles applied to the tablist element if `!variant="scrollable"`.
+| <span class="prop-name">scrollable</span> | <span class="prop-name">.MuiTabs-scrollable</span> | Styles applied to the tablist element if `variant="scrollable"`.
+| <span class="prop-name">scrollButtons</span> | <span class="prop-name">.MuiTabs-scrollButtons</span> | Styles applied to the `ScrollButtonComponent` component.
+| <span class="prop-name">scrollButtonsDesktop</span> | <span class="prop-name">.MuiTabs-scrollButtonsDesktop</span> | Styles applied to the `ScrollButtonComponent` component if `scrollButtons="auto"` or scrollButtons="desktop"`.
+| <span class="prop-name">indicator</span> | <span class="prop-name">.MuiTabs-indicator</span> | Styles applied to the `TabIndicator` component.
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [`classes` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [`overrides` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Tabs/Tabs.js) for more detail.
-
-## Notes
-
-The component is fully [StrictMode](https://reactjs.org/docs/strict-mode.html) compatible.
+If that's not sufficient, you can check the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Tabs/Tabs.js) for more detail.
 
 ## Demos
 

@@ -32,7 +32,7 @@ export const styles = theme => ({
   },
   /* Styles applied to the root element if `variant="filled"` or `variant="outlined"`. */
   contained: {
-    margin: '8px 12px 0',
+    margin: '8px 14px 0',
   },
   /* Pseudo-class applied to the root element if `focused={true}`. */
   focused: {},
@@ -45,7 +45,7 @@ export const styles = theme => ({
 const FormHelperText = React.forwardRef(function FormHelperText(props, ref) {
   const {
     classes,
-    className: classNameProp,
+    className,
     component: Component = 'p',
     disabled,
     error,
@@ -77,7 +77,7 @@ const FormHelperText = React.forwardRef(function FormHelperText(props, ref) {
           [classes.focused]: fcs.focused,
           [classes.required]: fcs.required,
         },
-        classNameProp,
+        className,
       )}
       ref={ref}
       {...other}

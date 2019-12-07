@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import Benchmark from 'benchmark';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -17,12 +16,8 @@ function NakedButton(props) {
   return <button type="button" {...props} />;
 }
 
-class HocButton extends React.Component {
-  state = {};
-
-  render() {
-    return <NakedButton {...this.props} />;
-  }
+function HocButton(props) {
+  return <NakedButton {...props} />;
 }
 
 suite

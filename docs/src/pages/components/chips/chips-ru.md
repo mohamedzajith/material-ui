@@ -11,7 +11,7 @@ components: Chip
 
 Несмотря на то, что он включен здесь как автономный компонент, наиболее распространенное использование будет в той или иной форме ввода, поэтому некоторые из продемонстрированных здесь действий не показаны в контексте.
 
-## Фишка
+## Chip
 
 Примеры фишек, использующих изображения, SVG-иконку, «Символ» и строку в качестве аватара.
 
@@ -30,7 +30,7 @@ components: Chip
 
 Пример рендеринга нескольких фишек из массива значений. Удаление фишки удаляет ее из массива. Обратите внимание, что поскольку свойство `onClick` не определено, фишка может быть сфокусирована, но не получает глубины при щелчке или касании.
 
-{{"demo": "pages/components/chips/ChipsArray.js"}}
+{{"demo": "pages/components/chips/ChipsArray.js", "bg": true}}
 
 ## Маленькая фишка
 
@@ -47,3 +47,7 @@ components: Chip
 ## Песочница
 
 {{"demo": "pages/components/chips/ChipsPlayground.js", "hideHeader": true}}
+
+## Доступность
+
+If the Chip is deletable or clickable then it is a button in tab order. When the Chip is focused (e.g. when tabbing) releasing (`keyup` event) `Backspace` or `Delete` will call the `onDelete` handler while releasing `Escape` will blur the Chip.

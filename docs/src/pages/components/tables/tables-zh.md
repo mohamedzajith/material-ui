@@ -5,7 +5,7 @@ components: Table, TableBody, TableCell, TableFooter, TableHead, TablePagination
 
 # Table（表格）
 
-<p class="description">Data tables（数据表格）用于展示一系列的数据集。表格可以完全自定义开发。</p>
+<p class="description">Data tables display sets of data. They can be fully customized.</p>
 
 [数据表格](https://material.io/design/components/data-tables.html)以一种一目了然地方式显示信息，这便于用户寻找一些规律和深入的见解。 表格可以被内嵌在主要内容中，如 cards（卡片）。
 
@@ -29,13 +29,13 @@ components: Table, TableBody, TableCell, TableFooter, TableHead, TablePagination
 
 一个没有多余装饰的简单例子。
 
-{{"demo": "pages/components/tables/SimpleTable.js"}}
+{{"demo": "pages/components/tables/SimpleTable.js", "bg": true}}
 
 ## Dense Table（紧凑表格）
 
 一个没有多余修饰的简单紧凑型表格。
 
-{{"demo": "pages/components/tables/DenseTable.js"}}
+{{"demo": "pages/components/tables/DenseTable.js", "bg": true}}
 
 ## 排序& 筛选
 
@@ -43,31 +43,53 @@ components: Table, TableBody, TableCell, TableFooter, TableHead, TablePagination
 
 此表已被赋予固定宽度，这样能够展示水平方向的滚动。 在表格外部使用 TablePagination 组件，能够防止分页控件的滚动。 (以下的['Custom Table Pagination Action' （自定义表分页操作示例）](#custom-table-pagination-action)展示了 TableFooter 中的分页。)
 
-{{"demo": "pages/components/tables/EnhancedTable.js"}}
+{{"demo": "pages/components/tables/EnhancedTable.js", "bg": true}}
 
 ## 自定义表格
 
-以下是自定义组件的一个示例。您可以在[重写文档页面](/customization/components/)中了解有关此内容的更多信息。
+以下是自定义组件的一个示例。 您可以在[重写文档页](/customization/components/)中了解有关此内容的更多信息。
 
-{{"demo": "pages/components/tables/CustomizedTables.js"}}
+{{"demo": "pages/components/tables/CustomizedTables.js", "bg": true}}
 
-## 自定义表格的分页操作
+### Custom pagination options
 
-`TablePagination` 组件的 `Action` 属性允许实现自定义行为。
+It's possible to customise the options shown in the "Rows per page" select using the `rowsPerPageOptions` prop. You should either provide an array of:
 
-{{"demo": "pages/components/tables/CustomPaginationActionsTable.js"}}
+- **numbers**, each number will be used for the option's label and value.
+    
+    ```jsx
+    <TablePagination rowsPerPageOptions={[10, 50]} />
+    ```
 
-## Spanning Table（合并的表格）
+- **objects**, the `value` and `label` keys will be used respectively for the value and label of the option (useful for language strings such as 'All').
+    
+    ```jsx
+    <TablePagination rowsPerPageOptions={[10, 50, { value: -1, label: 'All' }]} />
+    ```
 
-一个行 & 列跨越的简单例子。
+### Custom pagination actions
 
-{{"demo": "pages/components/tables/SpanningTable.js"}}
+The `Action` property of the `TablePagination` component allows the implementation of custom actions.
 
-## 大型列表渲染（Virtualized Table）
+{{"demo": "pages/components/tables/CustomPaginationActionsTable.js", "bg": true}}
 
-在下面的示例中，我们演示了如何将 [react-virtualized](https://github.com/bvaughn/react-virtualized) 与 `Table` 组件一起使用。 它渲染了200行，可以轻松处理更多行。 可视化优化了整体的性能。
+## Fixed header
 
-{{"demo": "pages/components/tables/ReactVirtualizedTable.js"}}
+An example of a table with scrollable rows and fixed column headers. It leverages the `stickyHeader` prop (⚠️ no IE 11 support).
+
+{{"demo": "pages/components/tables/StickyHeadTable.js", "bg": true}}
+
+## Spanning Table
+
+A simple example with spanning rows & columns.
+
+{{"demo": "pages/components/tables/SpanningTable.js", "bg": true}}
+
+## Virtualized Table
+
+In the following example, we demonstrate how to use [react-virtualized](https://github.com/bvaughn/react-virtualized) with the `Table` component. 它渲染了200行，可以轻松处理更多行。 可视化优化了整体的性能。
+
+{{"demo": "pages/components/tables/ReactVirtualizedTable.js", "bg": true}}
 
 ## 补充项目
 
@@ -75,13 +97,24 @@ components: Table, TableBody, TableCell, TableFooter, TableHead, TablePagination
 
 ### material-table
 
-![评星](https://img.shields.io/github/stars/mbrn/material-table.svg?style=social&label=Stars) ![npm下载](https://img.shields.io/npm/dm/material-table.svg)
+![stars](https://img.shields.io/github/stars/mbrn/material-table.svg?style=social&label=Stars) ![npm下载](https://img.shields.io/npm/dm/material-table.svg)
 
-[material-table](https://github.com/mbrn/material-table) 是一款 React 的简单且强大的数据库。它基于 Material-UI Table 并且添加了一些额外的功能。 它们支持了不同的用户案例（可编辑，筛选，分组，排序，选择，国际化，树形数据等等）。 您应该看一下。
+[material-table](https://github.com/mbrn/material-table) is a simple and powerful Datatable for React based on Material-UI Table with some additional features. They support many different use cases (editable, filtering, grouping, sorting, selection, i18n, tree data and more). You should check it out.
 
-{{"demo": "pages/components/tables/MaterialTableDemo.js"}}
+{{"demo": "pages/components/tables/MaterialTableDemo.js", "bg": true}}
 
 ### 其他
 
-- [ dx-react-grid-material-ui ](https://devexpress.github.io/devextreme-reactive/react/grid/)：Material-UI 的一种网格数据, 具有分页，排序功能，过滤，分组和编辑功能([自定义许可证](https://js.devexpress.com/licensing/))。
-- [mui-datatables](https://github.com/gregnb/mui-datatables)：Material-UI 的响应式数据表格，包括过滤，排序，搜索等功能。
+- [dx-react-grid-material-ui](https://devexpress.github.io/devextreme-reactive/react/grid/): A data grid for Material-UI with paging, sorting, filtering, grouping and editing features ([paid license](https://js.devexpress.com/licensing/)).
+- [mui-datatables](https://github.com/gregnb/mui-datatables): Responsive data tables for Material-UI with filtering, sorting, search and more.
+- [tubular-react](https://github.com/unosquare/tubular-react): A Material-UI table with local or remote data-source. Featuring filtering, sorting, free-text search, export to CSV locally, and aggregations.
+
+## 可访问性
+
+(WAI tutorial: https://www.w3.org/WAI/tutorials/tables/)
+
+### Caption
+
+A caption functions like a heading for a table. Most screen readers announce the content of captions. Captions help users to find a table and understand what it’s about and decide if they want to read it.
+
+{{"demo": "pages/components/tables/AcccessibleTable.js", "bg": true}}

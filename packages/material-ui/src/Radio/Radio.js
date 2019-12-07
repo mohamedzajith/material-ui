@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import SwitchBase from '../internal/SwitchBase';
 import RadioButtonIcon from './RadioButtonIcon';
 import { fade } from '../styles/colorManipulator';
-import { capitalize, createChainedFunction } from '../utils/helpers';
+import capitalize from '../utils/capitalize';
+import createChainedFunction from '../utils/createChainedFunction';
 import withStyles from '../styles/withStyles';
 import RadioGroupContext from '../RadioGroup/RadioGroupContext';
 
@@ -59,8 +61,10 @@ const Radio = React.forwardRef(function Radio(props, ref) {
     checked: checkedProp,
     classes,
     color = 'secondary',
+    disabled = false,
     name: nameProp,
     onChange: onChangeProp,
+    size = 'medium',
     ...other
   } = props;
   const radioGroup = React.useContext(RadioGroupContext);
@@ -82,8 +86,10 @@ const Radio = React.forwardRef(function Radio(props, ref) {
     <SwitchBase
       color={color}
       type="radio"
-      icon={defaultIcon}
-      checkedIcon={defaultCheckedIcon}
+      icon={React.cloneElement(defaultIcon, { fontSize: size === 'small' ? 'small' : 'default' })}
+      checkedIcon={React.cloneElement(defaultCheckedIcon, {
+        fontSize: size === 'small' ? 'small' : 'default',
+      })}
       classes={{
         root: clsx(classes.root, classes[`color${capitalize(color)}`]),
         checked: classes.checked,
@@ -93,6 +99,7 @@ const Radio = React.forwardRef(function Radio(props, ref) {
       checked={checked}
       onChange={onChange}
       ref={ref}
+      disabled={disabled}
       {...other}
     />
   );
@@ -137,9 +144,9 @@ Radio.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /**
    * Name attribute of the `input` element.
    */
@@ -148,16 +155,25 @@ Radio.propTypes = {
    * Callback fired when the state is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.value`.
-   * @param {boolean} checked The `checked` value of the switch
+   * You can pull out the new value by accessing `event.target.value` (string).
+   * You can pull out the new checked state by accessing `event.target.checked` (boolean).
    */
   onChange: PropTypes.func,
+  /**
+   * If `true`, the `input` element will be required.
+   */
+  required: PropTypes.bool,
+  /**
+   * The size of the radio.
+   * `small` is equivalent to the dense radio styling.
+   */
+  size: PropTypes.oneOf(['small', 'medium']),
   /**
    * The input component prop `type`.
    */
   type: PropTypes.string,
   /**
-   * The value of the component.
+   * The value of the component. The DOM API casts this to a string.
    */
   value: PropTypes.any,
 };

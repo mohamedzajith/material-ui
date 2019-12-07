@@ -6,11 +6,17 @@ filename: /packages/material-ui/src/ButtonBase/ButtonBase.js
 
 # ButtonBase API
 
-<p class="description">The API documentation of the ButtonBase React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the ButtonBase React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import ButtonBase from '@material-ui/core/ButtonBase';
+// or
 import { ButtonBase } from '@material-ui/core';
 ```
+
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
 
 `ButtonBase` contains as few styles as possible.
 It aims to be a simple building block for creating a button.
@@ -20,13 +26,12 @@ It contains a load of style reset and some focus/ripple logic.
 
 | Name | Type | Default | Description |
 |:-----|:-----|:--------|:------------|
-| <span class="prop-name">action</span> | <span class="prop-type">func<br>&#124;&nbsp;object</span> |  | A ref for imperative actions. It currently only supports `focusVisible()` action. |
-| <span class="prop-name">buttonRef</span> | <span class="prop-type">func<br>&#124;&nbsp;object</span> |  | Use that prop to pass a ref callback to the native button component. |
+| <span class="prop-name">action</span> | <span class="prop-type">ref</span> |  | A ref for imperative actions. It currently only supports `focusVisible()` action. |
 | <span class="prop-name">centerRipple</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the ripples will be centered. They won't start at the cursor interaction position. |
 | <span class="prop-name">children</span> | <span class="prop-type">node</span> |  | The content of the component. |
 | <span class="prop-name">classes</span> | <span class="prop-type">object</span> |  | Override or extend the styles applied to the component. See [CSS API](#css) below for more details. |
 | <span class="prop-name">component</span> | <span class="prop-type">element type</span> | <span class="prop-default">'button'</span> | The component used for the root node. Either a string to use a DOM element or a component.<br>⚠️ [Needs to be able to hold a ref](/guides/composition/#caveat-with-refs). |
-| <span class="prop-name">disabled</span> | <span class="prop-type">bool</span> |  | If `true`, the base button will be disabled. |
+| <span class="prop-name">disabled</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the base button will be disabled. |
 | <span class="prop-name">disableRipple</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the ripple effect will be disabled.<br>⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the `focusVisibleClassName`. |
 | <span class="prop-name">disableTouchRipple</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the touch ripple effect will be disabled. |
 | <span class="prop-name">focusRipple</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the base button will have a keyboard focus ripple. `disableRipple` must also be `false`. |
@@ -37,7 +42,7 @@ It contains a load of style reset and some focus/ripple logic.
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element (native element).
+Any other props supplied will be provided to the root element (native element).
 
 ## CSS
 
@@ -46,21 +51,17 @@ Any other properties supplied will be provided to the root element (native eleme
 
 | Rule name | Global class | Description |
 |:-----|:-------------|:------------|
-| <span class="prop-name">root</span> | <span class="prop-name">MuiButtonBase-root</span> | Styles applied to the root element.
-| <span class="prop-name">disabled</span> | <span class="prop-name">Mui-disabled</span> | Pseudo-class applied to the root element if `disabled={true}`.
-| <span class="prop-name">focusVisible</span> | <span class="prop-name">Mui-focusVisible</span> | Pseudo-class applied to the root element if keyboard focused.
+| <span class="prop-name">root</span> | <span class="prop-name">.MuiButtonBase-root</span> | Styles applied to the root element.
+| <span class="prop-name">disabled</span> | <span class="prop-name">.Mui-disabled</span> | Pseudo-class applied to the root element if `disabled={true}`.
+| <span class="prop-name">focusVisible</span> | <span class="prop-name">.Mui-focusVisible</span> | Pseudo-class applied to the root element if keyboard focused.
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [`classes` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [`overrides` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ButtonBase/ButtonBase.js) for more detail.
-
-## Notes
-
-The component is fully [StrictMode](https://reactjs.org/docs/strict-mode.html) compatible.
+If that's not sufficient, you can check the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ButtonBase/ButtonBase.js) for more detail.
 
 ## Demos
 

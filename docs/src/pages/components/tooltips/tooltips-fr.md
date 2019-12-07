@@ -15,25 +15,31 @@ Lorsqu'elles sont activées, [Info-bulles](https://material.io/design/components
 
 ## Info-bulles positionnées
 
-La `Tooltip` comporte 12 **placements** choix. Ils n'ont pas de flèches directionnelles; au lieu de cela, ils comptent sur le mouvement émanant de la source pour indiquer la direction.
+The `Tooltip` has 12 **placements** choice. They don’t have directional arrows; instead, they rely on motion emanating from the source to convey direction.
 
 {{"demo": "pages/components/tooltips/PositionedTooltips.js"}}
 
 ## Customized tooltips
 
-Voici quelques exemples de personnalisation du composant. Vous pouvez en apprendre plus sur [la page de documentation de personnalisation](/customization/components/).
+Here are some examples of customizing the component. Vous pouvez en savoir plus dans la [page de documentation des overrides](/customization/components/).
 
 {{"demo": "pages/components/tooltips/CustomizedTooltips.js"}}
 
-## Élément enfant personnalisé
+## Arrow Tooltips
 
-L'info-bulle doit appliquer les écouteurs d'événement DOM à son élément enfant. Si l'enfant est un élément React personnalisé, vous devez vous assurer qu'il étend ses propriétés à l'élément DOM sous-jacent.
+You can use the `arrow` prop to give your tooltip an arrow indicating which element it refers to.
+
+{{"demo": "pages/components/tooltips/ArrowTooltips.js"}}
+
+## Custom child element
+
+The tooltip needs to apply DOM event listeners to its child element. If the child is a custom React element, you need to make sure that it spreads its properties to the underlying DOM element.
 
 ```jsx
-function MyComponent(props) {
-  // We spread the properties to the underlying DOM element.
-  return <div {...props}>Bin</div>
-}
+const MyComponent = React.forwardRef(function MyComponent(props, ref) {
+  //  Spread the props to the underlying DOM element.
+  return <div {...props} ref={ref}>Bin</div>
+});
 
 // ...
 
@@ -42,37 +48,51 @@ function MyComponent(props) {
 </Tooltip>
 ```
 
-Vous pouvez trouver un concept similaire dans le [composants d'emballage](/guides/composition/#wrapping-components) guide.
+You can find a similar concept in the [wrapping components](/guides/composition/#wrapping-components) guide.
 
-## Activation
+## Triggers
 
-Vous pouvez définir les types d'événements qui entraînent l'affichage d'une info-bulle.
+You can define the types of events that cause a tooltip to show.
 
 {{"demo": "pages/components/tooltips/TriggersTooltips.js"}}
 
-## Info-bulles contrôlées
+## Controlled Tooltips
 
-Vous pouvez utiliser les propriétés `open`, `onOpen` et `onClose` pour contrôler le comportement de l'info-bulle.
+You can use the `open`, `onOpen` and `onClose` properties to control the behavior of the tooltip.
 
 {{"demo": "pages/components/tooltips/ControlledTooltips.js"}}
 
-## Largeur Variable
+## Variable Width
 
-Le `Tooltip` enveloppements long texte par défaut pour le rendre lisible.
+The `Tooltip` wraps long text by default to make it readable.
 
 {{"demo": "pages/components/tooltips/VariableWidth.js"}}
 
-## Interactive
+## Interactif
 
-Une info-bulle peut être interactive. Il ne se fermera pas lorsque l'utilisateur survolera l'info-bulle avant l'expiration du congé `congé`.
+A tooltip can be interactive. It won't close when the user hovers over the tooltip before the `leaveDelay` is expired.
 
 {{"demo": "pages/components/tooltips/InteractiveTooltips.js"}}
 
-## Éléments désactivés
+## Disabled Elements
 
-Par éléments désactivés par défaut comme `<button>` ne déclenchent pas les interactions utilisateur si un `infobulle` ne sera pas activée sur les événements normaux comme vol stationnaire. Pour recevoir des éléments handicapés, ajoutez un simple élément d'emballage comme un `durée`.
+By default disabled elements like `<button>` do not trigger user interactions so a `Tooltip` will not activate on normal events like hover. To accommodate disabled elements, add a simple wrapper element, such as a `span`.
+
+> ⚠️ In order to work with Safari, you need at least one display block or flex item below the tooltip wrapper.
 
 {{"demo": "pages/components/tooltips/DisabledTooltips.js"}}
+
+> If you're not wrapping a Material-UI component that inherits from `ButtonBase`, for instance, a native `<button>` element, you should also add the CSS property *pointer-events: none;* to your element when disabled:
+
+```jsx
+<Tooltip title="You don't have permission to do this">
+  <span>
+    <button disabled={disabled} style={disabled ? { pointerEvents: "none" } : {}}>
+      {'A disabled button'}
+    </button>
+  </span>
+</Tooltip>
+```
 
 ## Les transitions
 
@@ -80,10 +100,10 @@ Utilisez une transition différente.
 
 {{"demo": "pages/components/tooltips/TransitionsTooltips.js"}}
 
-## Montrer et se cacher
+## Showing and hiding
 
-L'info-bulle est normalement affichée immédiatement lorsque la souris de l'utilisateur survole l'élément, et se cache immédiatement lorsque la souris de l'utilisateur quitte la souris. Un retard dans l'affichage ou le masquage de l'info-bulle peut être ajouté via les propriétés suivantes `enterDelay` et `leaveDelay`, comme indiqué dans la démo Infobulles contrôlées ci-dessus.
+The tooltip is normally shown immediately when the user's mouse hovers over the element, and hides immediately when the user's mouse leaves. A delay in showing or hiding the tooltip can be added through the properties `enterDelay` and `leaveDelay`, as shown in the Controlled Tooltips demo above.
 
-Sur le mobile, l'info-bulle s'affiche lorsque l'utilisateur appuie longuement sur l'élément et se cache après un délai de 1500 ms. Vous pouvez désactiver cette fonctionnalité avec la propriété `disableTouchListener`.
+On mobile, the tooltip is displayed when the user longpresses the element and hides after a delay of 1500ms. You can disable this feature with the `disableTouchListener` property.
 
 {{"demo": "pages/components/tooltips/DelayTooltips.js"}}

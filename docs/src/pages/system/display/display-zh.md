@@ -1,22 +1,26 @@
 # 显示
 
-<p class="description">使用我们的显示实用程序快速响应地切换组件的显示值等。 包括对一些更常见值的支持，以及一些用于在打印时控制显示的附加功能。</p>
+<p class="description">Quickly and responsively toggle the display value of components and more with the display utilities. 包括对一些更常见值的支持，以及一些用于在打印时控制显示的附加功能。</p>
 
 ## 例子
 
+### Inline
+
+{{"demo": "pages/system/display/Inline.js", "defaultCodeOpen": false, "bg": true}}
+
 ```jsx
 <Box component="div" display="inline">inline</Box>
 <Box component="div" display="inline">inline</Box>
 ```
 
-{{"demo": "pages/system/display/Inline.js"}}
+### Block
+
+{{"demo": "pages/system/display/Block.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box component="span" display="block">block</Box>
 <Box component="span" display="block">block</Box>
 ```
-
-{{"demo": "pages/system/display/Block.js"}}
 
 ## 隐藏元素
 
@@ -36,6 +40,9 @@
 | 仅在lg上可见  | `display={{ xs: 'none', lg: 'block', xl: 'none' }}`  |
 | 仅在xl上可见  | `display={{ xs: 'none', xl: 'block' }}`              |
 
+
+{{"demo": "pages/system/display/Hiding.js", "defaultCodeOpen": false}}
+
 ```jsx
 <Box display={{ xs: 'block', md: 'none' }}>
   隐藏在比md宽的屏幕上
@@ -45,9 +52,9 @@
 </Box>
 ```
 
-{{"demo": "pages/system/display/Hiding.js"}}
-
 ## 显示在打印中
+
+{{"demo": "pages/system/display/Print.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box display="block" displayPrint="none">
@@ -58,9 +65,9 @@
 </Box>
 ```
 
-{{"demo": "pages/system/display/Print.js"}}
-
 ## Overflow
+
+{{"demo": "pages/system/display/Overflow.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" overflow="hidden">
@@ -71,9 +78,9 @@
 </Box>
 ```
 
-{{"demo": "pages/system/display/Overflow.js"}}
-
 ## Text Overflow
+
+{{"demo": "pages/system/display/TextOverflow.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" textOverflow="clip">
@@ -84,9 +91,9 @@
 </Box>
 ```
 
-{{"demo": "pages/system/display/TextOverflow.js"}}
-
 ## Visibility
+
+{{"demo": "pages/system/display/Visibility.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" visibility="visible">
@@ -97,9 +104,9 @@
 </Box>
 ```
 
-{{"demo": "pages/system/display/Visibility.js"}}
-
 ## White Space
+
+{{"demo": "pages/system/display/WhiteSpace.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" whiteSpace="nowrap">
@@ -109,8 +116,6 @@
   White Space Normal
 </Box>
 ```
-
-{{"demo": "pages/system/display/WhiteSpace.js"}}
 
 ## API
 

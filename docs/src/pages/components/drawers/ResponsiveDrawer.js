@@ -30,9 +30,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   appBar: {
-    marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
     },
   },
   menuButton: {
@@ -57,9 +57,9 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  function handleDrawerToggle() {
+  const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  }
+  };
 
   const drawer = (
     <div>
@@ -170,7 +170,7 @@ ResponsiveDrawer.propTypes = {
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
-  container: PropTypes.object,
+  container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
 export default ResponsiveDrawer;

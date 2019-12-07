@@ -7,7 +7,7 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 <p class="description">Menüs zeigen eine Liste von Auswahlmöglichkeiten auf temporären Oberflächen an.</p>
 
-Ein [Menü](https://material.io/design/components/menus.html) zeigt eine Liste mit Auswahlmöglichkeiten auf einer temporären Oberfläche. Es wird angezeigt, wenn der Benutzer mit einer Schaltfläche, einer Aktion oder einem anderen Steuerelement interagieren.
+A [Menu](https://material.io/design/components/menus.html) displays a list of choices on a temporary surface. It appears when the user interacts with a button, or other control.
 
 ## Einfaches Menü
 
@@ -31,7 +31,7 @@ Die Komponente `Menü` verwendet intern die Komponente `Popover`. Möglicherweis
 
 Die Hauptaufgabe der `MenuList` Komponente besteht darin, den Fokus festzulegen.
 
-{{"demo": "pages/components/menus/MenuListComposition.js"}}
+{{"demo": "pages/components/menus/MenuListComposition.js", "bg": true}}
 
 ## Menüs anpassen
 
@@ -39,7 +39,7 @@ Hier ist ein Beispiel zum Anpassen der Komponente. Mehr dazu erfahren Sie auf de
 
 {{"demo": "pages/components/menus/CustomizedMenus.js"}}
 
-Das `MenuItem` ist ein Wrapper um ein `ListItem` mit einigen zusätzlichen Stilen. Sie können dieselben Listenkompositionsfunktionen mit der `MenuItem` Komponente verwenden:
+The `MenuItem` is a wrapper around `ListItem` with some additional styles. You can use the same list composition features with the `MenuItem` component:
 
 ## Maximale-Höhe Menüs
 
@@ -51,7 +51,7 @@ Wenn die Höhe eines Menüs die Anzeige aller Menüelemente verhindert, kann das
 
 Es gibt [einen FlexBox bug](https://bugs.chromium.org/p/chromium/issues/detail?id=327437), das verhindert, dass `text-overflow: ellipsis` in einem FlexBox Layout funktioniert. Sie können die Komponente `Typography` mit `noWrap` benutzen, um dieses Problem zu umgehen:
 
-{{"demo": "pages/components/menus/TypographyMenu.js"}}
+{{"demo": "pages/components/menus/TypographyMenu.js", "bg": true}}
 
 ## Übergang ändern
 
@@ -59,12 +59,18 @@ Verwenden Sie einen anderen Übergang.
 
 {{"demo": "pages/components/menus/FadeMenu.js"}}
 
+## Context menu
+
+Here is an example of a context menu. (Right click to open.)
+
+{{"demo": "pages/components/menus/ContextMenu.js"}}
+
 ## Ergänzende Projekte
 
 Für fortgeschrittenere Anwendungsfälle können Ihnen folgende Projekte helfen:
 
 ### PopupState-Helfer
 
-Es gibt ein Drittanbieter-Paket [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state), das sich in den meisten Fällen um Popper Status kümmern kann.
+There is a 3rd party package [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) that takes care of menu state for you in most cases.
 
 {{"demo": "pages/components/menus/MenuPopupState.js"}}

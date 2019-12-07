@@ -7,80 +7,114 @@ components: Icon, SvgIcon
 
 <p class="description">Руководство и рекомендации по использованию иконок в Material-UI.</p>
 
-[Системная иконка](https://material.io/design/iconography/system-icons.html), или иконка UI, обозначает команду, файл, устройство или каталог. Системные иконки также используются для представления частых операций, таких как удаление, печать или сохранение, и обычно размещаются в списках, на кнопках, панелях приложений и инструментов. Google предоставляет набор [иконок Material](https://material.io/tools/icons/?style=baseline), соответствующих рекомендациям.
+Material-UI provides icons support in three ways:
 
-Material-UI предоставляет два компонента для отображения системных иконок: `SvgIcon` используется с форматом SVG, а `Icon` – с иконочными шрифтами.
+1. Standardized [Material Design icons](#material-icons) exported as React components (SVG icons).
+1. With the [SvgIcon](#svgicon) component, a React wrapper for custom SVG icons.
+1. With the [Icon](#icon-font-icons) component, a React wrapper for custom font icons.
 
-## SVG Иконки
+## Material Icons
 
-Компонент `SvgIcon` принимает в качестве дочернего элемент `path` SVG и преобразует его в компонент React, который отображает SVG-путь и позволяет настроить стиль иконки и её реакцию на события мыши. Элементы SVG должны быть отмасштабированы для области просмотра размером 24x24px.
+Material Design has standardized over 1,000 official icons, each in five different "themes" (see below). For each SVG icon, we export the respective React component from the @material-ui/icons package. You can [search the full list of these icons](/components/material-icons/).
 
-Полученный значок можно либо использовать сразу, либо включить его в качестве дочернего в другие компоненты Material-UI, которые используют иконки. По умолчанию иконка наследует текущий цвет текста. При желании вы можете установить цвет иконки с помощью одного из свойств цвета темы: `primary`, `secondary`, `action`, `error` или `disabled`.
+### Использование
 
-{{"demo": "pages/components/icons/SvgIcons.js"}}
+Install `@material-ui/icons`. Import icons using one of these two options:
 
-### SVG-иконки Material
+- Option 1:
 
-Составные части для создания собственных иконок – это интересно, но как насчет готовых вариантов? Мы предоставляем отдельный npm-пакет [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons), который содержит более 1000 официальных [иконок Material](https://material.io/tools/icons/?style=baseline), преобразованных в компоненты `SvgIcon`.
+  ```jsx
+  import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+  import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
+  ```
 
-<a href="https://material.io/tools/icons/?icon=3d_rotation&style=baseline">
-  <img src="/static/images/icons/icons.png" alt="Официальные иконки Material" style="width: 566px" />
-</a>
+- Option 2:
 
-#### Использование
+  ```jsx
+  import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
+  ```
 
-Найти конкретную иконку можно на сайте Material: [material.io/tools/icons](https://material.io/tools/icons/?style=baseline). При импорте имейте в виду, что для названий иконок используется написание `PascalCase`, например:
+The safest is Option 1 but Option 2 can yield the best developer experience. Make sure you follow the [minimizing bundle size guide](/guides/minimizing-bundle-size/#option-2) before using the second approach. The configuration of a Babel plugin is encouraged.
 
-- [`delete`](https://material.io/tools/icons/?icon=delete&style=baseline) представлена как `@material-ui/icons/Delete`
-- [`delete forever`](https://material.io/tools/icons/?icon=delete_forever&style=baseline) представлена как `@material-ui/icons/DeleteForever`
+Each icon also has a "theme": Filled (default), Outlined, Rounded, Two tone and Sharp. If you want to import the icon component with a theme other than default, append the theme name to the icon name. For example `@material-ui/icons/Delete` icon with:
 
-Для *"тематических"* иконок к названию иконки добавляется имя темы. Например
+- Filled theme (default) is exported as `@material-ui/icons/Delete`,
+- Outlined theme is exported as `@material-ui/icons/DeleteOutlined`,
+- Rounded theme is exported as `@material-ui/icons/DeleteRounded`,
+- Twotone theme is exported as `@material-ui/icons/DeleteTwoTone`,
+- Sharp theme is exported as `@material-ui/icons/DeleteSharp`.
 
-- Иконка [`delete`](https://material.io/tools/icons/?icon=delete&style=outline) в теме Outlined представлена как `@material-ui/icons/DeleteOutlined`
-- Иконка [`delete`](https://material.io/tools/icons/?icon=delete&style=rounded) в теме Rounded представлена как `@material-ui/icons/DeleteRounded`
-- Иконка [`delete`](https://material.io/tools/icons/?icon=delete&style=twotone) в теме Two Tone представлена как `@material-ui/icons/DeleteTwoTone`
-- Иконка [`delete`](https://material.io/tools/icons/?icon=delete&style=sharp) в теме Sharp представлена как `@material-ui/icons/DeleteSharp`
+> Note: The Material Design specification names the icons using "snake_case" naming (for example `delete_forever`, `add_a_photo`), while `@material-ui/icons` exports the respective icons using "PascalCase" naming (for example `DeleteForever`, `AddAPhoto`). There are three exceptions to this naming rule: `3d_rotation` exported as `ThreeDRotation`, `4k` exported as `FourK`, and `360` exported as `ThreeSixty`.
 
-Из данного правила существует три исключения:
+{{"demo": "pages/components/icons/SvgMaterialIcons.js"}}
 
-- [`3d_rotation`](https://material.io/tools/icons/?icon=3d_rotation&style=baseline) представлена как `@material-ui/icons/ThreeDRotation`
-- [`4k`](https://material.io/tools/icons/?icon=4k&style=baseline) представлена как `@material-ui/icons/FourK`
-- [`4k`](https://material.io/tools/icons/?icon=4k&style=baseline) представлена как `@material-ui/icons/FourK`
+## SvgIcon
 
-{{"Демо": "pages/components/icons/SvgMaterialIcons.js"}}
+If you need a custom SVG icon (not available in the Material Icons [default set](/components/material-icons/)) you can use the `SvgIcon` wrapper. This component extends the native `<svg>` element:
 
-#### Импорт
-
-- Если ваша среда не поддерживает tree-shaking, **рекомендуется** импортировать иконки следующим образом:
-
-```jsx
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
-```
-
-- Если же у вас настроено tree-shaking, импорт иконок можно осуществлять так:
+- It comes with built-in accessibility.
+- SVG elements should be scaled for a 24x24px viewport, so the resulting icon can be used as is, or included as a child for other Material-UI components that use icons. (This can be customized with the `viewBox` attribute).
+- By default, the component inherits the current color. Optionally, you can apply one of the theme colors using the `color` prop.
 
 ```jsx
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 ```
 
-Примечание: такой способ импорта именованных экспортов приведет к тому, что *каждая иконка* будет включена в проект, поэтому не рекомендуется его использовать без настройки [tree-shaking](https://webpack.js.org/guides/tree-shaking/). Кроме того, это может повлиять на производительность горячей замены модулей.
+### Цвет
 
-### Больше SVG-иконок
+{{"demo": "pages/components/icons/SvgIconsColor.js"}}
 
-Нужно еще больше SVG-иконок? Проектов существует множество, но, например, [https://materialdesignicons.com](https://materialdesignicons.com/) предоставляет более 2000 иконок, как официальных, так и созданных сообществом. [mdi-material-ui](https://github.com/TeamWertarbyte/mdi-material-ui) запаковывает эти иконки в виде компонентов Material-UI SvgIcons таким же образом, как [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) делает это для официальных иконок.
+### Size
 
-## Иконочный шрифт
+{{"demo": "pages/components/icons/SvgIconsSize.js"}}
 
-Компонент `Icon` отображает иконку из любого иконочного шрифта с поддержкой лигатур. Предварительно необходимо включить в проект шрифт, такой как [Material icon font](https://google.github.io/material-design-icons/#icon-font-for-the-web), с помощью, например, Google Web Fonts:
+### Component prop
+
+You can use the `SvgIcon` wrapper even if your icons are saved the `.svg` format. [svgr](https://github.com/smooth-code/svgr) has loaders to import svg files and use them as React components. For instance, with webpack:
+
+**webpack.config.js**
+```js
+{
+  test: /\.svg$/,
+  use: ['@svgr/webpack'],
+}
+```
+
+```jsx
+import StarIcon from './star.svg';
+
+<SvgIcon component={StarIcon} viewBox="0 0 600 476.6" />
+```
+
+### Libraries
+
+#### Material Design (recommended)
+
+Material Design has standardized over [1,000 official icons](#material-icons).
+
+#### MDI
+
+[materialdesignicons.com](https://materialdesignicons.com/) provides over 2,000 icons. For the wanted icon, copy the SVG `path` they provide, and use it as the child of the `SvgIcon` component.
+
+Note: [mdi-material-ui](https://github.com/TeamWertarbyte/mdi-material-ui) has already wrapped each of these SVG icons with the `SvgIcon` component, so you don't have to do it yourself.
+
+## Icon (Font icons)
+
+The `Icon` component will display an icon from any icon font that supports ligatures. As a prerequisite, you must include one, such as the [Material icon font](https://google.github.io/material-design-icons/#icon-font-for-the-web) in your project, for instance, via Google Web Fonts:
 
 ```html
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 ```
 
-`Icon` корректно установит имя класса для иконочного шрифта Material. Для прочих шрифтов необходимо предоставить имя класса с помощью свойства `className` компонента Icon.
+`Icon` will set the correct class name for the Material icon font. For other fonts, you must supply the class name using the Icon component's `className` property.
 
-Чтобы использовать иконку, просто оберните её имя (лигатуру шрифта) в компонент `Icon`, например:
+To use an icon simply wrap the icon name (font ligature) with the `Icon` component, for example:
 
 ```jsx
 import Icon from '@material-ui/core/Icon';
@@ -88,37 +122,39 @@ import Icon from '@material-ui/core/Icon';
 <Icon>star</Icon>
 ```
 
-По умолчанию иконка наследует текущий цвет текста. При желании вы можете установить цвет иконки с помощью одного из свойств цвета темы: `primary`, `secondary`, `action`, `error` или `disabled`.
+By default, an Icon will inherit the current text color. Optionally, you can set the icon color using one of the theme color properties: `primary`, `secondary`, `action`, `error` & `disabled`.
 
-### Шрифтовые иконки Material
+### Font Material icons
 
 {{"demo": "pages/components/icons/Icons.js"}}
 
 ### Font Awesome
 
-[Font Awesome](https://fontawesome.com/icons) можно использовать с компонентом `Icon` следующим образом:
+[Font Awesome](https://fontawesome.com/icons) can be used with the `Icon` component as follow:
 
 {{"demo": "pages/components/icons/FontAwesome.js", "hideEditButton": true}}
 
-## Шрифт или SVG. Какой подход использовать?
+## Font vs SVG. Which approach to use?
 
-Оба подхода работают нормально, однако есть некоторые тонкие различия, особенно с точки зрения производительности и качества отрисовки. Когда это возможно, использование SVG является более предпочтительным, так как в этом случае есть возможность разделения кода, поддерживается больше иконок, отрисовка происходит лучше и быстрее.
+Both approaches work fine, however, there are some subtle differences, especially in terms of performance and rendering quality. Whenever possible SVG is preferred as it allows code splitting, supports more icons, renders faster and better.
 
 For more details, you can check out [why GitHub migrated from font icons to SVG icons](https://github.blog/2016-02-22-delivering-octicons-with-svg/).
 
 ## Доступность
 
-Иконки могут передавать всевозможную значимую информацию, поэтому важно, чтобы они охватывали максимально возможное количество людей. Существует два варианта использования, которые необходимо учесть: - **Декоративные иконки** используются только для визуального подкрепления или брендинга. Если удалить их со страницы, пользователи всё равно смогут её использовать, им всё будет понятно. - **Семантические иконки** – это те, которые используются для передачи смысла, а не только для украшения. В данную группу входят иконки без текста, используемые в качестве интерактивных элементов управления – кнопки, элементы форм, переключатели, и так далее.
+Icons can convey all sorts of meaningful information, so it’s important that they reach the largest amount of people possible. There are two use cases you’ll want to consider:
+- **Decorative Icons** are only being used for visual or branding reinforcement. If they were removed from the page, users would still understand and be able to use your page.
+- **Semantic Icons** are ones that you’re using to convey meaning, rather than just pure decoration. This includes icons without text next to them used as interactive controls — buttons, form elements, toggles, etc.
 
-### Декоративные SVG-иконки
+### Decorative SVG Icons
 
-Если у вас чисто декоративные иконки, почти всё уже готово! Добавим атрибут `aria-hidden=true` для правильной настройки их доступности (невидимость).
+If your icons are purely decorative, you’re already done! The `aria-hidden=true` attribute is added so that your icons are properly accessible (invisible).
 
-### Семантические SVG-иконки
+### Semantic SVG Icons
 
-Если у вашей иконки есть семантическое значение, необходимо только добавить свойство `titleAccess="значение"`. Для правильной настройки доступности добавим атрибут `role="img"` и элемент `<title>`.
+If your icon has semantic meaning, all you need to do is throw in a `titleAccess="meaning"` property. The `role="img"` attribute and the `<title>` element are added so that your icons are properly accessible.
 
-В случае фокусируемых интерактивных элементов, например, кнопки с иконкой, можно использовать свойство `aria-label`:
+In the case of focusable interactive elements, like when used with an icon button, you can use the `aria-label` property:
 
 ```jsx
 import IconButton from '@material-ui/core/IconButton';
@@ -126,20 +162,20 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 // ...
 
-<IconButton aria-label="Delete">
+<IconButton aria-label="delete">
   <SvgIcon>
     <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
   </SvgIcon>
 </IconButton>
 ```
 
-### Декоративные шрифтовые иконки
+### Decorative Font Icons
 
-Если у вас чисто декоративные иконки, почти всё уже готово! Добавим атрибут `aria-hidden=true` для правильной настройки их доступности (невидимость).
+If your icons are purely decorative, you’re already done! The `aria-hidden=true` attribute is added so that your icons are properly accessible (invisible).
 
-### Семантические шрифтовые иконки
+### Semantic Font Icons
 
-Если у ваших иконок есть семантическое значение, необходимо предоставить текстовую альтернативу, видимую только для вспомогательных технологий.
+If your icons have semantic meaning, you need to provide a text alternative only visible to assistive technologies.
 
 ```jsx
 import Icon from '@material-ui/core/Icon';
@@ -148,9 +184,9 @@ import Typography from '@material-ui/core/Typography';
 // ...
 
 <Icon>add_circle</Icon>
-<Typography variant="srOnly">Создать пользователя</Typography>
+<Typography variant="srOnly">Create a user</Typography>
 ```
 
-### Справка
+### Reference
 
 - https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/

@@ -2,7 +2,7 @@
 
 <p class="description">Zwar ist die Verwendung der JSS-basierten Styling-Lösung, die von Material-UI zur Verfügung gestellt wird, einfach, um Ihre Anwendung zu stylen. Es ist jedoch möglich, eine beliebige Styling-Lösung zu verwenden, von einfachem CSS bis zu einer beliebigen Anzahl von CSS-in-JS-Bibliotheken.</p>
 
-In diesem Handbuch sollen die beliebtesten Alternativen dokumentiert werden, aber Sie sollten sich merken, dass die hier vorgestellten Anwendungen an andere Bibliotheken angepasst werden können. Wir haben Beispiele für folgende Styling-Lösungen bereitgestellt:
+In diesem Handbuch sollen die beliebtesten Alternativen dokumentiert werden, aber Sie sollten sich merken, dass die hier vorgestellten Anwendungen an andere Bibliotheken angepasst werden können. There are examples for the following styling solutions:
 
 - [Einfaches CSS](#plain-css)
 - [Globales CSS](#global-css)
@@ -14,7 +14,7 @@ In diesem Handbuch sollen die beliebtesten Alternativen dokumentiert werden, abe
 
 ## Einfaches CSS
 
-Nichts Besonderes, einfach nur altes CSS. Warum das Rad neu erfinden, wenn es seit Jahrzehnten funktioniert?
+Nothing fancy, plain old CSS.
 
 **PlainCssButton.css**
 
@@ -34,7 +34,7 @@ Nichts Besonderes, einfach nur altes CSS. Warum das Rad neu erfinden, wenn es se
 
 ```jsx
 import React from 'react';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 export default function PlainCssButton() {
   return (
@@ -72,7 +72,7 @@ Ist es zu viel Aufwand, die Klassennamen explizit für die Komponente bereitzust
 
 ```jsx
 import React from 'react';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 export default function GlobalCssButton() {
   return (
@@ -91,34 +91,9 @@ export default function GlobalCssButton() {
 
 ![stars](https://img.shields.io/github/stars/styled-components/styled-components.svg?style=social&label=Star) ![npm](https://img.shields.io/npm/dm/styled-components.svg?)
 
-Die `styled()` Methode funktioniert perfekt für alle unsere Komponenten.
+The `styled()` method works perfectly on all of the components.
 
-```jsx
-import React from 'react';
-import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-
-const StyledButton = styled(Button)`
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border-radius: 3px;
-  border: 0;
-  color: white;
-  height: 48px;
-  padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
-`;
-
-export default function StyledComponents() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <StyledButton>Styled Components</StyledButton>
-    </div>
-  );
-}
-```
-
-{{"demo": "pages/guides/interoperability/StyledComponents.js", "hideHeader": true}}
+{{"demo": "pages/guides/interoperability/StyledComponents.js", "defaultCodeOpen": true}}
 
 [![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/k553lz1qrv)
 
@@ -127,15 +102,15 @@ export default function StyledComponents() {
 **Hinweis:** Sowohl styled-components als auch JSS fügen ihre Stile unten in `<head>` ein. Um sicherzustellen, dass styled-components-Stile zuletzt geladen werden, ändern Sie die [CSS-Injektionsreihenfolge](/styles/advanced/#css-injection-order), wie in der Demo:
 
 ```jsx
-import { StylesProvider } from '@material-ui/styles';
+import { StylesProvider } from '@material-ui/core/styles';
 
 <StylesProvider injectFirst>
-  {/* Dein Komponentenbaum.
+  {/* Your component tree.
       Mit Stil versehene Komponenten können die Stile von Material-UI überschreiben. */}
 </StylesProvider>
 ```
 
-Ein anderer Ansatz ist die Verwendung von `&&` Zeichen in Stilkomponenten, um, durch Wiederholen des Klassennamens, die [Spezifität zu erhöhen ](https://www.styled-components.com/docs/advanced#issues-with-specificity). You should avoid the usage of `!important`.
+Ein anderer Ansatz ist die Verwendung von `&&` Zeichen in Stilkomponenten, um, durch Wiederholen des Klassennamens, die [Spezifität zu erhöhen ](https://www.styled-components.com/docs/advanced#issues-with-specificity). Avoid the usage of `!important`.
 
 ### Tiefere Elemente
 
@@ -143,42 +118,14 @@ Wenn Sie versuchen, einen Drawer mit der Variante permanent zu stylen, müssen S
 
 Im folgenden Beispiel wird der `label` Stil der `Button` Komponente zusätzlich zu den benutzerdefinierten Stilen auf dem Button selbst überschrieben. Es funktioniert auch um das [styled-components Problem](https://github.com/styled-components/styled-components/issues/439) durch "verbrauchen" der Eigenschaften, die nicht an die zugrunde liegende Komponente weitergegeben werden sollten, zu beheben.
 
-```jsx
-import React from 'react';
-import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-
-const StyledButton = styled(({ color, ...other }) => <Button {...other} />)`
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border: 0;
-  color: white;
-  height: 48px;
-  padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
-
-  & .MuiButton-label {
-    color: ${props => props.color};
-  }
-`;
-
-export default function StyledComponentsDeep() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <StyledButton color="papayawhip">Styled Components</StyledButton>
-    </div>
-  );
-}
-```
-
-{{"demo": "pages/guides/interoperability/StyledComponentsDeep.js", "hideHeader": true}}
+{{"demo": "pages/guides/interoperability/StyledComponentsDeep.js", "defaultCodeOpen": true}}
 
 Die obige Demo basiert auf den [standard `classes` Werten](/styles/advanced/#with-material-ui-core). Sie können jedoch Ihren eigenen Klassennamen angeben: `.label`.
 
 ```jsx
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const StyledButton = styled(({ color, ...other }) => (
   <Button classes={{ label: 'label' }} {...other} />
@@ -262,9 +209,9 @@ Es ist schwer zu wissen, welchen Marktanteil [diese Styling-Lösung](https://git
 
 ```jsx
 import React from 'react';
-// webpack, parcel oder andere injizieren ihr CSS in die Seite
+// webpack, parcel or else will inject the CSS into the page
 import styles from './CssModulesButton.css';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 export default function CssModulesButton() {
   return (
@@ -288,35 +235,7 @@ export default function CssModulesButton() {
 
 Die Emotion **css()** Methode funktioniert nahtlos mit der Material-UI.
 
-```jsx
-/** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { Button } from '@material-ui/core';
-
-// Dann müssen ihnen den className des Buttons zuweisen
-export default function EmotionButton() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <Button
-        css={css`
-          background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-          border-radius: 3px;
-          border: 0;
-          color: white;
-          height: 48px;
-          padding: 0 30px;
-          box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
-        `}
-      >
-        Emotion
-      </Button>
-    </div>
-  );
-}
-```
-
-{{"demo": "pages/guides/interoperability/EmotionCSS.js", "hideHeader": true}}
+{{"demo": "pages/guides/interoperability/EmotionCSS.js", "defaultCodeOpen": true}}
 
 [![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/yw93kl7y0j)
 
@@ -330,13 +249,13 @@ Es funktioniert genauso wie gestylte Komponenten. Sie können [dieselbe Anleitun
 
 ![stars](https://img.shields.io/github/stars/cssinjs/jss.svg?style=social&label=Star) ![npm](https://img.shields.io/npm/dm/react-jss.svg?)
 
-Die Styling-Lösung von Material-UI teilt viele Bausteine mit [react-jss](https://github.com/cssinjs/react-jss). Wir haben das Projekt für uns entwickelt, um unsere individuellen Anforderungen zu erfüllen, aber wir arbeiten daran, die Änderungen und Korrekturen von der Material-UI wieder in React-Jss zu integrieren.
+Die Styling-Lösung von Material-UI teilt viele Bausteine mit [react-jss](https://github.com/cssinjs/react-jss). A fork was needed in order to handle Material-UI's unique needs, but with the intent to merge the changes and fixes from Material-UI back to react-jss.
 
 ```jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   button: {
@@ -367,39 +286,3 @@ export default injectSheet(styles)(ReactJssButton);
 ```
 
 [![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/24kllqxvmp)
-
-## Glamor
-
-![stars](https://img.shields.io/github/stars/threepointone/glamor.svg?style=social&label=Star) ![npm](https://img.shields.io/npm/dm/glamor.svg?)
-
-Eine gute Möglichkeit, Stile mit Glamour anzuwenden, ist die Verwendung von der **css()** Funktion und dann **classnames** um sie als String zu bekommen:
-
-```jsx
-import React from 'react';
-import { css } from 'glamor';
-import { Button } from '@material-ui/core';
-
-const buttonStyles = {
-  background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-  borderRadius: 3,
-  border: 0,
-  color: "white",
-  height: 48,
-  padding: "0 30px",
-  boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .30)"
-};
-
-// Dann müssen ihnen den className des Buttons zuweisen
-export default function GlamorButton() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <Button {...css(buttonStyles)}>Glamor</Button>
-    </div>
-  );
-}
-```
-
-[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/24kllqxvmp)
-
-**Hinweis:** Sowohl Glamour als auch JSS fügen ihre Stile unten in `<head>` ein. Wenn Sie Stilattribute nicht mit **!important** markieren möchten, ist das wichtig, dass Sie die [ CSS-Injektionsreihenfolge ](/styles/advanced/#css-injection-order) wie in der Demo ändern.

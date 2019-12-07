@@ -17,7 +17,6 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 const useStyles1 = makeStyles(theme => ({
   root: {
     flexShrink: 0,
-    color: theme.palette.text.secondary,
     marginLeft: theme.spacing(2.5),
   },
 }));
@@ -27,21 +26,21 @@ function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onChangePage } = props;
 
-  function handleFirstPageButtonClick(event) {
+  const handleFirstPageButtonClick = event => {
     onChangePage(event, 0);
-  }
+  };
 
-  function handleBackButtonClick(event) {
+  const handleBackButtonClick = event => {
     onChangePage(event, page - 1);
-  }
+  };
 
-  function handleNextButtonClick(event) {
+  const handleNextButtonClick = event => {
     onChangePage(event, page + 1);
-  }
+  };
 
-  function handleLastPageButtonClick(event) {
+  const handleLastPageButtonClick = event => {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -100,10 +99,9 @@ const rows = [
   createData('Oreo', 437, 18.0),
 ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
-const useStyles2 = makeStyles(theme => ({
+const useStyles2 = makeStyles({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
   },
   table: {
     minWidth: 500,
@@ -111,7 +109,7 @@ const useStyles2 = makeStyles(theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
-}));
+});
 
 export default function CustomPaginationActionsTable() {
   const classes = useStyles2();
@@ -120,21 +118,24 @@ export default function CustomPaginationActionsTable() {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  function handleChangePage(event, newPage) {
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
-  }
+  };
 
-  function handleChangeRowsPerPage(event) {
+  const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  }
+  };
 
   return (
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
-        <Table className={classes.table}>
+        <Table className={classes.table} aria-label="custom pagination table">
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
+            {(rowsPerPage > 0
+              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : rows
+            ).map(row => (
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
                   {row.name}
@@ -145,7 +146,7 @@ export default function CustomPaginationActionsTable() {
             ))}
 
             {emptyRows > 0 && (
-              <TableRow style={{ height: 48 * emptyRows }}>
+              <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
             )}
@@ -153,7 +154,7 @@ export default function CustomPaginationActionsTable() {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                 colSpan={3}
                 count={rows.length}
                 rowsPerPage={rowsPerPage}

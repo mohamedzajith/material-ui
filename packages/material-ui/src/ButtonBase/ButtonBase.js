@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
-import { elementTypeAcceptingRef } from '@material-ui/utils';
-import { useForkRef } from '../utils/reactHelpers';
+import { elementTypeAcceptingRef, refType } from '@material-ui/utils';
+import useForkRef from '../utils/useForkRef';
 import useEventCallback from '../utils/useEventCallback';
 import withStyles from '../styles/withStyles';
 import NoSsr from '../NoSsr';
@@ -17,11 +17,10 @@ export const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    // Remove grey highlight
     WebkitTapHighlightColor: 'transparent',
     backgroundColor: 'transparent', // Reset default value
     // We disable the focus ring for mouse, touch and keyboard users.
-    outline: 'none',
+    outline: 0,
     border: 0,
     margin: 0, // Remove the margin in Safari
     borderRadius: 0,
@@ -60,9 +59,9 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
     centerRipple = false,
     children,
     classes,
-    className: classNameProp,
+    className,
     component = 'button',
-    disabled,
+    disabled = false,
     disableRipple = false,
     disableTouchRipple = false,
     focusRipple = false,
@@ -123,7 +122,7 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
         eventCallback(event);
       }
 
-      const ignore = event.defaultPrevented || skipRippleAction;
+      const ignore = skipRippleAction;
       if (!ignore && rippleRef.current) {
         rippleRef.current[rippleAction](event);
       }
@@ -182,6 +181,11 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
     }
   });
 
+  const isNonNativeButton = () => {
+    const button = getButtonNode();
+    return component && component !== 'button' && !(button.tagName === 'A' && button.href);
+  };
+
   /**
    * IE 11 shim for https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
    */
@@ -206,15 +210,8 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
       onKeyDown(event);
     }
 
-    const button = getButtonNode();
     // Keyboard accessibility for non interactive elements
-    if (
-      event.target === event.currentTarget &&
-      component &&
-      component !== 'button' &&
-      (event.key === ' ' || event.key === 'Enter') &&
-      !(button.tagName === 'A' && button.href)
-    ) {
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === 'Enter') {
       event.preventDefault();
       if (onClick) {
         onClick(event);
@@ -232,17 +229,15 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
     if (onKeyUp) {
       onKeyUp(event);
     }
-  });
 
-  const className = clsx(
-    classes.root,
-    {
-      [classes.disabled]: disabled,
-      [classes.focusVisible]: focusVisible,
-      [focusVisibleClassName]: focusVisible,
-    },
-    classNameProp,
-  );
+    // Keyboard accessibility for non interactive elements
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === ' ') {
+      event.preventDefault();
+      if (onClick) {
+        onClick(event);
+      }
+    }
+  });
 
   let ComponentProp = component;
 
@@ -267,7 +262,15 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
 
   return (
     <ComponentProp
-      className={className}
+      className={clsx(
+        classes.root,
+        {
+          [classes.disabled]: disabled,
+          [classes.focusVisible]: focusVisible,
+          [focusVisibleClassName]: focusVisible,
+        },
+        className,
+      )}
       onBlur={handleBlur}
       onClick={onClick}
       onFocus={handleFocus}
@@ -301,12 +304,14 @@ ButtonBase.propTypes = {
    * A ref for imperative actions.
    * It currently only supports `focusVisible()` action.
    */
-  action: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  action: refType,
   /**
-   * Use that prop to pass a ref callback to the native button component.
-   * @deprecated Use `ref` instead
+   * @ignore
+   *
+   * Use that prop to pass a ref to the native button component.
+   * @deprecated Use `ref` instead.
    */
-  buttonRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  buttonRef: refType,
   /**
    * If `true`, the ripples will be centered.
    * They won't start at the cursor interaction position.

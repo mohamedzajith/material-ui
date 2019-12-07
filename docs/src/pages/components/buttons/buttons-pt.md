@@ -7,7 +7,7 @@ components: Button, ButtonGroup, Fab, IconButton, ButtonBase, Zoom
 
 <p class="description">Botões permitem que os usuários tomem ações e decisões com um simples toque.</p>
 
-[Botões](https://material.io/design/components/buttons.html) comunicam ações que os usuários podem tomar. Eles normalmente são colocados em toda a sua interface do usuário, em lugares como:
+[Botões](https://material.io/design/components/buttons.html) comunicam ações que os usuários podem realizar. Eles são normalmente colocados em toda a interface do usuário, em lugares como:
 
 - Caixa de diálogo
 - Janelas modais
@@ -52,7 +52,7 @@ O componente ButtonGroup pode ser usado para agrupar os botões delineados (o pa
 
 ## Botão Dividido
 
-O ButtonGroup também pode ser usado para criar um botão dividido. A lista suspensa pode alterar a ação do botão (como neste exemplo) ou ser usada para acionar imediatamente a ação relacionada.
+O ButtonGroup também pode ser usado para criar um botão dividido. A lista suspensa pode alterar a ação do botão (como neste exemplo), ou ser usada para acionar imediatamente uma ação relacionada.
 
 {{"demo": "pages/components/buttons/SplitButton.js"}}
 
@@ -72,46 +72,83 @@ Um botão de ação flutuante que abranja várias telas laterais (como telas com
 
 A transição de zoom pode ser usada para conseguir isso. Observe que, como as animações de entrada e saída são acionadas ao mesmo tempo, usamos `enterDelay` para permitir que a animação do botão de ação flutuante de saída termine antes que a nova seja inserida.
 
-{{"demo": "pages/components/buttons/FloatingActionButtonZoom.js"}}
+{{"demo": "pages/components/buttons/FloatingActionButtonZoom.js", "bg": true}}
+
+## Upload button
+
+{{"demo": "pages/components/buttons/UploadButtons.js"}}
 
 ## Tamanhos
 
-Botões extravagantes ou menores? Use a propriedade `size`.
+Gosta de botões maiores ou menores? Use a propriedade `size`.
 
 {{"demo": "pages/components/buttons/ButtonSizes.js"}}
 
-## Botões com ícones e rótulo
+## Buttons with icons and label
 
-Às vezes você pode querer ter ícones para determinados botão para melhorar o UX do aplicativo como reconhecemos logotipos mais facilmente do que o texto sem formatação. Por exemplo, se você tem um botão com a açõo de "deletar" você pode rotulá-lo com um ícone do caixote de lixo.
+Sometimes you might want to have icons for certain button to enhance the UX of the application as we recognize logos more easily than plain text. For example, if you have a delete button you can label it with a dustbin icon.
 
 {{"demo": "pages/components/buttons/IconLabelButtons.js"}}
 
-## Botões de Ícone
+## Icon Buttons
 
-Botões de ícones são comumente encontrados em barras de aplicativos e barras de ferramentas.
+Icon buttons are commonly found in app bars and toolbars.
 
-Ícones são também adequadas para botões de alternância que permitem uma escolha única para ser selecionado ou desmarcada, como adicionar ou remover uma estrela para um item.
+Icons are also appropriate for toggle buttons that allow a single choice to be selected or deselected, such as adding or removing a star to an item.
 
 {{"demo": "pages/components/buttons/IconButtons.js"}}
 
-## Botões Customizados
+## Customized buttons
 
-Aqui estão alguns exemplos de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescrita](/customization/components/).
+Aqui estão alguns exemplos de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescritas](/customization/components/).
 
-{{"demo": "pages/components/buttons/CustomizedButtons.js"}}
+{{"demo": "pages/components/buttons/CustomizedButtons.js", "defaultCodeOpen": false}}
 
+👑 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/components/button).
 
+## Complex Buttons
 
-## Botões complexos
-
-O botões de texto, botões contidos, botões de ação flutuante e ícone botões são construídos em cima do mesmo componente: O componente `ButtonBase `. Você pode tirar vantagem deste componente de nível mais abastrato para construir interações personalizadas.
+The Text Buttons, Contained Buttons, Floating Action Buttons and Icon Buttons are built on top of the same component: the `ButtonBase`. You can take advantage of this lower level component to build custom interactions.
 
 {{"demo": "pages/components/buttons/ButtonBases.js"}}
 
 ## Biblioteca de roteamento de terceiros
 
-Um caso de uso comum é usar o botão para acionar uma navegação para uma nova página. O componente `ButtonBase` fornece uma propriedade para lidar com este caso de uso: `componente`. No entanto, para alguns polyfills de foco `ButtonBase` requer o nó DOM do componente fornecido. Isso é obtido anexando-se uma referência ao componente e esperando que o componente envie essa referência para o nó DOM subjacente. Dado que um monte de nossos componentes interativos dependem do `ButtonBase`, você deve estar capaz de tirar vantagem em todos os lugares:
+One common use case is to use the button to trigger navigation to a new page. The `ButtonBase` component provides a property to handle this use case: `component`. However for certain focus polyfills `ButtonBase` requires the DOM node of the provided component. This is achieved by attaching a ref to the component and expecting that the component forwards this ref to the underlying DOM node. Given that many of the interactive components rely on `ButtonBase`, you should be able to take advantage of it everywhere.
 
-{{"demo": "pages/components/buttons/ButtonRouter.js", "defaultCodeOpen": true}}
+Here is an [integration example with react-router](/guides/composition/#button).
 
-*Nota: A criação do componente Botão é necessária para impedir uma desmontagem inesperada. Você pode ler mais sobre isso em nosso [guia de propriedades de componentes](/guides/composition/#component-property).*
+## Limitações
+
+### Cursor não permitido
+
+The ButtonBase component sets `pointer-events: none;` on disabled buttons, which prevents the appearance of a disabled cursor.
+
+If you wish to use `not-allowed`, you have two options:
+
+1. ** apenas CSS**. Você pode remover o estilo dos eventos do ponteiro no estado "desabilitado" do elemento `<button>` :
+
+  ```css
+  .MuiButtonBase-root:disabled {
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+  ```
+
+However:
+
+- Você deve adicionar `eventos-ponteiro: nenhum;` novamente quando você precisa exibir dicas [ ferramentas em elementos desabilitados](/components/tooltips/#disabled-elements)</li> 
+    
+    - O cursor não muda se você renderizar algum outro elemento de botão, por exemplo, um elemento link `<a>`.</ul> 
+    
+    2. ** Alteração no DOM** Você pode encapsular o botão:
+    
+      ```jsx
+      <span style={{ cursor: 'not-allowed' }}>
+        <Button component={Link} disabled>
+          disabled
+        </Button>
+      </span>
+      ```
+    
+    This has the advantage of supporting any element, for instance, a link `<a>` element.

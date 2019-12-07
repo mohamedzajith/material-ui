@@ -1,15 +1,15 @@
 import { assert } from 'chai';
 import consoleErrorMock from 'test/utils/consoleErrorMock';
-import { indigo, pink, deepOrange, green, red } from '../colors';
-import { lighten, darken } from './colorManipulator';
+import { deepOrange, green, indigo, pink, red } from '../colors';
+import { darken, lighten } from './colorManipulator';
 import createPalette, { dark, light } from './createPalette';
 
 describe('createPalette()', () => {
-  before(() => {
+  beforeEach(() => {
     consoleErrorMock.spy();
   });
 
-  after(() => {
+  afterEach(() => {
     consoleErrorMock.reset();
   });
 
@@ -361,7 +361,7 @@ describe('createPalette()', () => {
     assert.strictEqual(consoleErrorMock.callCount(), 0);
   });
 
-  it('should throw an exception when an invalid type is specified', () => {
+  it('logs an error when an invalid type is specified', () => {
     createPalette({ type: 'foo' });
     assert.strictEqual(consoleErrorMock.callCount(), 1);
     assert.match(
@@ -369,7 +369,6 @@ describe('createPalette()', () => {
       /Material-UI: the palette type `foo` is not supported/,
     );
   });
-
   describe('augmentColor', () => {
     const palette = createPalette({});
 
@@ -431,5 +430,43 @@ describe('createPalette()', () => {
         },
       );
     });
+  });
+
+  describe('getContrastText', () => {
+    it('throws an exception with a falsy argument', () => {
+      const { getContrastText } = createPalette({});
+
+      [
+        [undefined, 'missing background argument in getContrastText(undefined)'],
+        [null, 'missing background argument in getContrastText(null)'],
+        ['', 'missing background argument in getContrastText()'],
+        [0, 'missing background argument in getContrastText(0)'],
+      ].forEach(testEntry => {
+        const [argument, errorMessage] = testEntry;
+
+        assert.throws(() => getContrastText(argument), errorMessage);
+      });
+    });
+
+    it('logs an error when the contrast ratio does not reach AA', () => {
+      const { getContrastText } = createPalette({
+        contrastThreshold: 0,
+      });
+
+      getContrastText('#fefefe');
+
+      assert.strictEqual(consoleErrorMock.callCount(), 1);
+      assert.include(
+        consoleErrorMock.args()[0][0],
+        'falls below the WCAG recommended absolute minimum contrast ratio of 3:1',
+      );
+    });
+  });
+
+  it('should create a palette with unique object references', () => {
+    const redPalette = createPalette({ background: { paper: 'red' } });
+    const bluePalette = createPalette({ background: { paper: 'blue' } });
+    assert.notStrictEqual(redPalette, bluePalette);
+    assert.notStrictEqual(redPalette.background, bluePalette.background);
   });
 });

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
     },
     divider: {
+      margin: theme.spacing(2, 0),
       width: '100%',
     },
     row: {
@@ -31,9 +32,9 @@ export default function BadgeVisibility() {
   const classes = useStyles();
   const [invisible, setInvisible] = React.useState(false);
 
-  function handleBadgeVisibility() {
+  const handleBadgeVisibility = () => {
     setInvisible(!invisible);
-  }
+  };
 
   return (
     <div className={classes.root}>

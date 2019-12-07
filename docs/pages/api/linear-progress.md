@@ -6,11 +6,17 @@ filename: /packages/material-ui/src/LinearProgress/LinearProgress.js
 
 # LinearProgress API
 
-<p class="description">The API documentation of the LinearProgress React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the LinearProgress React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import LinearProgress from '@material-ui/core/LinearProgress';
+// or
 import { LinearProgress } from '@material-ui/core';
 ```
+
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
 
 ## ARIA
 
@@ -30,7 +36,7 @@ attribute to `true` on that region until it has finished loading.
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element (native element).
+Any other props supplied will be provided to the root element (native element).
 
 ## CSS
 
@@ -39,36 +45,32 @@ Any other properties supplied will be provided to the root element (native eleme
 
 | Rule name | Global class | Description |
 |:-----|:-------------|:------------|
-| <span class="prop-name">root</span> | <span class="prop-name">MuiLinearProgress-root</span> | Styles applied to the root element.
-| <span class="prop-name">colorPrimary</span> | <span class="prop-name">MuiLinearProgress-colorPrimary</span> | Styles applied to the root & bar2 element if `color="primary"`; bar2 if `variant-"buffer"`.
-| <span class="prop-name">colorSecondary</span> | <span class="prop-name">MuiLinearProgress-colorSecondary</span> | Styles applied to the root & bar2 elements if `color="secondary"`; bar2 if `variant="buffer"`.
-| <span class="prop-name">determinate</span> | <span class="prop-name">MuiLinearProgress-determinate</span> | Styles applied to the root element if `variant="determinate"`.
-| <span class="prop-name">indeterminate</span> | <span class="prop-name">MuiLinearProgress-indeterminate</span> | Styles applied to the root element if `variant="indeterminate"`.
-| <span class="prop-name">buffer</span> | <span class="prop-name">MuiLinearProgress-buffer</span> | Styles applied to the root element if `variant="buffer"`.
-| <span class="prop-name">query</span> | <span class="prop-name">MuiLinearProgress-query</span> | Styles applied to the root element if `variant="query"`.
-| <span class="prop-name">dashed</span> | <span class="prop-name">MuiLinearProgress-dashed</span> | Styles applied to the additional bar element if `variant="buffer"`.
-| <span class="prop-name">dashedColorPrimary</span> | <span class="prop-name">MuiLinearProgress-dashedColorPrimary</span> | Styles applied to the additional bar element if `variant="buffer"` & `color="primary"`.
-| <span class="prop-name">dashedColorSecondary</span> | <span class="prop-name">MuiLinearProgress-dashedColorSecondary</span> | Styles applied to the additional bar element if `variant="buffer"` & `color="secondary"`.
-| <span class="prop-name">bar</span> | <span class="prop-name">MuiLinearProgress-bar</span> | Styles applied to the layered bar1 & bar2 elements.
-| <span class="prop-name">barColorPrimary</span> | <span class="prop-name">MuiLinearProgress-barColorPrimary</span> | Styles applied to the bar elements if `color="primary"`; bar2 if `variant` not "buffer".
-| <span class="prop-name">barColorSecondary</span> | <span class="prop-name">MuiLinearProgress-barColorSecondary</span> | Styles applied to the bar elements if `color="secondary"`; bar2 if `variant` not "buffer".
-| <span class="prop-name">bar1Indeterminate</span> | <span class="prop-name">MuiLinearProgress-bar1Indeterminate</span> | Styles applied to the bar1 element if `variant="indeterminate or query"`.
-| <span class="prop-name">bar1Determinate</span> | <span class="prop-name">MuiLinearProgress-bar1Determinate</span> | Styles applied to the bar1 element if `variant="determinate"`.
-| <span class="prop-name">bar1Buffer</span> | <span class="prop-name">MuiLinearProgress-bar1Buffer</span> | Styles applied to the bar1 element if `variant="buffer"`.
-| <span class="prop-name">bar2Indeterminate</span> | <span class="prop-name">MuiLinearProgress-bar2Indeterminate</span> | Styles applied to the bar2 element if `variant="indeterminate or query"`.
-| <span class="prop-name">bar2Buffer</span> | <span class="prop-name">MuiLinearProgress-bar2Buffer</span> | Styles applied to the bar2 element if `variant="buffer"`.
+| <span class="prop-name">root</span> | <span class="prop-name">.MuiLinearProgress-root</span> | Styles applied to the root element.
+| <span class="prop-name">colorPrimary</span> | <span class="prop-name">.MuiLinearProgress-colorPrimary</span> | Styles applied to the root and bar2 element if `color="primary"`; bar2 if `variant-"buffer"`.
+| <span class="prop-name">colorSecondary</span> | <span class="prop-name">.MuiLinearProgress-colorSecondary</span> | Styles applied to the root and bar2 elements if `color="secondary"`; bar2 if `variant="buffer"`.
+| <span class="prop-name">determinate</span> | <span class="prop-name">.MuiLinearProgress-determinate</span> | Styles applied to the root element if `variant="determinate"`.
+| <span class="prop-name">indeterminate</span> | <span class="prop-name">.MuiLinearProgress-indeterminate</span> | Styles applied to the root element if `variant="indeterminate"`.
+| <span class="prop-name">buffer</span> | <span class="prop-name">.MuiLinearProgress-buffer</span> | Styles applied to the root element if `variant="buffer"`.
+| <span class="prop-name">query</span> | <span class="prop-name">.MuiLinearProgress-query</span> | Styles applied to the root element if `variant="query"`.
+| <span class="prop-name">dashed</span> | <span class="prop-name">.MuiLinearProgress-dashed</span> | Styles applied to the additional bar element if `variant="buffer"`.
+| <span class="prop-name">dashedColorPrimary</span> | <span class="prop-name">.MuiLinearProgress-dashedColorPrimary</span> | Styles applied to the additional bar element if `variant="buffer"` and `color="primary"`.
+| <span class="prop-name">dashedColorSecondary</span> | <span class="prop-name">.MuiLinearProgress-dashedColorSecondary</span> | Styles applied to the additional bar element if `variant="buffer"` and `color="secondary"`.
+| <span class="prop-name">bar</span> | <span class="prop-name">.MuiLinearProgress-bar</span> | Styles applied to the layered bar1 and bar2 elements.
+| <span class="prop-name">barColorPrimary</span> | <span class="prop-name">.MuiLinearProgress-barColorPrimary</span> | Styles applied to the bar elements if `color="primary"`; bar2 if `variant` not "buffer".
+| <span class="prop-name">barColorSecondary</span> | <span class="prop-name">.MuiLinearProgress-barColorSecondary</span> | Styles applied to the bar elements if `color="secondary"`; bar2 if `variant` not "buffer".
+| <span class="prop-name">bar1Indeterminate</span> | <span class="prop-name">.MuiLinearProgress-bar1Indeterminate</span> | Styles applied to the bar1 element if `variant="indeterminate or query"`.
+| <span class="prop-name">bar1Determinate</span> | <span class="prop-name">.MuiLinearProgress-bar1Determinate</span> | Styles applied to the bar1 element if `variant="determinate"`.
+| <span class="prop-name">bar1Buffer</span> | <span class="prop-name">.MuiLinearProgress-bar1Buffer</span> | Styles applied to the bar1 element if `variant="buffer"`.
+| <span class="prop-name">bar2Indeterminate</span> | <span class="prop-name">.MuiLinearProgress-bar2Indeterminate</span> | Styles applied to the bar2 element if `variant="indeterminate or query"`.
+| <span class="prop-name">bar2Buffer</span> | <span class="prop-name">.MuiLinearProgress-bar2Buffer</span> | Styles applied to the bar2 element if `variant="buffer"`.
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [`classes` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [`overrides` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/LinearProgress/LinearProgress.js) for more detail.
-
-## Notes
-
-The component is fully [StrictMode](https://reactjs.org/docs/strict-mode.html) compatible.
+If that's not sufficient, you can check the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/LinearProgress/LinearProgress.js) for more detail.
 
 ## Demos
 

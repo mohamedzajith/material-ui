@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    padding: '0 8px',
+    padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
@@ -81,13 +81,13 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  function handleDrawerOpen() {
+  const handleDrawerOpen = () => {
     setOpen(true);
-  }
+  };
 
-  function handleDrawerClose() {
+  const handleDrawerClose = () => {
     setOpen(false);
-  }
+  };
 
   return (
     <div className={classes.root}>

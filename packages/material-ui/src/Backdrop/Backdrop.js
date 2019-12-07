@@ -7,14 +7,17 @@ import Fade from '../Fade';
 export const styles = {
   /* Styles applied to the root element. */
   root: {
+    // Improve scrollable dialog support.
     zIndex: -1,
     position: 'fixed',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     right: 0,
     bottom: 0,
     top: 0,
     left: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    // Remove grey highlight
     WebkitTapHighlightColor: 'transparent',
     // Disable scroll capabilities.
     touchAction: 'none',
@@ -26,7 +29,15 @@ export const styles = {
 };
 
 const Backdrop = React.forwardRef(function Backdrop(props, ref) {
-  const { classes, className, invisible = false, open, transitionDuration, ...other } = props;
+  const {
+    children,
+    classes,
+    className,
+    invisible = false,
+    open,
+    transitionDuration,
+    ...other
+  } = props;
 
   return (
     <Fade in={open} timeout={transitionDuration} {...other}>
@@ -41,17 +52,27 @@ const Backdrop = React.forwardRef(function Backdrop(props, ref) {
         )}
         aria-hidden
         ref={ref}
-      />
+      >
+        {children}
+      </div>
     </Fade>
   );
 });
 
 Backdrop.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The content of the component.
+   */
+  children: PropTypes.node,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   /**
    * @ignore
    */
@@ -71,7 +92,11 @@ Backdrop.propTypes = {
    */
   transitionDuration: PropTypes.oneOfType([
     PropTypes.number,
-    PropTypes.shape({ enter: PropTypes.number, exit: PropTypes.number }),
+    PropTypes.shape({
+      appear: PropTypes.number,
+      enter: PropTypes.number,
+      exit: PropTypes.number,
+    }),
   ]),
 };
 

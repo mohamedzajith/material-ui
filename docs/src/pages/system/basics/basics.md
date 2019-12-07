@@ -73,15 +73,13 @@ const theme = {
   },
 };
 
-function App() {
+export default function App() {
   return (
     <ThemeProvider theme={theme}>
       {/* children */}
     </ThemeProvider>
   )
 }
-
-export default App
 ```
 
 Now, you can provide a spacing multiplier value:
@@ -110,7 +108,7 @@ To make the Box component more useful, we have been building a collection of sty
 - [spacing](/system/spacing/#api)
 - [typography](/system/typography/#api)
 
-If you are already using `@material-ui/core`, you can use our [prepackaged Box](/components/box/) component (using JSS internally):
+If you are already using `@material-ui/core`, you can use the [Box component](/components/box/) (using JSS internally):
 
 ```jsx
 import Box from '@material-ui/core/Box';
@@ -194,7 +192,7 @@ const theme = {
 
 ### Collocation
 
-If you want to group the breakpoint values, you can use our `breakpoints()` helper.
+If you want to group the breakpoint values, you can use the `breakpoints()` helper.
 
 ```jsx
 import { compose, spacing, palette, breakpoints } from '@material-ui/system';
@@ -236,7 +234,7 @@ const Box = styled.div`
 
 Use this helper to create your own style function.
 
-We don't support all the CSS properties.
+Not all CSS properties are supported.
 It's possible that you want to support new ones.
 It's also possible that you want to change the theme path prefix.
 
@@ -255,7 +253,7 @@ It's also possible that you want to change the theme path prefix.
 
 #### Examples
 
-We can create a component that supports some CSS grid properties like `grid-gap`. By supplying `spacing` as the `themeKey` we can reuse logic enabling the behavior we see in other spacing properties like `padding`.
+You can create a component that supports some CSS grid properties like `grid-gap`. By supplying `spacing` as the `themeKey` you can reuse logic enabling the behavior we see in other spacing properties like `padding`.
 ```jsx
 import styled from 'styled-components';
 import { style } from '@material-ui/system';
@@ -270,7 +268,7 @@ const Grid = styled(Box)`${gridGap}`;
 const example = <Grid display="grid" gridGap={[2, 3]}>...</Grid>;
 ```
 
-We can also customize the prop name by adding both a `prop` and `cssProperty` and transform the value by adding a `transform` function.
+You can also customize the prop name by adding both a `prop` and `cssProperty` and transform the value by adding a `transform` function.
 
 ```jsx
 import styled from 'styled-components';
@@ -323,7 +321,7 @@ In this example, the `variant` property supports all the keys present in `theme.
 
 ## CSS property
 
-If you want to support custom CSS values, you can use our `css()` helper.
+If you want to support custom CSS values, you can use the `css()` helper.
 It will process the `css` property.
 
 {{"demo": "pages/system/basics/CssProp.js", "defaultCodeOpen": true}}
@@ -338,7 +336,7 @@ It can help building a mental model for this "style function" concept.
 In practice, a Box component can save you a lot of time.
 In this example, we demonstrate how to reproduce a Banner component.
 
-{{"demo": "pages/system/basics/RealWorld.js"}}
+{{"demo": "pages/system/basics/RealWorld.js", "bg": true}}
 
 ## Prior art
 
@@ -346,7 +344,7 @@ In this example, we demonstrate how to reproduce a Banner component.
 
 - [Tachyons](https://tachyons.io/) was one of the first (2014) CSS libraries to promote the [Atomic CSS pattern](https://css-tricks.com/lets-define-exactly-atomic-css/) (or Functional CSS).
 - Tachyons was later on (2017) followed by [Tailwind CSS](https://tailwindcss.com/). They have made Atomic CSS more popular.
-- [Twitter Bootstrap](https://getbootstrap.com/docs/4.1/utilities/borders/) has slowly introduced atomic class names in v2, v3, and v4. We have used the way they group their "Helper classes" as inspiration.
+- [Twitter Bootstrap](https://getbootstrap.com/docs/4.1/utilities/borders/) has slowly introduced atomic class names in v2, v3, and v4. The way they group their "Helper classes" was used as inspiration.
 - In the React world, [Styled System](https://github.com/jxnblk/styled-system) was one of the first (2017) to promote the style functions.
 It can be used as a generic Box component replacing the atomic CSS helpers as well as helpers to write new components.
 - Large companies such as Pinterest, GitHub, and Segment.io are using the same approach in different flavours:

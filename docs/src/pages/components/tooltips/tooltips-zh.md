@@ -15,25 +15,31 @@ components: Tooltip
 
 ## 文字提示的定位
 
-`文字提示` 有 12 个 **位置** 可供选择。 它们没有方向箭头；相反的，它们依靠从源头发出的运动来传达自己的方向。
+The `Tooltip` has 12 **placements** choice. They don’t have directional arrows; instead, they rely on motion emanating from the source to convey direction.
 
 {{"demo": "pages/components/tooltips/PositionedTooltips.js"}}
 
-## Customized tooltips
+## 自定义文字提示
 
-以下是自定义组件的一些示例。您可以在[重写文档页面](/customization/components/)中了解有关此内容的更多信息。
+以下是自定义组件的一些例子。 您可以在[重写文档页](/customization/components/)中了解有关此内容的更多信息。
 
 {{"demo": "pages/components/tooltips/CustomizedTooltips.js"}}
 
+## 带箭头的提示
+
+您可以通过添加`arrow` 属性给你的提示标签增加箭头指示器，从而可以更突出所指示的元素
+
+{{"demo": "pages/components/tooltips/ArrowTooltips.js"}}
+
 ## 自定义子元素
 
-工具提示需要将DOM事件侦听器应用于其子元素。 如果子项是自定义的React元素，则需要确保它将其属性传播到基础DOM元素。
+The tooltip needs to apply DOM event listeners to its child element. If the child is a custom React element, you need to make sure that it spreads its properties to the underlying DOM element.
 
 ```jsx
-function MyComponent(props) {
-  // 我们将属性扩展到底层DOM元素。
-  return <div {...props}>Bin</div>
-}
+const MyComponent = React.forwardRef(function MyComponent(props, ref) {
+  //  Spread the props to the underlying DOM element.
+  return <div {...props} ref={ref}>Bin</div>
+});
 
 // ...
 
@@ -56,25 +62,39 @@ function MyComponent(props) {
 
 {{"demo": "pages/components/tooltips/ControlledTooltips.js"}}
 
-## 可变的容器宽度
+## 可变宽度
 
-`Tooltip` 为了保证较好的阅读性，会自动将较长的文字折行。
+`Tooltip` 为了保证较好的阅读星，会自动将较长的文字折行。
 
 {{"demo": "pages/components/tooltips/VariableWidth.js"}}
 
 ## 交互式
 
-文字提示可以是交互式的。当用户在 `leaveDelay` 过期之前将鼠标悬停在工具提示上时, 它不会关闭。
+A tooltip can be interactive. It won't close when the user hovers over the tooltip before the `leaveDelay` is expired.
 
 {{"demo": "pages/components/tooltips/InteractiveTooltips.js"}}
 
-## 对于 disabled 的元素
+## 停用元素
 
-默认情况下，`<Button>`等disabled的元素不会触发用户交互，因此`Tooltip`不会在hover等正常事件上激活显示。 要允许已禁用的元素激活文字提示，请添加一个简单的包装元素，如`span`。
+By default disabled elements like `<button>` do not trigger user interactions so a `Tooltip` will not activate on normal events like hover. To accommodate disabled elements, add a simple wrapper element, such as a `span`.
+
+> ⚠️ In order to work with Safari, you need at least one display block or flex item below the tooltip wrapper.
 
 {{"demo": "pages/components/tooltips/DisabledTooltips.js"}}
 
-## 过渡动画
+> If you're not wrapping a Material-UI component that inherits from `ButtonBase`, for instance, a native `<button>` element, you should also add the CSS property *pointer-events: none;* to your element when disabled:
+
+```jsx
+<Tooltip title="You don't have permission to do this">
+  <span>
+    <button disabled={disabled} style={disabled ? { pointerEvents: "none" } : {}}>
+      {'A disabled button'}
+    </button>
+  </span>
+</Tooltip>
+```
+
+## Transitions（过渡动画）
 
 使用不同的过渡动画。
 
@@ -82,8 +102,8 @@ function MyComponent(props) {
 
 ## 显示和隐藏
 
-当用户的鼠标悬浮在该元素时工具提示会立即显示，并且当用户鼠标离开时立即隐藏。 可以通过` enterDelay `和` leaveDelay `属性来控制显示及隐藏文字提示的延迟，如上面的控制文字提示演示中所示。
+The tooltip is normally shown immediately when the user's mouse hovers over the element, and hides immediately when the user's mouse leaves. A delay in showing or hiding the tooltip can be added through the properties `enterDelay` and `leaveDelay`, as shown in the Controlled Tooltips demo above.
 
-在移动设备上，当用户长按元素并在延迟1500ms后，将显示文字提示。 您可以使用`disableTouchListener`属性禁用此功能。
+On mobile, the tooltip is displayed when the user longpresses the element and hides after a delay of 1500ms. You can disable this feature with the `disableTouchListener` property.
 
 {{"demo": "pages/components/tooltips/DelayTooltips.js"}}

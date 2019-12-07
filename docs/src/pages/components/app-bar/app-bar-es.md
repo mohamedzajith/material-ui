@@ -9,67 +9,117 @@ components: AppBar, Toolbar, Menu
 
 La [top App Bar](https://material.io/design/components/app-bars-top.html) provee contenido y acciones relacionados a la pantalla actual. Es usada para mostrar logotipos de marcas, títulos de pantalla, navegación y acciones.
 
-Puede transformarse en una barra de acción contextual o ser usada como una barra de navegación.
+Se puede transformar en una barra de acción contextual o usarse como una barra de navegación.
 
-## App bar con botones
+## App Bar Simple
 
-{{"demo": "pages/components/app-bar/ButtonAppBar.js"}}
+{{"demo": "pages/components/app-bar/ButtonAppBar.js", "bg": true}}
 
-## App bar simple
+## App Bar con un campo de búsqueda principal
 
-{{"demo": "pages/components/app-bar/SimpleAppBar.js"}}
+Un campo de búsqueda principal.
 
-## App bar con un campo de búsqueda principal
+{{"demo": "pages/components/app-bar/PrimarySearchAppBar.js", "bg": true}}
 
-Una barra de búsqueda principal.
+## App Bar con menú
 
-{{"demo": "pages/components/app-bar/PrimarySearchAppBar.js"}}
+{{"demo": "pages/components/app-bar/MenuAppBar.js", "bg": true}}
 
-## App bar con un menú
+## App Bar con campo de búsqueda
 
-{{"demo": "pages/components/app-bar/MenuAppBar.js"}}
+Un campo de búsqueda al costado.
 
-## App bar con un campo de búsqueda
+{{"demo": "pages/components/app-bar/SearchAppBar.js", "bg": true}}
 
-Barra de búsqueda secundaria.
+## Denso (sólo escritorio)
 
-{{"demo": "pages/components/app-bar/SearchAppBar.js"}}
+{{"demo": "pages/components/app-bar/DenseAppBar.js", "bg": true}}
 
-## App bar densa (solo en desktop)
+## Prominente
 
-{{"demo": "pages/components/app-bar/DenseAppBar.js"}}
+Un App Bar prominente.
+
+{{"demo": "pages/components/app-bar/ProminentAppBar.js", "bg": true}}
 
 ## App bar en pie de página
 
 {{"demo": "pages/components/app-bar/BottomAppBar.js", "iframe": true, "maxWidth": 500}}
 
+## Posición Fija
+
+Cuando muestra la posición de la barra de App Bar fija, la dimensión de los elementos no tiene impacto sobre el resto de la página. Esto puede causar que alguna parte de su contenido no sea visible, detrás del App Bar. Aquí hay 3 posibles soluciones:
+
+1. Puedes usar `position = "sticky"` en lugar de fijo. ⚠️ sticky no es compatible con IE 11.
+2. Puedes renderizar un segundo componente `<Toolbar />`:
+
+```jsx
+function App() {
+  return (
+    <React.Fragment>
+      <AppBar position="fixed">
+        <Toolbar>{/* content */}</Toolbar>
+      </AppBar>
+      <Toolbar />
+    </React.Fragment>
+  );
+}
+```
+
+3. Puede usar `theme.mixins.toolbar` CSS:
+
+```jsx
+const useStyles = makeStyles(theme => ({
+  offset: theme.mixins.toolbar,
+}))
+
+function App() {
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <AppBar position="fixed">
+        <Toolbar>{/* content */}</Toolbar>
+      </AppBar>
+      <div className={classes.offset} />
+    </React.Fragment>
+  )
+};
+```
+
 ## Desplazamiento
+
+Puede usar el `useScrollTrigger ()` para responder a las acciones de desplazamiento del usuario.
 
 ### Ocultar App bar
 
-An App Bar that hides on scroll.
+La barra de aplicaciones se oculta al desplazarse hacia abajo para dejar más espacio para leer.
 
 {{"demo": "pages/components/app-bar/HideAppBar.js", "iframe": true, "maxWidth": 500}}
 
 ### Elevar App Bar
 
-An App Bar that elevates on scroll.
+La barra de la aplicación se eleva al desplazarse para comunicar que el usuario no está en la parte superior de la página.
 
 {{"demo": "pages/components/app-bar/ElevateAppBar.js", "iframe": true, "maxWidth": 500}}
+
+### Ir arriba
+
+Aparece un botón de acción flotante al desplazarse para que sea fácil volver a la parte superior de la página.
+
+{{"demo": "pages/components/app-bar/BackToTop.js", "iframe": true, "maxWidth": 500}}
 
 ### `useScrollTrigger([options]) => trigger`
 
 #### Argumentos
 
 1. `options` (*Object* [optional]):
-    
-    - `options.disableHysteresis` (*Boolean* [optional]): Defaults to `false`. Disable the hysteresis. Ignore the scroll direction when determining the `trigger` value.
-    - `options.target` (*Node* [optional]): Defaults to `window`.
-    - `options.threshold` (*Number* [optional]): Defaults to `100`. Change the `trigger` value when the vertical scroll strictly crosses this threshold (exclusive).
 
-#### Devuelve
+- `options.disableHysteresis` (*Boolean* [optional]): Default `false`. Desactiva la histéresis. Ignora la dirección de desplazamiento cuando determina el valor del `trigger`.
+- `options.target` (*Node* [optional]): Default `window`.
+- `options.threshold` (*Number* [optional]): Default `100`. Cambia el valor de `trigger` cuando el desplazamiento vertical cruza estrictamente este umbral (exclusivo).
 
-`trigger`: Does the scroll position match the criteria?
+#### Regresa
+
+`trigger`: ¿La posición de desplazamiento coincide con los criterios?
 
 #### Ejemplos
 

@@ -1,24 +1,24 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { green, pink } from '@material-ui/core/colors';
 import Avatar from '@material-ui/core/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
 import PageviewIcon from '@material-ui/icons/Pageview';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    avatar: {
-      margin: 10,
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
     },
-    pinkAvatar: {
-      margin: 10,
+    pink: {
       color: '#fff',
       backgroundColor: pink[500],
     },
-    greenAvatar: {
-      margin: 10,
+    green: {
       color: '#fff',
       backgroundColor: green[500],
     },
@@ -29,16 +29,16 @@ export default function IconAvatars() {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" alignItems="center">
-      <Avatar className={classes.avatar}>
+    <div className={classes.root}>
+      <Avatar>
         <FolderIcon />
       </Avatar>
-      <Avatar className={classes.pinkAvatar}>
+      <Avatar className={classes.pink}>
         <PageviewIcon />
       </Avatar>
-      <Avatar className={classes.greenAvatar}>
+      <Avatar className={classes.green}>
         <AssignmentIcon />
       </Avatar>
-    </Grid>
+    </div>
   );
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { chainPropTypes } from '@material-ui/utils';
 import { useTheme, withStyles } from '@material-ui/core/styles';
-import { capitalize, useForkRef, ownerWindow, useIsFocusVisible } from '@material-ui/core/utils';
+import { capitalize, useForkRef, useIsFocusVisible } from '@material-ui/core/utils';
 import Star from '../internal/svg-icons/Star';
 
 function clamp(value, min, max) {
@@ -15,16 +16,27 @@ function clamp(value, min, max) {
   return value;
 }
 
+function getDecimalPrecision(num) {
+  const decimalPart = num.toString().split('.')[1];
+  return decimalPart ? decimalPart.length : 0;
+}
+
+function roundValueToPrecision(value, precision) {
+  const nearest = Math.round(value / precision) * precision;
+  return Number(nearest.toFixed(getDecimalPrecision(precision)));
+}
+
 export const styles = theme => ({
   /* Styles applied to the root element. */
   root: {
-    display: 'flex',
+    display: 'inline-flex',
     position: 'relative',
     fontSize: theme.typography.pxToRem(24),
     color: '#ffb400',
     cursor: 'pointer',
+    WebkitTapHighlightColor: 'transparent',
     '&$disabled': {
-      opacity: 0.4,
+      opacity: 0.5,
       pointerEvents: 'none',
     },
     '&$focusVisible $iconActive': {
@@ -53,6 +65,7 @@ export const styles = theme => ({
     clip: 'rect(0 0 0 0)',
     height: 1,
     margin: -1,
+    color: '#000',
     overflow: 'hidden',
     padding: 0,
     position: 'absolute',
@@ -102,7 +115,7 @@ export const styles = theme => ({
 
 function IconContainer(props) {
   const { value, ...other } = props;
-  return <div {...other} />;
+  return <span {...other} />;
 }
 
 IconContainer.propTypes = {
@@ -125,7 +138,7 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     icon = defaultIcon,
     IconContainerComponent = IconContainer,
     max = 5,
-    name,
+    name: nameProp,
     onChange,
     onChangeActive,
     onMouseLeave,
@@ -133,10 +146,20 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     precision = 1,
     readOnly = false,
     size = 'medium',
-    value: valueProp = null,
+    value: valueProp2 = null,
     ...other
   } = props;
 
+  const [defaultName, setDefaultName] = React.useState();
+  const name = nameProp || defaultName;
+  React.useEffect(() => {
+    // Fallback to this default id when possible.
+    // Use the random value for client-side rendering only.
+    // We can't use it server-side.
+    setDefaultName(`mui-rating-${Math.round(Math.random() * 1e5)}`);
+  }, []);
+
+  const valueProp = roundValueToPrecision(valueProp2, precision);
   const theme = useTheme();
   const [{ hover, focus }, setState] = React.useState({
     hover: -1,
@@ -169,13 +192,14 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     let percent;
 
     if (theme.direction === 'rtl') {
-      percent = (right - event.pageX - ownerWindow(rootNode).pageXOffset) / (width * max);
+      percent = (right - event.clientX) / (width * max);
     } else {
-      percent = (event.pageX - left - ownerWindow(rootNode).pageXOffset) / (width * max);
+      percent = (event.clientX - left) / (width * max);
     }
 
-    let newHover = Math.ceil((max * percent) / precision) * precision;
+    let newHover = roundValueToPrecision(max * percent + precision / 2, precision);
     newHover = clamp(newHover, precision, max);
+
     setState(prev =>
       prev.hover === newHover && prev.focus === newHover
         ? prev
@@ -294,7 +318,7 @@ const Rating = React.forwardRef(function Rating(props, ref) {
   };
 
   return (
-    <div
+    <span
       ref={handleRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -333,7 +357,7 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         if (precision < 1) {
           const items = Array.from(new Array(1 / precision));
           return (
-            <div
+            <span
               key={itemValue}
               className={clsx(classes.decimal, {
                 [classes.iconActive]:
@@ -341,17 +365,20 @@ const Rating = React.forwardRef(function Rating(props, ref) {
               })}
             >
               {items.map(($, indexDecimal) => {
-                const itemDeciamlValue = itemValue - 1 + (indexDecimal + 1) * precision;
+                const itemDecimalValue = roundValueToPrecision(
+                  itemValue - 1 + (indexDecimal + 1) * precision,
+                  precision,
+                );
 
                 return item(
                   {
-                    value: itemDeciamlValue,
+                    value: itemDecimalValue,
                     style:
                       items.length - 1 === indexDecimal
                         ? {}
                         : {
                             width:
-                              itemDeciamlValue === value
+                              itemDecimalValue === value
                                 ? `${(indexDecimal + 1) * precision * 100}%`
                                 : '0%',
                             overflow: 'hidden',
@@ -360,14 +387,14 @@ const Rating = React.forwardRef(function Rating(props, ref) {
                           },
                   },
                   {
-                    filled: itemDeciamlValue <= value,
-                    hover: itemDeciamlValue <= hover,
-                    focus: itemDeciamlValue <= focus,
-                    checked: itemDeciamlValue === valueProp,
+                    filled: itemDecimalValue <= value,
+                    hover: itemDecimalValue <= hover,
+                    focus: itemDecimalValue <= focus,
+                    checked: itemDecimalValue === valueProp,
                   },
                 );
               })}
-            </div>
+            </span>
           );
         }
 
@@ -380,11 +407,11 @@ const Rating = React.forwardRef(function Rating(props, ref) {
             filled: itemValue <= value,
             hover: itemValue <= hover,
             focus: itemValue <= focus,
-            checked: itemValue === Math.round(valueProp),
+            checked: itemValue === valueProp,
           },
         );
       })}
-    </div>
+    </span>
   );
 });
 
@@ -409,7 +436,10 @@ Rating.propTypes = {
   /**
    * Accepts a function which returns a string value that provides a user-friendly name for the current value of the rating.
    *
-   * @param {number} value The rating label's value to format
+   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   *
+   * @param {number} value The rating label's value to format.
+   * @returns {string}
    */
   getLabelText: PropTypes.func,
   /**
@@ -425,21 +455,33 @@ Rating.propTypes = {
    */
   max: PropTypes.number,
   /**
-   * Name attribute of the radio `input` elements.
+   * The name attribute of the radio `input` elements.
+   * If `readOnly` is false, the prop is required,
+   * this input name`should be unique within the parent form.
    */
-  name: PropTypes.string,
+  name: chainPropTypes(PropTypes.string, props => {
+    if (!props.readOnly && !props.name) {
+      return new Error(
+        [
+          'Material-UI: the prop `name` is required (when `readOnly` is false).',
+          'Additionally, the input name should be unique within the parent form.',
+        ].join('\n'),
+      );
+    }
+    return null;
+  }),
   /**
    * Callback fired when the value changes.
    *
-   * @param {object} event The event source of the callback
-   * @param {number} value The new value
+   * @param {object} event The event source of the callback.
+   * @param {number} value The new value.
    */
   onChange: PropTypes.func,
   /**
    * Callback function that is fired when the hover state changes.
    *
-   * @param {object} event The event source of the callback
-   * @param {any} value The new value
+   * @param {object} event The event source of the callback.
+   * @param {number} value The new value.
    */
   onChangeActive: PropTypes.func,
   /**

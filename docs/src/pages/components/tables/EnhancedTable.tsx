@@ -82,14 +82,14 @@ function getSorting<K extends keyof any>(
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 
-interface HeadRow {
+interface HeadCell {
   disablePadding: boolean;
   id: keyof Data;
   label: string;
   numeric: boolean;
 }
 
-const headRows: HeadRow[] = [
+const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
   { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
   { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
@@ -124,20 +124,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             inputProps={{ 'aria-label': 'select all desserts' }}
           />
         </TableCell>
-        {headRows.map(row => (
+        {headCells.map(headCell => (
           <TableCell
-            key={row.id}
-            align={row.numeric ? 'right' : 'left'}
-            padding={row.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === row.id ? order : false}
+            key={headCell.id}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'default'}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
-              active={orderBy === row.id}
+              active={orderBy === headCell.id}
               direction={order}
-              onClick={createSortHandler(row.id)}
+              onClick={createSortHandler(headCell.id)}
             >
-              {row.label}
-              {orderBy === row.id ? (
+              {headCell.label}
+              {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
@@ -166,14 +166,8 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
             color: theme.palette.text.primary,
             backgroundColor: theme.palette.secondary.dark,
           },
-    spacer: {
-      flex: '1 1 100%',
-    },
-    actions: {
-      color: theme.palette.text.secondary,
-    },
     title: {
-      flex: '0 0 auto',
+      flex: '1 1 100%',
     },
   }),
 );
@@ -192,33 +186,28 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      <div className={classes.title}>
-        {numSelected > 0 ? (
-          <Typography color="inherit" variant="subtitle1">
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography variant="h6" id="tableTitle">
-            Nutrition
-          </Typography>
-        )}
-      </div>
-      <div className={classes.spacer} />
-      <div className={classes.actions}>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </div>
+      {numSelected > 0 ? (
+        <Typography className={classes.title} color="inherit" variant="subtitle1">
+          {numSelected} selected
+        </Typography>
+      ) : (
+        <Typography className={classes.title} variant="h6" id="tableTitle">
+          Nutrition
+        </Typography>
+      )}
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Filter list">
+          <IconButton aria-label="filter list">
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </Toolbar>
   );
 };
@@ -227,7 +216,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      marginTop: theme.spacing(3),
     },
     paper: {
       width: '100%',
@@ -262,22 +250,22 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  function handleRequestSort(event: React.MouseEvent<unknown>, property: keyof Data) {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isDesc = orderBy === property && order === 'desc';
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
-  }
+  };
 
-  function handleSelectAllClick(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelecteds = rows.map(n => n.name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
-  }
+  };
 
-  function handleClick(event: React.MouseEvent<unknown>, name: string) {
+  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected: string[] = [];
 
@@ -295,20 +283,20 @@ export default function EnhancedTable() {
     }
 
     setSelected(newSelected);
-  }
+  };
 
-  function handleChangePage(event: unknown, newPage: number) {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
-  }
+  };
 
-  function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
-    setRowsPerPage(+event.target.value);
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  }
+  };
 
-  function handleChangeDense(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDense(event.target.checked);
-  }
+  };
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
@@ -323,6 +311,7 @@ export default function EnhancedTable() {
             className={classes.table}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
+            aria-label="enhanced table"
           >
             <EnhancedTableHead
               classes={classes}
@@ -367,7 +356,7 @@ export default function EnhancedTable() {
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
+                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -380,12 +369,6 @@ export default function EnhancedTable() {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          backIconButtonProps={{
-            'aria-label': 'previous page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'next page',
-          }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />

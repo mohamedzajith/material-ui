@@ -2,6 +2,7 @@ import * as React from 'react';
 import { PropInjector, CoerceEmptyInterface, IsEmptyInterface } from '@material-ui/types';
 import * as CSS from 'csstype';
 import * as JSS from 'jss';
+import { DefaultTheme } from '../defaultTheme';
 
 // Disable automatic export
 export {};
@@ -58,7 +59,7 @@ export type Styles<Theme, Props extends object, ClassKey extends string = string
   | StyleRules<Props, ClassKey>
   | StyleRulesCallback<Theme, Props, ClassKey>;
 
-export interface WithStylesOptions<Theme> extends JSS.StyleSheetFactoryOptions {
+export interface WithStylesOptions<Theme = DefaultTheme> extends JSS.StyleSheetFactoryOptions {
   defaultTheme?: Theme;
   flip?: boolean;
   withTheme?: boolean;
@@ -80,13 +81,14 @@ export type ClassKeyOfStyles<StylesOrClassKey> = StylesOrClassKey extends string
   : never;
 
 /**
- * infers the type of the theme used in the styles
+ * infers the type of the props used in the styles
  */
 export type PropsOfStyles<StylesType> = StylesType extends Styles<any, infer Props>
   ? CoerceEmptyInterface<Props>
   : {};
+
 /**
- * infers the type of the props used in the styles
+ * infers the type of the theme used in the styles
  */
 export type ThemeOfStyles<StylesType> = StylesType extends Styles<infer Theme, any> ? Theme : {};
 
@@ -95,12 +97,15 @@ export type WithStyles<
   IncludeTheme extends boolean | undefined = false
 > = (IncludeTheme extends true ? { theme: ThemeOfStyles<StylesType> } : {}) & {
   classes: ClassNameMap<ClassKeyOfStyles<StylesType>>;
-  innerRef?: React.Ref<any> | React.RefObject<any>;
+  innerRef?: React.Ref<any>;
 } & PropsOfStyles<StylesType>;
 
 export interface StyledComponentProps<ClassKey extends string = string> {
+  /**
+   * Override or extend the styles applied to the component.
+   */
   classes?: Partial<ClassNameMap<ClassKey>>;
-  innerRef?: React.Ref<any> | React.RefObject<any>;
+  innerRef?: React.Ref<any>;
 }
 
 export default function withStyles<

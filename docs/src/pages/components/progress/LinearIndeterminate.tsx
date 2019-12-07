@@ -1,11 +1,14 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
     },
   }),
 );
@@ -16,7 +19,6 @@ export default function LinearIndeterminate() {
   return (
     <div className={classes.root}>
       <LinearProgress />
-      <br />
       <LinearProgress color="secondary" />
     </div>
   );

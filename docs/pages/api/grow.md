@@ -6,11 +6,17 @@ filename: /packages/material-ui/src/Grow/Grow.js
 
 # Grow API
 
-<p class="description">The API documentation of the Grow React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the Grow React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import Grow from '@material-ui/core/Grow';
+// or
 import { Grow } from '@material-ui/core';
 ```
+
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
 
 The Grow transition is used by the [Tooltip](/components/tooltips/) and
 [Popover](/components/popover/) components.
@@ -26,16 +32,12 @@ It uses [react-transition-group](https://github.com/reactjs/react-transition-gro
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element ([Transition](https://reactcommunity.org/react-transition-group/transition/#Transition-props)).
+Any other props supplied will be provided to the root element ([Transition](https://reactcommunity.org/react-transition-group/transition/#Transition-props)).
 
 ## Inheritance
 
-The properties of the [Transition](https://reactcommunity.org/react-transition-group/transition/#Transition-props) component, from react-transition-group, are also available.
+The props of the [Transition](https://reactcommunity.org/react-transition-group/transition/#Transition-props) component, from react-transition-group, are also available.
 You can take advantage of this behavior to [target nested components](/guides/api/#spread).
-
-## Notes
-
-The component can cause issues in [StrictMode](https://reactjs.org/docs/strict-mode.html).
 
 ## Demos
 

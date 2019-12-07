@@ -4,15 +4,26 @@ import clsx from 'clsx';
 import withStyles from '../styles/withStyles';
 import TableContext from './TableContext';
 
-export const styles = {
+export const styles = theme => ({
   /* Styles applied to the root element. */
   root: {
     display: 'table',
     width: '100%',
     borderCollapse: 'collapse',
     borderSpacing: 0,
+    '& caption': {
+      ...theme.typography.body2,
+      padding: theme.spacing(2),
+      color: theme.palette.text.secondary,
+      textAlign: 'left',
+      captionSide: 'bottom',
+    },
   },
-};
+  /* Styles applied to the root element if `stickyHeader={true}`. */
+  stickyHeader: {
+    borderCollapse: 'separate',
+  },
+});
 
 const Table = React.forwardRef(function Table(props, ref) {
   const {
@@ -21,13 +32,22 @@ const Table = React.forwardRef(function Table(props, ref) {
     component: Component = 'table',
     padding = 'default',
     size = 'medium',
+    stickyHeader = false,
     ...other
   } = props;
-  const table = React.useMemo(() => ({ padding, size }), [padding, size]);
+  const table = React.useMemo(() => ({ padding, size, stickyHeader }), [
+    padding,
+    size,
+    stickyHeader,
+  ]);
 
   return (
     <TableContext.Provider value={table}>
-      <Component ref={ref} className={clsx(classes.root, className)} {...other} />
+      <Component
+        ref={ref}
+        className={clsx(classes.root, { [classes.stickyHeader]: stickyHeader }, className)}
+        {...other}
+      />
     </TableContext.Provider>
   );
 });
@@ -59,6 +79,12 @@ Table.propTypes = {
    * Allows TableCells to inherit size of the Table.
    */
   size: PropTypes.oneOf(['small', 'medium']),
+  /**
+   * Set the header sticky.
+   *
+   * ⚠️ It doesn't work with IE 11.
+   */
+  stickyHeader: PropTypes.bool,
 };
 
 export default withStyles(styles, { name: 'MuiTable' })(Table);

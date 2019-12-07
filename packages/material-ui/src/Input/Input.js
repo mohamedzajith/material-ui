@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import InputBase from '../InputBase';
 import withStyles from '../styles/withStyles';
 
@@ -23,10 +24,16 @@ export const styles = theme => {
     focused: {},
     /* Styles applied to the root element if `disabled={true}`. */
     disabled: {},
+    /* Styles applied to the root element if color secondary. */
+    colorSecondary: {
+      '&$underline:after': {
+        borderBottomColor: theme.palette.secondary.main,
+      },
+    },
     /* Styles applied to the root element if `disableUnderline={false}`. */
     underline: {
       '&:after': {
-        borderBottom: `2px solid ${theme.palette.primary[light ? 'dark' : 'light']}`,
+        borderBottom: `2px solid ${theme.palette.primary.main}`,
         left: 0,
         bottom: 0,
         // Doing the other way around crash on IE 11 "''" https://github.com/cssinjs/jss/issues/242
@@ -73,6 +80,8 @@ export const styles = theme => {
     },
     /* Styles applied to the root element if `error={true}`. */
     error: {},
+    /* Styles applied to the `input` element if `margin="dense"`. */
+    marginDense: {},
     /* Styles applied to the root element if `multiline={true}`. */
     multiline: {},
     /* Styles applied to the root element if `fullWidth={true}`. */
@@ -139,6 +148,10 @@ Input.propTypes = {
    */
   className: PropTypes.string,
   /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: PropTypes.oneOf(['primary', 'secondary']),
+  /**
    * The default `input` element value. Use when the component is not controlled.
    */
   defaultValue: PropTypes.any,
@@ -177,9 +190,9 @@ Input.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /**
    * If `dense`, will adjust vertical spacing. This is normally obtained via context from
    * FormControl.
@@ -197,7 +210,7 @@ Input.propTypes = {
    * Callback fired when the value is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.value`.
+   * You can pull out the new value by accessing `event.target.value` (string).
    */
   onChange: PropTypes.func,
   /**

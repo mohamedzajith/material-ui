@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 /**
  * Transpiles TypeScript demos to formatted JavaScript.
  * Can be used to verify that JS and TS demos are equivalent. No introduced change
@@ -16,8 +15,8 @@ const fse = require('fs-extra');
 const path = require('path');
 const babel = require('@babel/core');
 const prettier = require('prettier');
-const os = require('os');
 const typescriptToProptypes = require('typescript-to-proptypes');
+const { fixBabelGeneratorIssues, fixLineEndings } = require('./helpers');
 
 const tsConfig = typescriptToProptypes.loadConfig(path.resolve(__dirname, '../tsconfig.json'));
 
@@ -61,19 +60,6 @@ async function getFiles(root) {
   return files;
 }
 
-function getLineFeed(source) {
-  const match = source.match(/\r?\n/);
-  if (match === null) {
-    return os.EOL;
-  }
-  return match[0];
-}
-
-const fixBabelIssuesRegExp = new RegExp(/(?<=(\/>)|,)(\r?\n){2}/g);
-function fixBabelGeneratorIssues(source) {
-  return source.replace(fixBabelIssuesRegExp, getLineFeed(source));
-}
-
 const TranspileResult = {
   Success: 0,
   Skipped: 1,
@@ -91,7 +77,9 @@ async function transpileFile(tsxPath, program, ignoreCache = false) {
       }
     }
 
-    const { code } = await babel.transformFileAsync(tsxPath, babelConfig);
+    const source = await fse.readFile(tsxPath, 'utf8');
+
+    const { code } = await babel.transformAsync(source, { ...babelConfig, filename: tsxPath });
 
     if (/import \w* from 'prop-types'/.test(code)) {
       throw new Error('TypeScript demo contains prop-types, please remove them');
@@ -110,8 +98,9 @@ async function transpileFile(tsxPath, program, ignoreCache = false) {
 
     const prettified = prettier.format(codeWithPropTypes, { ...prettierConfig, filepath: tsxPath });
     const formatted = fixBabelGeneratorIssues(prettified);
+    const correctedLineEndings = fixLineEndings(source, formatted);
 
-    await fse.writeFile(jsPath, formatted);
+    await fse.writeFile(jsPath, correctedLineEndings);
     return TranspileResult.Success;
   } catch (err) {
     console.error('Something went wrong transpiling %s\n%s\n', tsxPath, err);

@@ -6,11 +6,17 @@ filename: /packages/material-ui/src/StepButton/StepButton.js
 
 # StepButton API
 
-<p class="description">The API documentation of the StepButton React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the StepButton React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import StepButton from '@material-ui/core/StepButton';
+// or
 import { StepButton } from '@material-ui/core';
 ```
+
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
 
 
 
@@ -25,7 +31,7 @@ import { StepButton } from '@material-ui/core';
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element ([ButtonBase](/api/button-base/)).
+Any other props supplied will be provided to the root element ([ButtonBase](/api/button-base/)).
 
 ## CSS
 
@@ -34,27 +40,23 @@ Any other properties supplied will be provided to the root element ([ButtonBase]
 
 | Rule name | Global class | Description |
 |:-----|:-------------|:------------|
-| <span class="prop-name">root</span> | <span class="prop-name">MuiStepButton-root</span> | Styles applied to the root element.
-| <span class="prop-name">horizontal</span> | <span class="prop-name">MuiStepButton-horizontal</span> | Styles applied to the root element if `orientation="horizontal"`.
-| <span class="prop-name">vertical</span> | <span class="prop-name">MuiStepButton-vertical</span> | Styles applied to the root element if `orientation="vertical"`.
-| <span class="prop-name">touchRipple</span> | <span class="prop-name">MuiStepButton-touchRipple</span> | Styles applied to the `ButtonBase` touch-ripple.
+| <span class="prop-name">root</span> | <span class="prop-name">.MuiStepButton-root</span> | Styles applied to the root element.
+| <span class="prop-name">horizontal</span> | <span class="prop-name">.MuiStepButton-horizontal</span> | Styles applied to the root element if `orientation="horizontal"`.
+| <span class="prop-name">vertical</span> | <span class="prop-name">.MuiStepButton-vertical</span> | Styles applied to the root element if `orientation="vertical"`.
+| <span class="prop-name">touchRipple</span> | <span class="prop-name">.MuiStepButton-touchRipple</span> | Styles applied to the `ButtonBase` touch-ripple.
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [`classes` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [`overrides` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/StepButton/StepButton.js) for more detail.
+If that's not sufficient, you can check the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/StepButton/StepButton.js) for more detail.
 
 ## Inheritance
 
-The properties of the [ButtonBase](/api/button-base/) component are also available.
+The props of the [ButtonBase](/api/button-base/) component are also available.
 You can take advantage of this behavior to [target nested components](/guides/api/#spread).
-
-## Notes
-
-The component is fully [StrictMode](https://reactjs.org/docs/strict-mode.html) compatible.
 
 ## Demos
 

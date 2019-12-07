@@ -27,7 +27,7 @@ Os pontos de quebra são usados internamente em vários componentes para torná-
 
 ## Consultas de Mídia CSS
 
-Consultas de mídia CSS é a abordagem idiomática para tornar sua interface de usuário responsiva. Nós fornecemos quatro ajudantes de estilos para fazer isso:
+Consultas de mídia CSS são a abordagem idiomática para tornar sua interface de usuário responsiva. O tema fornece quatro estilos auxiliares para fazer isso:
 
 - [theme.breakpoints.up(key)](#theme-breakpoints-up-key-media-query)
 - [theme.breakpoints.down(key)](#theme-breakpoints-down-key-media-query)
@@ -201,10 +201,10 @@ Alguns detalhes de implementação que podem ser interessantes para estar ciente
 
 #### Argumentos
 
-1. `options` (*Object* [optional]): 
-    - `options.withTheme` (*Boolean* [opcional]): Padrão `false`. Fornecer o objeto `theme` para o componente como uma propriedade.
-    - `options.noSSR` (*Boolean* [opcional]): Padrão `false`. Para realizar a reconciliação de renderização do lado do servidor, ele precisa renderizar duas vezes. Uma primeira vez sem nada e uma segunda vez com os filhos. Este ciclo de renderização de dupla passagem tem uma desvantagem. A interface do usuário pode piscar. Você pode definir esse sinalizador para `true` se você não estiver fazendo a renderização do lado do servidor.
-    - `options.initialWidth` (*Breakpoint* [opcional]): Como `window.innerWidth` não esta disponível no servidor, retornamos uma correspondência padrão durante a primeira montagem. Você pode querer usar uma heurística para aproximar a largura da tela no navegador do cliente. Por exemplo, você poderia estar usando o user-agent ou o client-hint. https://caniuse.com/#search=client%20hint, também podemos definir a largura inicial globalmente usando [`propriedades customizadas`](/customization/globals/#default-props) no tema. Para definir o initialWidth, precisamos passar uma propriedade customizada com esta forma:
+1. `options` (*Object* [opcional]): 
+  - `options.withTheme` (*Boolean* [opcional]): Padrão `false`. Fornecer o objeto `theme` para o componente como uma propriedade.
+  - `options.noSSR` (*Boolean* [opcional]): Padrão `false`. Para realizar a reconciliação de renderização do lado do servidor, ele precisa renderizar duas vezes. Uma primeira vez sem nada e uma segunda vez com os filhos. Este ciclo de renderização de dupla passagem tem uma desvantagem. A interface do usuário pode piscar. Você pode definir esse sinalizador para `true` se você não estiver fazendo a renderização do lado do servidor.
+  - `options.initialWidth` (*Breakpoint* [opcional]): Como `window.innerWidth` não esta disponível no servidor, retornamos uma correspondência padrão durante a primeira montagem. Você pode querer usar uma heurística para aproximar a largura da tela no navegador do cliente. Por exemplo, você poderia estar usando o user-agent ou o client-hint. https://caniuse.com/#search=client%20hint, também podemos definir a largura inicial globalmente usando [`propriedades customizadas`](/customization/globals/#default-props) no tema. Para definir o initialWidth, precisamos passar uma propriedade customizada com esta forma:
 
 ```js
 const theme = createMuiTheme({
@@ -229,15 +229,17 @@ const theme = createMuiTheme({
 ```jsx
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
-class MyComponent extends React.Component {
-  render () {
-    if (isWidthUp('sm', this.props.width)) {
-      return <span />
-    }
-
-    return <div />;
+function MyComponent(props) {
+  if (isWidthUp('sm', props.width)) {
+    return <span />
   }
+
+  return <div />;
 }
 
 export default withWidth()(MyComponent);
 ```
+
+## Valores padrão
+
+Você pode explorar os valores padrão dos pontos de quebra usando [o explorador de tema](/customization/default-theme/?expend-path=$.breakpoints) ou abrindo o console das ferramentas de desenvolvimento nesta página (`window.theme.breakpoints`).

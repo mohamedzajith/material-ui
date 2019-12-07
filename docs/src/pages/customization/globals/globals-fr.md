@@ -9,9 +9,12 @@ When the configuration variables aren't powerful enough, you can take advantage 
 ```js
 const theme = createMuiTheme({
   overrides: {
-    MuiButton: { // Name of the component ⚛️ / style sheet
-      text: { // Name of the rule
-        color: 'white', // Some CSS
+    // Style sheet name ⚛️
+    MuiButton: {
+      // Name of the rule
+      text: {
+        // Some CSS
+        color: 'white',
       },
     },
   },
@@ -24,7 +27,7 @@ The list of these customization points for each component is documented under th
 
 ## Default props
 
-You can change the default props of all the Material-UI components. We expose a `props` key in the `theme` for this use case.
+You can change the default props of all the Material-UI components. A `props` key is exposed in the `theme` for this use case.
 
 ```js
 const theme = createMuiTheme({

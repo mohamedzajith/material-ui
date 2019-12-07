@@ -52,18 +52,33 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
+    '&&': {
+      paddingRight: 24,
+    },
   },
   /* Pseudo-class applied to the select component `disabled` class. */
   disabled: {},
-  /* Styles applied to the select component `icon` class. */
+  /* Styles applied to the icon component. */
   icon: {
     // We use a position absolute over a flexbox in order to forward the pointer events
-    // to the input.
+    // to the input and to support wrapping tags..
     position: 'absolute',
     right: 0,
     top: 'calc(50% - 12px)', // Center vertically
     color: theme.palette.action.active,
     pointerEvents: 'none', // Don't block pointer events on the select under the icon.
+  },
+  /* Styles applied to the icon component if the popup is open. */
+  iconOpen: {
+    transform: 'rotate(180deg)',
+  },
+  /* Styles applied to the icon component if `variant="filled"`. */
+  iconFilled: {
+    right: 7,
+  },
+  /* Styles applied to the icon component if `variant="outlined"`. */
+  iconOutlined: {
+    right: 7,
   },
 });
 
@@ -93,7 +108,6 @@ const NativeSelect = React.forwardRef(function NativeSelect(props, ref) {
     // Most of the logic is implemented in `NativeSelectInput`.
     // The `Select` component is a simple API wrapper to expose something better to play with.
     inputComponent: NativeSelectInput,
-    select: true,
     inputProps: {
       children,
       classes,
@@ -135,11 +149,11 @@ NativeSelect.propTypes = {
    * Callback function fired when a menu item is selected.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.value`.
+   * You can pull out the new value by accessing `event.target.value` (string).
    */
   onChange: PropTypes.func,
   /**
-   * The input value.
+   * The input value. The DOM API casts this to a string.
    */
   value: PropTypes.any,
   /**

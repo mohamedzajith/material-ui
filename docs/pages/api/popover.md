@@ -6,11 +6,17 @@ filename: /packages/material-ui/src/Popover/Popover.js
 
 # Popover API
 
-<p class="description">The API documentation of the Popover React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the Popover React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import Popover from '@material-ui/core/Popover';
+// or
 import { Popover } from '@material-ui/core';
 ```
+
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
 
 
 
@@ -18,7 +24,7 @@ import { Popover } from '@material-ui/core';
 
 | Name | Type | Default | Description |
 |:-----|:-----|:--------|:------------|
-| <span class="prop-name">action</span> | <span class="prop-type">func</span> |  | This is callback prop. It's called by the component on mount. This is useful when you want to trigger an action programmatically. It currently only supports updatePosition() action.<br><br>**Signature:**<br>`function(actions: object) => void`<br>*actions:* This object contains all possible actions that can be triggered programmatically. |
+| <span class="prop-name">action</span> | <span class="prop-type">ref</span> |  | A ref for imperative actions. It currently only supports updatePosition() action. |
 | <span class="prop-name">anchorEl</span> | <span class="prop-type">object<br>&#124;&nbsp;func</span> |  | This is the DOM element, or a function that returns the DOM element, that may be used to set the position of the popover. |
 | <span class="prop-name">anchorOrigin</span> | <span class="prop-type">{ horizontal: number<br>&#124;&nbsp;'left'<br>&#124;&nbsp;'center'<br>&#124;&nbsp;'right', vertical: number<br>&#124;&nbsp;'top'<br>&#124;&nbsp;'center'<br>&#124;&nbsp;'bottom' }</span> | <span class="prop-default">{  vertical: 'top',  horizontal: 'left',}</span> | This is the point on the anchor where the popover's `anchorEl` will attach to. This is not used when the anchorReference is 'anchorPosition'.<br>Options: vertical: [top, center, bottom]; horizontal: [left, center, right]. |
 | <span class="prop-name">anchorPosition</span> | <span class="prop-type">{ left: number, top: number }</span> |  | This is the position that may be used to set the position of the popover. The coordinates are relative to the application's client area. |
@@ -29,7 +35,6 @@ import { Popover } from '@material-ui/core';
 | <span class="prop-name">elevation</span> | <span class="prop-type">number</span> | <span class="prop-default">8</span> | The elevation of the popover. |
 | <span class="prop-name">getContentAnchorEl</span> | <span class="prop-type">func</span> |  | This function is called in order to retrieve the content anchor element. It's the opposite of the `anchorEl` prop. The content anchor element should be an element inside the popover. It's used to correctly scroll and set the position of the popover. The positioning strategy tries to make the content anchor element just above the anchor element. |
 | <span class="prop-name">marginThreshold</span> | <span class="prop-type">number</span> | <span class="prop-default">16</span> | Specifies how close to the edge of the window the popover can appear. |
-| <span class="prop-name">ModalClasses</span> | <span class="prop-type">object</span> |  | `classes` prop applied to the [`Modal`](/api/modal/) element. |
 | <span class="prop-name">onClose</span> | <span class="prop-type">func</span> |  | Callback fired when the component requests to be closed.<br><br>**Signature:**<br>`function(event: object, reason: string) => void`<br>*event:* The event source of the callback.<br>*reason:* Can be:`"escapeKeyDown"`, `"backdropClick"` |
 | <span class="prop-name">onEnter</span> | <span class="prop-type">func</span> |  | Callback fired before the component is entering. |
 | <span class="prop-name">onEntered</span> | <span class="prop-type">func</span> |  | Callback fired when the component has entered. |
@@ -46,7 +51,7 @@ import { Popover } from '@material-ui/core';
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element ([Modal](/api/modal/)).
+Any other props supplied will be provided to the root element ([Modal](/api/modal/)).
 
 ## CSS
 
@@ -55,24 +60,21 @@ Any other properties supplied will be provided to the root element ([Modal](/api
 
 | Rule name | Global class | Description |
 |:-----|:-------------|:------------|
-| <span class="prop-name">paper</span> | <span class="prop-name">MuiPopover-paper</span> | Styles applied to the `Paper` component.
+| <span class="prop-name">root</span> | <span class="prop-name">.MuiPopover-root</span> | Styles applied to the root element
+| <span class="prop-name">paper</span> | <span class="prop-name">.MuiPopover-paper</span> | Styles applied to the `Paper` component.
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [`classes` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [`overrides` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Popover/Popover.js) for more detail.
+If that's not sufficient, you can check the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Popover/Popover.js) for more detail.
 
 ## Inheritance
 
-The properties of the [Modal](/api/modal/) component are also available.
+The props of the [Modal](/api/modal/) component are also available.
 You can take advantage of this behavior to [target nested components](/guides/api/#spread).
-
-## Notes
-
-The component can cause issues in [StrictMode](https://reactjs.org/docs/strict-mode.html).
 
 ## Demos
 

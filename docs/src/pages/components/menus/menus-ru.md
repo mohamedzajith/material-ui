@@ -1,5 +1,5 @@
 ---
-title: Menu React component
+title: React-компонент Меню
 components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 ---
 
@@ -7,7 +7,7 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 <p class="description">Меню временно отображают список вариантов.</p>
 
-A [Menu](https://material.io/design/components/menus.html) displays a list of choices on a temporary surface. It appears when the user interacts with a button, or other control.
+A [Menu](https://material.io/design/components/menus.html) displays a list of choices on a temporary surface. Оно появляется когда пользователь взаимодействует с кнопкой или другим элементом управления.
 
 ## Простое меню
 
@@ -31,17 +31,17 @@ The `Menu` component uses the `Popover` component internally. However, you might
 
 The primary responsibility of the `MenuList` component is to handle the focus.
 
-{{"demo": "pages/components/menus/MenuListComposition.js"}}
+{{"demo": "pages/components/menus/MenuListComposition.js", "bg": true}}
 
 ## Customized menus
 
-Here is an example of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
+Ниже находится пример кастомизации компонента. You can learn more about this in the [overrides documentation page](/customization/components/).
 
 {{"demo": "pages/components/menus/CustomizedMenus.js"}}
 
-`MenuItem` является оберткой `ListItem` с некоторыми дополнительными стилями. С компонентом `MenuItem` можно использовать те же приемы композиции списка:
+The `MenuItem` is a wrapper around `ListItem` with some additional styles. You can use the same list composition features with the `MenuItem` component:
 
-## Max height menus
+## Меню с максимальной высотой
 
 Если высота меню препятствует отображению всех пунктов меню, меню можно прокручивать внутри.
 
@@ -51,7 +51,7 @@ Here is an example of customizing the component. You can learn more about this i
 
 Существует [ошибка flexbox](https://bugs.chromium.org/p/chromium/issues/detail?id=327437), которая предотвращает работу свойства `text-overflow: ellipsis` внутри flexbox. Вы можете использовать компонент `Typography` с `noWrap`, чтобы обойти эту проблему:
 
-{{"demo": "pages/components/menus/TypographyMenu.js"}}
+{{"demo": "pages/components/menus/TypographyMenu.js", "bg": true}}
 
 ## Change transition
 
@@ -59,12 +59,18 @@ Here is an example of customizing the component. You can learn more about this i
 
 {{"demo": "pages/components/menus/FadeMenu.js"}}
 
+## Context menu
+
+Here is an example of a context menu. (Right click to open.)
+
+{{"demo": "pages/components/menus/ContextMenu.js"}}
+
 ## Дополнительные проекты
 
 Для более сложных вариантов использования вы можете воспользоваться:
 
 ### PopupState helper
 
-Существует сторонний пакет [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state), который, в большинстве случаев, заботится о состоянии всплывающего меню за вас.
+There is a 3rd party package [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) that takes care of menu state for you in most cases.
 
 {{"demo": "pages/components/menus/MenuPopupState.js"}}

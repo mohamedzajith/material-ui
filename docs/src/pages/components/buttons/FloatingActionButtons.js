@@ -2,13 +2,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Icon from '@material-ui/core/Icon';
-import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
 const useStyles = makeStyles(theme => ({
-  fab: {
-    margin: theme.spacing(1),
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -19,19 +21,19 @@ export default function FloatingActionButtons() {
   const classes = useStyles();
 
   return (
-    <div>
-      <Fab color="primary" aria-label="add" className={classes.fab}>
+    <div className={classes.root}>
+      <Fab color="primary" aria-label="add">
         <AddIcon />
       </Fab>
-      <Fab color="secondary" aria-label="edit" className={classes.fab}>
-        <Icon>edit_icon</Icon>
+      <Fab color="secondary" aria-label="edit">
+        <EditIcon />
       </Fab>
-      <Fab variant="extended" aria-label="delete" className={classes.fab}>
+      <Fab variant="extended">
         <NavigationIcon className={classes.extendedIcon} />
-        Extended
+        Navigate
       </Fab>
-      <Fab disabled aria-label="delete" className={classes.fab}>
-        <DeleteIcon />
+      <Fab disabled aria-label="like">
+        <FavoriteIcon />
       </Fab>
     </div>
   );

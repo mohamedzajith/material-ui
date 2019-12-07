@@ -1,5 +1,5 @@
-# Languages
+# 言語設定
 
-<p class="description">The Material-UI documentation is available in the following languages.</p>
+<p class="description">Material-UIドキュメントは、次の言語で利用可能です。</p>
 
-{{"demo": "pages/discover-more/languages/Languages.js", "hideHeader": true}}
+{{"demo": "pages/discover-more/languages/Languages.js", "hideHeader": true, "bg": true}}

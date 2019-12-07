@@ -1,5 +1,5 @@
 ---
-description: Here are the most significant changes in April.
+description: Here are the most significant improvements in April.
 ---
 
 # April 2019 Update
@@ -8,7 +8,7 @@ description: Here are the most significant changes in April.
 
 *May 7, 2019*
 
-Here are the most significant changes in April:
+Here are the most significant improvements in April:
 
 - 📚 We have migrated [most](https://github.com/mui-org/material-ui/issues/14897) of our demos to TypeScript. **@eps1lon** has lead the effort. You can switch between the JavaScript demo and the TypeScript demo using this toggle button:
 
@@ -33,9 +33,9 @@ Here are the most significant changes in April:
 - 📅 We have moved material-ui-pickers to our organization: [@material-ui/pickers](https://material-ui-pickers.dev/). A big thanks to **@dmtrKovalenko** for creating and owning these date/time components.
 - 🔥 We have fixed more Strict Mode warnings, getting us closer to [Concurrent React](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode) support.
 - ♿️ We have significantly improved the keyboard behavior on the Select, Menu, Button and Tooltip components. The arrow key changes feel instantaneous. The select items can be selected with the alphabetical keys. The focus visible state is better detected.
-- 💄 We have added support for responsive font sizes. You can wrap your theme with [`responsiveFontSizes()`](/customization/themes/#responsive-font-sizes):
+- 💄 We have added support for responsive font sizes. You can wrap your theme with [`responsiveFontSizes()`](/customization/typography/#responsive-font-sizes):
 
-  [![Responsive font sizes](/static/blog/april-2019-update/responsive.png)](/customization/themes/#responsive-font-sizes)
+  [![Responsive font sizes](/static/blog/april-2019-update/responsive.png)](/customization/typography/#responsive-font-sizes)
 - We have added support for custom [header scroll behaviors](/components/app-bar/#scrolling):
 
   <video src="/static/blog/april-2019-update/scroll-trigger.mp4" controls loop autoplay></video>
@@ -61,6 +61,8 @@ But this summary is just scratching the surface. We have accepted 243 commits fr
   - Timeline
 - Something big 🌈
 
+- ❓ Please upvote our [GitHub issues](https://github.com/mui-org/material-ui/issues) if you want something specific. The number of 👍 helps us to prioritize.
+
 <hr />
 
-Material-UI is an MIT-licensed open source project. It’s an independent project with ongoing development made possible thanks to the support of these awesome [backers](/discover-more/backers/). Please join them ✨.
+Material-UI is an MIT-licensed open source project. It’s an independent project with ongoing development helped by the support of these awesome [backers](/discover-more/backers/). Please join them ✨.

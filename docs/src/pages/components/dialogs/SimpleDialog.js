@@ -26,13 +26,13 @@ function SimpleDialog(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
-  function handleClose() {
+  const handleClose = () => {
     onClose(selectedValue);
-  }
+  };
 
-  function handleListItemClick(value) {
+  const handleListItemClick = value => {
     onClose(value);
-  }
+  };
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
@@ -49,7 +49,7 @@ function SimpleDialog(props) {
           </ListItem>
         ))}
 
-        <ListItem button onClick={() => handleListItemClick('addAccount')}>
+        <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
           <ListItemAvatar>
             <Avatar>
               <AddIcon />
@@ -72,9 +72,9 @@ export default function SimpleDialogDemo() {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
-  function handleClickOpen() {
+  const handleClickOpen = () => {
     setOpen(true);
-  }
+  };
 
   const handleClose = value => {
     setOpen(false);

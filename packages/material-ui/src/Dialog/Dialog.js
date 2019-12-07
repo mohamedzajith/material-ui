@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import withStyles from '../styles/withStyles';
-import { capitalize } from '../utils/helpers';
+import capitalize from '../utils/capitalize';
 import Modal from '../Modal';
 import Backdrop from '../Backdrop';
 import Fade from '../Fade';
@@ -46,11 +44,11 @@ export const styles = theme => ({
       height: 'auto',
     },
     // We disable the focus ring for mouse, touch and keyboard users.
-    outline: 'none',
+    outline: 0,
   },
   /* Styles applied to the `Paper` component. */
   paper: {
-    margin: 48,
+    margin: 32,
     position: 'relative',
     overflowY: 'auto', // Fix IE 11 issue, to remove at some point.
     '@media print': {
@@ -62,7 +60,7 @@ export const styles = theme => ({
   paperScrollPaper: {
     display: 'flex',
     flexDirection: 'column',
-    maxHeight: 'calc(100% - 96px)',
+    maxHeight: 'calc(100% - 64px)',
   },
   /* Styles applied to the `Paper` component if `scroll="body"`. */
   paperScrollBody: {
@@ -72,14 +70,14 @@ export const styles = theme => ({
   },
   /* Styles applied to the `Paper` component if `maxWidth=false`. */
   paperWidthFalse: {
-    maxWidth: 'calc(100% - 96px)',
+    maxWidth: 'calc(100% - 64px)',
   },
   /* Styles applied to the `Paper` component if `maxWidth="xs"`. */
   paperWidthXs: {
     maxWidth: Math.max(theme.breakpoints.values.xs, 444),
     '&$paperScrollBody': {
-      [theme.breakpoints.down(Math.max(theme.breakpoints.values.xs, 444) + 48 * 2)]: {
-        maxWidth: 'calc(100% - 96px)',
+      [theme.breakpoints.down(Math.max(theme.breakpoints.values.xs, 444) + 32 * 2)]: {
+        maxWidth: 'calc(100% - 64px)',
       },
     },
   },
@@ -87,8 +85,8 @@ export const styles = theme => ({
   paperWidthSm: {
     maxWidth: theme.breakpoints.values.sm,
     '&$paperScrollBody': {
-      [theme.breakpoints.down(theme.breakpoints.values.sm + 48 * 2)]: {
-        maxWidth: 'calc(100% - 96px)',
+      [theme.breakpoints.down(theme.breakpoints.values.sm + 32 * 2)]: {
+        maxWidth: 'calc(100% - 64px)',
       },
     },
   },
@@ -96,8 +94,8 @@ export const styles = theme => ({
   paperWidthMd: {
     maxWidth: theme.breakpoints.values.md,
     '&$paperScrollBody': {
-      [theme.breakpoints.down(theme.breakpoints.values.md + 48 * 2)]: {
-        maxWidth: 'calc(100% - 96px)',
+      [theme.breakpoints.down(theme.breakpoints.values.md + 32 * 2)]: {
+        maxWidth: 'calc(100% - 64px)',
       },
     },
   },
@@ -105,8 +103,8 @@ export const styles = theme => ({
   paperWidthLg: {
     maxWidth: theme.breakpoints.values.lg,
     '&$paperScrollBody': {
-      [theme.breakpoints.down(theme.breakpoints.values.lg + 48 * 2)]: {
-        maxWidth: 'calc(100% - 96px)',
+      [theme.breakpoints.down(theme.breakpoints.values.lg + 32 * 2)]: {
+        maxWidth: 'calc(100% - 64px)',
       },
     },
   },
@@ -114,14 +112,14 @@ export const styles = theme => ({
   paperWidthXl: {
     maxWidth: theme.breakpoints.values.xl,
     '&$paperScrollBody': {
-      [theme.breakpoints.down(theme.breakpoints.values.xl + 48 * 2)]: {
-        maxWidth: 'calc(100% - 96px)',
+      [theme.breakpoints.down(theme.breakpoints.values.xl + 32 * 2)]: {
+        maxWidth: 'calc(100% - 64px)',
       },
     },
   },
   /* Styles applied to the `Paper` component if `fullWidth={true}`. */
   paperFullWidth: {
-    width: 'calc(100% - 96px)',
+    width: 'calc(100% - 64px)',
   },
   /* Styles applied to the `Paper` component if `fullScreen={true}`. */
   paperFullScreen: {
@@ -169,6 +167,8 @@ const Dialog = React.forwardRef(function Dialog(props, ref) {
     TransitionComponent = Fade,
     transitionDuration = defaultTransitionDuration,
     TransitionProps,
+    'aria-describedby': ariaDescribedby,
+    'aria-labelledby': ariaLabelledby,
     ...other
   } = props;
 
@@ -214,7 +214,6 @@ const Dialog = React.forwardRef(function Dialog(props, ref) {
       onClose={onClose}
       open={open}
       ref={ref}
-      role="dialog"
       {...other}
     >
       <TransitionComponent
@@ -227,17 +226,23 @@ const Dialog = React.forwardRef(function Dialog(props, ref) {
         onExit={onExit}
         onExiting={onExiting}
         onExited={onExited}
+        role="none presentation"
         {...TransitionProps}
       >
+        {/* roles are applied via cloneElement from TransitionComponent */}
+        {/* roles needs to be applied on the immediate child of Modal or it'll inject one */}
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
         <div
           className={clsx(classes.container, classes[`scroll${capitalize(scroll)}`])}
           onClick={handleBackdropClick}
           onMouseDown={handleMouseDown}
-          role="document"
           data-mui-test="FakeBackdrop"
         >
           <PaperComponent
             elevation={24}
+            role="dialog"
+            aria-describedby={ariaDescribedby}
+            aria-labelledby={ariaLabelledby}
             {...PaperProps}
             className={clsx(
               classes.paper,
@@ -259,6 +264,14 @@ const Dialog = React.forwardRef(function Dialog(props, ref) {
 });
 
 Dialog.propTypes = {
+  /**
+   * The id(s) of the element(s) that describe the dialog.
+   */
+  'aria-describedby': PropTypes.string,
+  /**
+   * The id(s) of the element(s) that label the dialog.
+   */
+  'aria-labelledby': PropTypes.string,
   /**
    * @ignore
    */
@@ -290,6 +303,8 @@ Dialog.propTypes = {
   fullScreen: PropTypes.bool,
   /**
    * If `true`, the dialog stretches to `maxWidth`.
+   *
+   * Notice that the dialog width grow is limited by the default margin.
    */
   fullWidth: PropTypes.bool,
   /**
@@ -305,8 +320,8 @@ Dialog.propTypes = {
   /**
    * Callback fired when the component requests to be closed.
    *
-   * @param {object} event The event source of the callback
-   * @param {string} reason Can be:`"escapeKeyDown"`, `"backdropClick"`
+   * @param {object} event The event source of the callback.
+   * @param {string} reason Can be:`"escapeKeyDown"`, `"backdropClick"`.
    */
   onClose: PropTypes.func,
   /**

@@ -24,7 +24,7 @@ Use os botões de opção para ajustar as posições `anchorOrigin` e `transform
 
 ## Interação sobre o mouse
 
-Demonstraremos como usar o componente `Popover` para implementar um comportamento popover baseado no evento mouse over.
+Este exemplo demonstra como usar o componente `Popover` para implementar um comportamento popover baseado no evento mouse over.
 
 {{"demo": "pages/components/popover/MouseOverPopover.js"}}
 

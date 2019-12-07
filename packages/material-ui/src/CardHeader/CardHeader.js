@@ -38,7 +38,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
     action,
     avatar,
     classes,
-    className: classNameProp,
+    className,
     component: Component = 'div',
     disableTypography = false,
     subheader: subheaderProp,
@@ -80,7 +80,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
   }
 
   return (
-    <Component className={clsx(classes.root, classNameProp)} ref={ref} {...other}>
+    <Component className={clsx(classes.root, className)} ref={ref} {...other}>
       {avatar && <div className={classes.avatar}>{avatar}</div>}
       <div className={classes.content}>
         {title}
@@ -115,7 +115,7 @@ CardHeader.propTypes = {
    */
   component: PropTypes.elementType,
   /**
-   * If `true`, the children won't be wrapped by a Typography component.
+   * If `true`, `subheader` and `title` won't be wrapped by a Typography component.
    * This can be useful to render an alternative Typography variant by wrapping
    * the `title` text, and optional `subheader` text
    * with the Typography component.

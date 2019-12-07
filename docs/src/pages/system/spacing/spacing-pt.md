@@ -70,21 +70,21 @@ const theme = {
 
 ## Exemplo
 
+{{"demo": "pages/system/spacing/Demo.js", "defaultCodeOpen": false, "bg": true}}
+
 ```jsx
 <Box p={1}>…
 <Box m={1}>…
 <Box p={2}>…
 ```
 
-{{"demo": "pages/system/spacing/Demo.js"}}
-
 ## Centralização horizontal
+
+{{"demo": "pages/system/spacing/HorizontalCentering.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box mx="auto">…
 ```
-
-{{"demo": "pages/system/spacing/HorizontalCentering.js"}}
 
 ## API
 
@@ -108,6 +108,7 @@ import { spacing } from '@material-ui/system';
 | `spacing`          | `pl` | `padding-left`                  | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
 | `spacing`          | `px` | `padding-left`, `padding-right` | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
 | `spacing`          | `py` | `padding-top`, `padding-bottom` | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
+
 
 *Algumas pessoas acham a propriedade abreviada confusa, você pode usar a versão completa se preferir:*
 

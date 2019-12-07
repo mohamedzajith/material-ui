@@ -1,9 +1,8 @@
-/* eslint-disable no-restricted-globals */
-
 import React from 'react';
+import { isFragment } from 'react-is';
 import PropTypes from 'prop-types';
-import warning from 'warning';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import debounce from '../utils/debounce';
 import ownerWindow from '../utils/ownerWindow';
 import { getNormalizedScrollLeft, detectScrollType } from 'normalize-scroll-left';
@@ -13,6 +12,7 @@ import withStyles from '../styles/withStyles';
 import TabIndicator from './TabIndicator';
 import TabScrollButton from './TabScrollButton';
 import useEventCallback from '../utils/useEventCallback';
+import useTheme from '../styles/useTheme';
 
 export const styles = theme => ({
   /* Styles applied to the root element. */
@@ -86,11 +86,11 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
     scrollButtons = 'auto',
     TabIndicatorProps = {},
     textColor = 'inherit',
-    theme,
     value,
     variant = 'standard',
     ...other
   } = props;
+  const theme = useTheme();
   const scrollable = variant === 'scrollable';
   const isRtl = theme.direction === 'rtl';
   const vertical = orientation === 'vertical';
@@ -101,11 +101,14 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
   const clientSize = vertical ? 'clientHeight' : 'clientWidth';
   const size = vertical ? 'height' : 'width';
 
-  warning(
-    !centered || !scrollable,
-    'Material-UI: you can not use the `centered={true}` and `variant="scrollable"` properties ' +
-      'at the same time on a `Tabs` component.',
-  );
+  if (process.env.NODE_ENV !== 'production') {
+    if (centered && scrollable) {
+      console.error(
+        'Material-UI: you can not use the `centered={true}` and `variant="scrollable"` properties ' +
+          'at the same time on a `Tabs` component.',
+      );
+    }
+  }
 
   const [mounted, setMounted] = React.useState(false);
   const [indicatorStyle, setIndicatorStyle] = React.useState({});
@@ -146,18 +149,21 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
 
       if (children.length > 0) {
         const tab = children[valueToIndex.get(value)];
-        warning(
-          tab,
-          [
-            `Material-UI: the value provided \`${value}\` to the Tabs component is invalid.`,
-            'None of the Tabs children have this value.',
-            valueToIndex.keys
-              ? `You can provide one of the following values: ${Array.from(
-                  valueToIndex.keys(),
-                ).join(', ')}.`
-              : null,
-          ].join('\n'),
-        );
+        if (process.env.NODE_ENV !== 'production') {
+          if (!tab) {
+            console.error(
+              [
+                `Material-UI: the value provided \`${value}\` to the Tabs component is invalid.`,
+                'None of the Tabs children have this value.',
+                valueToIndex.keys
+                  ? `You can provide one of the following values: ${Array.from(
+                      valueToIndex.keys(),
+                    ).join(', ')}.`
+                  : null,
+              ].join('\n'),
+            );
+          }
+        }
         tabMeta = tab ? tab.getBoundingClientRect() : null;
       }
     }
@@ -170,28 +176,30 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
 
     if (tabMeta && tabsMeta) {
       if (vertical) {
-        startValue = Math.round(tabMeta.top - tabsMeta.top + tabsMeta.scrollTop);
+        startValue = tabMeta.top - tabsMeta.top + tabsMeta.scrollTop;
       } else {
         const correction = isRtl
           ? tabsMeta.scrollLeftNormalized + tabsMeta.clientWidth - tabsMeta.scrollWidth
           : tabsMeta.scrollLeft;
-        startValue = Math.round(tabMeta.left - tabsMeta.left + correction);
+        startValue = tabMeta.left - tabsMeta.left + correction;
       }
     }
 
     const newIndicatorStyle = {
       [start]: startValue,
       // May be wrong until the font is loaded.
-      [size]: tabMeta ? Math.round(tabMeta[size]) : 0,
+      [size]: tabMeta ? tabMeta[size] : 0,
     };
 
-    if (
-      (newIndicatorStyle[start] !== indicatorStyle[start] ||
-        newIndicatorStyle[size] !== indicatorStyle[size]) &&
-      !isNaN(newIndicatorStyle[start]) &&
-      !isNaN(newIndicatorStyle[size])
-    ) {
+    if (isNaN(indicatorStyle[start]) || isNaN(indicatorStyle[size])) {
       setIndicatorStyle(newIndicatorStyle);
+    } else {
+      const dStart = Math.abs(indicatorStyle[start] - newIndicatorStyle[start]);
+      const dSize = Math.abs(indicatorStyle[size] - newIndicatorStyle[size]);
+
+      if (dStart >= 1 || dSize >= 1) {
+        setIndicatorStyle(newIndicatorStyle);
+      }
     }
   });
 
@@ -351,8 +359,9 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
     action,
     () => ({
       updateIndicator: updateIndicatorState,
+      updateScrollButtons: updateScrollButtonState,
     }),
-    [updateIndicatorState],
+    [updateIndicatorState, updateScrollButtonState],
   );
 
   const indicator = (
@@ -374,13 +383,16 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
       return null;
     }
 
-    warning(
-      child.type !== React.Fragment,
-      [
-        "Material-UI: the Tabs component doesn't accept a Fragment as a child.",
-        'Consider providing an array instead.',
-      ].join('\n'),
-    );
+    if (process.env.NODE_ENV !== 'production') {
+      if (isFragment(child)) {
+        console.error(
+          [
+            "Material-UI: the Tabs component doesn't accept a Fragment as a child.",
+            'Consider providing an array instead.',
+          ].join('\n'),
+        );
+      }
+    }
 
     const childValue = child.props.value === undefined ? childIndex : child.props.value;
     valueToIndex.set(childValue, childIndex);
@@ -443,12 +455,12 @@ Tabs.propTypes = {
   /**
    * Callback fired when the component mounts.
    * This is useful when you want to trigger an action programmatically.
-   * It currently only supports `updateIndicator()` action.
+   * It supports two actions: `updateIndicator()` and `updateScrollButtons()`
    *
    * @param {object} actions This object contains all possible actions
    * that can be triggered programmatically.
    */
-  action: PropTypes.func,
+  action: refType,
   /**
    * If `true`, the tabs will be centered.
    * This property is intended for large views.
@@ -509,10 +521,6 @@ Tabs.propTypes = {
    */
   textColor: PropTypes.oneOf(['secondary', 'primary', 'inherit']),
   /**
-   * @ignore
-   */
-  theme: PropTypes.object.isRequired,
-  /**
    * The value of the currently selected `Tab`.
    * If you don't want any selected `Tab`, you can set this property to `false`.
    */
@@ -529,4 +537,4 @@ Tabs.propTypes = {
   variant: PropTypes.oneOf(['standard', 'scrollable', 'fullWidth']),
 };
 
-export default withStyles(styles, { name: 'MuiTabs', withTheme: true })(Tabs);
+export default withStyles(styles, { name: 'MuiTabs' })(Tabs);

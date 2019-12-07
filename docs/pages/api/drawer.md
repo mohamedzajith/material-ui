@@ -6,13 +6,19 @@ filename: /packages/material-ui/src/Drawer/Drawer.js
 
 # Drawer API
 
-<p class="description">The API documentation of the Drawer React component. Learn more about the properties and the CSS customization points.</p>
+<p class="description">The API documentation of the Drawer React component. Learn more about the props and the CSS customization points.</p>
+
+## Import
 
 ```js
+import Drawer from '@material-ui/core/Drawer';
+// or
 import { Drawer } from '@material-ui/core';
 ```
 
-The properties of the [Modal](/api/modal/) component are available
+You can learn more about the difference by [reading this guide](/guides/minimizing-bundle-size/).
+
+The props of the [Modal](/api/modal/) component are available
 when `variant="temporary"` is set.
 
 ## Props
@@ -24,7 +30,7 @@ when `variant="temporary"` is set.
 | <span class="prop-name">classes</span> | <span class="prop-type">object</span> |  | Override or extend the styles applied to the component. See [CSS API](#css) below for more details. |
 | <span class="prop-name">elevation</span> | <span class="prop-type">number</span> | <span class="prop-default">16</span> | The elevation of the drawer. |
 | <span class="prop-name">ModalProps</span> | <span class="prop-type">object</span> | <span class="prop-default">{}</span> | Props applied to the [`Modal`](/api/modal/) element. |
-| <span class="prop-name">onClose</span> | <span class="prop-type">func</span> |  | Callback fired when the component requests to be closed.<br><br>**Signature:**<br>`function(event: object) => void`<br>*event:* The event source of the callback |
+| <span class="prop-name">onClose</span> | <span class="prop-type">func</span> |  | Callback fired when the component requests to be closed.<br><br>**Signature:**<br>`function(event: object) => void`<br>*event:* The event source of the callback. |
 | <span class="prop-name">open</span> | <span class="prop-type">bool</span> | <span class="prop-default">false</span> | If `true`, the drawer is open. |
 | <span class="prop-name">PaperProps</span> | <span class="prop-type">object</span> |  | Props applied to the [`Paper`](/api/paper/) element. |
 | <span class="prop-name">SlideProps</span> | <span class="prop-type">object</span> |  | Props applied to the [`Slide`](/api/slide/) element. |
@@ -33,7 +39,7 @@ when `variant="temporary"` is set.
 
 The `ref` is forwarded to the root element.
 
-Any other properties supplied will be provided to the root element (native element).
+Any other props supplied will be provided to the root element (native element).
 
 ## CSS
 
@@ -42,30 +48,26 @@ Any other properties supplied will be provided to the root element (native eleme
 
 | Rule name | Global class | Description |
 |:-----|:-------------|:------------|
-| <span class="prop-name">root</span> | <span class="prop-name">MuiDrawer-root</span> | Styles applied to the root element.
-| <span class="prop-name">docked</span> | <span class="prop-name">MuiDrawer-docked</span> | Styles applied to the root element if `variant="permanent or persistent"`.
-| <span class="prop-name">paper</span> | <span class="prop-name">MuiDrawer-paper</span> | Styles applied to the `Paper` component.
-| <span class="prop-name">paperAnchorLeft</span> | <span class="prop-name">MuiDrawer-paperAnchorLeft</span> | Styles applied to the `Paper` component if `anchor="left"`.
-| <span class="prop-name">paperAnchorRight</span> | <span class="prop-name">MuiDrawer-paperAnchorRight</span> | Styles applied to the `Paper` component if `anchor="right"`.
-| <span class="prop-name">paperAnchorTop</span> | <span class="prop-name">MuiDrawer-paperAnchorTop</span> | Styles applied to the `Paper` component if `anchor="top"`.
-| <span class="prop-name">paperAnchorBottom</span> | <span class="prop-name">MuiDrawer-paperAnchorBottom</span> | Styles applied to the `Paper` component if `anchor="bottom"`.
-| <span class="prop-name">paperAnchorDockedLeft</span> | <span class="prop-name">MuiDrawer-paperAnchorDockedLeft</span> | Styles applied to the `Paper` component if `anchor="left"` & `variant` is not "temporary".
-| <span class="prop-name">paperAnchorDockedTop</span> | <span class="prop-name">MuiDrawer-paperAnchorDockedTop</span> | Styles applied to the `Paper` component if `anchor="top"` & `variant` is not "temporary".
-| <span class="prop-name">paperAnchorDockedRight</span> | <span class="prop-name">MuiDrawer-paperAnchorDockedRight</span> | Styles applied to the `Paper` component if `anchor="right"` & `variant` is not "temporary".
-| <span class="prop-name">paperAnchorDockedBottom</span> | <span class="prop-name">MuiDrawer-paperAnchorDockedBottom</span> | Styles applied to the `Paper` component if `anchor="bottom"` & `variant` is not "temporary".
-| <span class="prop-name">modal</span> | <span class="prop-name">MuiDrawer-modal</span> | Styles applied to the `Modal` component.
+| <span class="prop-name">root</span> | <span class="prop-name">.MuiDrawer-root</span> | Styles applied to the root element.
+| <span class="prop-name">docked</span> | <span class="prop-name">.MuiDrawer-docked</span> | Styles applied to the root element if `variant="permanent or persistent"`.
+| <span class="prop-name">paper</span> | <span class="prop-name">.MuiDrawer-paper</span> | Styles applied to the `Paper` component.
+| <span class="prop-name">paperAnchorLeft</span> | <span class="prop-name">.MuiDrawer-paperAnchorLeft</span> | Styles applied to the `Paper` component if `anchor="left"`.
+| <span class="prop-name">paperAnchorRight</span> | <span class="prop-name">.MuiDrawer-paperAnchorRight</span> | Styles applied to the `Paper` component if `anchor="right"`.
+| <span class="prop-name">paperAnchorTop</span> | <span class="prop-name">.MuiDrawer-paperAnchorTop</span> | Styles applied to the `Paper` component if `anchor="top"`.
+| <span class="prop-name">paperAnchorBottom</span> | <span class="prop-name">.MuiDrawer-paperAnchorBottom</span> | Styles applied to the `Paper` component if `anchor="bottom"`.
+| <span class="prop-name">paperAnchorDockedLeft</span> | <span class="prop-name">.MuiDrawer-paperAnchorDockedLeft</span> | Styles applied to the `Paper` component if `anchor="left"` and `variant` is not "temporary".
+| <span class="prop-name">paperAnchorDockedTop</span> | <span class="prop-name">.MuiDrawer-paperAnchorDockedTop</span> | Styles applied to the `Paper` component if `anchor="top"` and `variant` is not "temporary".
+| <span class="prop-name">paperAnchorDockedRight</span> | <span class="prop-name">.MuiDrawer-paperAnchorDockedRight</span> | Styles applied to the `Paper` component if `anchor="right"` and `variant` is not "temporary".
+| <span class="prop-name">paperAnchorDockedBottom</span> | <span class="prop-name">.MuiDrawer-paperAnchorDockedBottom</span> | Styles applied to the `Paper` component if `anchor="bottom"` and `variant` is not "temporary".
+| <span class="prop-name">modal</span> | <span class="prop-name">.MuiDrawer-modal</span> | Styles applied to the `Modal` component.
 
-You can override the style of the component thanks to one of these customizability points:
+You can override the style of the component thanks to one of these customization points:
 
 - With a rule name of the [`classes` object prop](/customization/components/#overriding-styles-with-classes).
 - With a [global class name](/customization/components/#overriding-styles-with-global-class-names).
 - With a theme and an [`overrides` property](/customization/globals/#css).
 
-If it's not enough, you can find the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Drawer/Drawer.js) for more detail.
-
-## Notes
-
-The component can cause issues in [StrictMode](https://reactjs.org/docs/strict-mode.html).
+If that's not sufficient, you can check the [implementation of the component](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Drawer/Drawer.js) for more detail.
 
 ## Demos
 

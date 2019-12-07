@@ -15,22 +15,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
-function MadeWithLove() {
+function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
+      {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
     </Typography>
   );
 }
+
 const useStyles = makeStyles(theme => ({
   '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
     ul: {
       margin: 0,
       padding: 0,
@@ -55,7 +54,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(8, 0, 6),
   },
   cardHeader: {
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor:
+      theme.palette.type === 'dark' ? theme.palette.grey[700] : theme.palette.grey[200],
   },
   cardPricing: {
     display: 'flex',
@@ -228,7 +228,7 @@ export default function Pricing() {
           ))}
         </Grid>
         <Box mt={5}>
-          <MadeWithLove />
+          <Copyright />
         </Box>
       </Container>
       {/* End footer */}

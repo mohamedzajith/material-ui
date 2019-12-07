@@ -4,12 +4,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
-function MenuPopupState() {
+export default function MenuPopupState() {
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
       {popupState => (
         <React.Fragment>
-          <Button variant="contained" {...bindTrigger(popupState)}>
+          <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
             Open Menu
           </Button>
           <Menu {...bindMenu(popupState)}>
@@ -21,5 +21,3 @@ function MenuPopupState() {
     </PopupState>
   );
 }
-
-export default MenuPopupState;

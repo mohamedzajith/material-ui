@@ -5,21 +5,24 @@ import loadScript from 'docs/src/modules/utils/loadScript';
 const styles = theme => ({
   '@global': {
     '#cf': {
+      display: 'block',
       overflow: 'hidden',
       backgroundColor: theme.palette.background.level2,
-      padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
-        1,
-      ) + 130}px`,
+      padding: `${theme.spacing(1.5)}px ${theme.spacing(1.5)}px ${theme.spacing(
+        1.5,
+      )}px ${theme.spacing(1.5) + 130}px`,
       borderRadius: theme.shape.borderRadius,
       '& .cf-img-wrapper.cf-img-wrapper': {
         float: 'left',
         marginLeft: -130,
-        marginRight: theme.spacing(1),
+        width: 130,
+        height: 100,
+        marginRight: theme.spacing(1.5),
       },
       '& img': {
         verticalAlign: 'middle',
       },
-      '& a': {
+      '& a, & a:hover': {
         color: theme.palette.text.primary,
         textDecoration: 'none',
       },
@@ -36,8 +39,8 @@ const styles = theme => ({
   },
 });
 
-class AdCodeFund extends React.Component {
-  componentDidMount() {
+function AdCodeFund() {
+  React.useEffect(() => {
     const scriptSlot = document.querySelector('#code-fund-script-slot');
 
     // Concurrence issues
@@ -46,16 +49,14 @@ class AdCodeFund extends React.Component {
     }
 
     loadScript('https://codefund.io/properties/137/funder.js?theme=unstyled', scriptSlot);
-  }
+  }, []);
 
-  render() {
-    return (
-      <React.Fragment>
-        <span id="code-fund-script-slot" />
-        <span id="codefund" />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <span id="code-fund-script-slot" />
+      <span id="codefund" />
+    </React.Fragment>
+  );
 }
 
 export default withStyles(styles)(AdCodeFund);

@@ -6,9 +6,7 @@ Examples in this guide use [global methods from Mocha](https://mochajs.org/api/g
 
 ## Internal
 
-Мы серьезно относимся к тестам. We have written and maintain **a wide range** of tests so we can iterate with confidence on the components, for instance, the visual regression tests provided by [Argos-CI](https://www.argos-ci.com/mui-org/material-ui) have proven to be really helpful. To learn more about our internal tests, you can have a look at the [README](https://github.com/mui-org/material-ui/blob/master/test/README.md).
-
-While we have reached the 100% test coverage achievement, we don't encourage our users to do the same. [![Coverage Status](https://img.shields.io/codecov/c/github/mui-org/material-ui/master.svg)](https://codecov.io/gh/mui-org/material-ui/branch/master)
+Material-UI has a wide **a wide range** of tests so we can iterate with confidence on the components, for instance, the visual regression tests provided by [Argos-CI](https://www.argos-ci.com/mui-org/material-ui) have proven to be really helpful. To learn more about the internal tests, you can have a look at the [README](https://github.com/mui-org/material-ui/blob/master/test/README.md).
 
 ## Userspace
 
@@ -41,8 +39,8 @@ Generate an enhanced mount function with the needed context. Please refer to the
 #### Аргументы
 
 1. `options` (*Object* [optional]) 
-    - `options.mount` (*Function* [optional]): The mount function to enhance, it uses **enzyme by default**.
-    - The other keys are forwarded to the options argument of `enzyme.mount()`.
+  - `options.mount` (*Function* [optional]): The mount function to enhance, it uses **enzyme by default**.
+  - The other keys are forwarded to the options argument of `enzyme.mount()`.
 
 #### Возвращает
 
@@ -52,16 +50,16 @@ Generate an enhanced mount function with the needed context. Please refer to the
 
 ```jsx
 import { createMount } from '@material-ui/core/test-utils';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 describe('<MyComponent />', () => {
   let mount;
 
   function MySuccessButton({ children }) {
     return (
-      <MuiThemeProvider theme={{ success: { main: '#fff' } }}>
+      <ThemeProvider theme={{ success: { main: '#fff' } }}>
         {children}
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 
@@ -86,10 +84,10 @@ Generate an enhanced shallow function with the needed context. Please refer to t
 #### Аргументы
 
 1. `options` (*Object* [optional]) 
-    - `options.shallow` (*Function* [optional]): The shallow function to enhance, it uses **enzyme by default**.
-    - `options.untilSelector` (*String* [optional]): Recursively shallow renders the children until it can find the provided selector. It's useful to drill down higher-order components.
-    - `options.dive` (*Boolean* [optional]): Shallow function renders the one non-DOM child of the current wrapper, and returns a wrapper around the result.
-    - The other keys are forwarded to the options argument of `enzyme.shallow()`.
+  - `options.shallow` (*Function* [optional]): The shallow function to enhance, it uses **enzyme by default**.
+  - `options.untilSelector` (*String* [optional]): Recursively shallow renders the children until it can find the provided selector. It's useful to drill down higher-order components.
+  - `options.dive` (*Boolean* [optional]): Shallow function renders the one non-DOM child of the current wrapper, and returns a wrapper around the result.
+  - The other keys are forwarded to the options argument of `enzyme.shallow()`.
 
 #### Возвращает
 
@@ -120,8 +118,8 @@ Generate a render to string function with the needed context. Please refer to th
 #### Аргументы
 
 1. `options` (*Object* [optional]) 
-    - `options.render` (*Function* [optional]): The render function to enhance, it uses **enzyme by default**.
-    - The other keys are forwarded to the options argument of `enzyme.render()`.
+  - `options.render` (*Function* [optional]): The render function to enhance, it uses **enzyme by default**.
+  - The other keys are forwarded to the options argument of `enzyme.render()`.
 
 #### Возвращает
 

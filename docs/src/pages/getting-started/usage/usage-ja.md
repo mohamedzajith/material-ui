@@ -8,7 +8,7 @@ Material-UIコンポーネントは独立して機能します。 **They are sel
 
 ## 今すぐ始める
 
-これがすぐ始める為の簡単な例です、**文字通り必要とする全てです**:
+以下に簡単な例を示します。**文字通り必要なものすべてです**:
 
 ```jsx
 import React from 'react';
@@ -28,15 +28,15 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 そうです。これは本当に始めるのに必要な全てです。この編集可能なデモで確認できるように:
 
-{{"demo": "pages/getting-started/usage/Usage.js", "hideHeader": true}}
+{{"demo": "pages/getting-started/usage/Usage.js", "hideHeader": true, "bg": true}}
 
-## グローバル
+## Globals
 
 知っておく必要のあるいくつかの重要なことで、Material-UIの使い易さは改善されます。
 
 ### Responsive meta tag
 
-Material-UIは最初にモバイルで開発されました。最初にモバイル端末用のコードを記述し、次にCSSメディアクエリを使用して必要に応じてコンポーネントを拡張するという方法を用いています。 すべてのデバイスで適切なレンダリングとタッチズームを確実なものにするには、responsive viewport metaタグを`<head>`に追加します。
+Material-UI is developed mobile-first, a strategy in which we first write code for mobile devices, and then scale up components as necessary using CSS media queries. すべてのデバイスで適切なレンダリングとタッチズームを確実なものにするには、responsive viewport metaタグを`<head>`に追加します。
 
 ```html
 <meta
@@ -47,16 +47,16 @@ Material-UIは最初にモバイルで開発されました。最初にモバイ
 
 ### CssBaseline
 
-Material-UIはオプションで[CssBaseline](/components/css-baseline/)コンポーネントを提供しています。 It fixes some inconsistencies across browsers and devices while providing slightly more opinionated resets to common HTML elements.
+Material-UIはオプションで[CssBaseline](/components/css-baseline/)コンポーネントを提供しています。 これは、ブラウザやデバイス間の不整合を修正すると同時に、一般的なHTML要素に対して少しだけ独自のリセットを提供します。
 
 ## バージョン管理されたドキュメント
 
-このドキュメントは常に最新の安定版のMaterial-UIを反映しています。 古いバージョンのドキュメントは、[別のページ ](/versions/)にあります。
+このドキュメントは常に最新の安定版のMaterial-UIを反映しています。 You can find older versions of the documentation on a [separate page](https://material-ui.com/versions/).
 
 ## 次のステップ
 
 これで基本的なセットアップがわかったので、次の項目について詳しく学びましょう。
 
 - [Material Designフォントとタイポグラフィ](/components/typography/)を導入する方法
-- [テーマのカスタマイズ](/customization/themes/)を活用する方法
+- [テーマソリューションを活用する方法](/customization/theming/) 。
 - コンポーネントの見た目を[上書き](/customization/components/)する方法

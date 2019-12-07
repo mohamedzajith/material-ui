@@ -3,7 +3,7 @@ title: Badge React component
 components: Badge
 ---
 
-# Badges
+# Badge
 
 <p class="description">Badge generates a small badge to the top-right of its child(ren).</p>
 
@@ -12,6 +12,20 @@ components: Badge
 Examples of badges containing text, using primary and secondary colors. The badge is applied to its children.
 
 {{"demo": "pages/components/badges/SimpleBadge.js"}}
+
+## Customized badges
+
+Here are some examples of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
+
+{{"demo": "pages/components/badges/CustomizedBadges.js"}}
+
+## Badge visibility
+
+The visibility of badges can be controlled using the `invisible` property.
+
+The badge auto hides with badgeContent is zero. You can override this with the `showZero` property.
+
+{{"demo": "pages/components/badges/BadgeVisibility.js"}}
 
 ## Maximum Value
 
@@ -25,17 +39,14 @@ The `dot` property changes a badge into a small dot. This can be used as a notif
 
 {{"demo": "pages/components/badges/DotBadge.js"}}
 
-## Badge visibility
+## Badge overlap
 
-The visibility of badges can be controlled using the `invisible` property.
+You can use the `overlap` property to place the badge relative to the corner of the wrapped element.
 
-The badge auto hides with badgeContent is zero. You can override this with the `showZero` property.
+{{"demo": "pages/components/badges/BadgeOverlap.js"}}
 
-{{"demo": "pages/components/badges/BadgeVisibility.js"}}
+## Badge alignment
 
-## Customized badges
+You can use the `horizontalAlignment` and `verticalAlignment` properties to move the badge to any corner of the wrapped element.
 
-Here is an example of customizing the component. You can learn more about this in the
-[overrides documentation page](/customization/components/).
-
-{{"demo": "pages/components/badges/CustomizedBadges.js"}}
+{{"demo": "pages/components/badges/BadgeAlignment.js"}}

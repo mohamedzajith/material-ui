@@ -1,22 +1,26 @@
 # Anzeige
 
-<p class="description">Wechseln Sie mit unseren Anzeigekomponenten schnell und ansprechend den Anzeigewert von Komponenten und mehr. Unterstützt einige der gebräuchlichsten Werte sowie einige Extras zur Steuerung der Anzeige beim Drucken.</p>
+<p class="description">Quickly and responsively toggle the display value of components and more with the display utilities. Unterstützt einige der gebräuchlichsten Werte sowie einige Extras zur Steuerung der Anzeige beim Drucken.</p>
 
 ## Beispiele
 
+### Inline
+
+{{"demo": "pages/system/display/Inline.js", "defaultCodeOpen": false, "bg": true}}
+
 ```jsx
 <Box component="div" display="inline">inline</Box>
 <Box component="div" display="inline">inline</Box>
 ```
 
-{{"demo": "pages/system/display/Inline.js"}}
+### Block
+
+{{"demo": "pages/system/display/Block.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box component="span" display="block">block</Box>
 <Box component="span" display="block">block</Box>
 ```
-
-{{"demo": "pages/system/display/Block.js"}}
 
 ## Elemente verstecken
 
@@ -36,6 +40,9 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
 | Sichtbar nur bei lg  | `display={{ xs: 'none', lg: 'block', xl: 'none' }}`  |
 | Sichtbar nur bei xl  | `display={{ xs: 'none', xl: 'block' }}`              |
 
+
+{{"demo": "pages/system/display/Hiding.js", "defaultCodeOpen": false}}
+
 ```jsx
 <Box display={{ xs: 'block', md: 'none' }}>
   auf Bildschirmen ausblenden, die breiter als md sind
@@ -45,9 +52,9 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
 </Box>
 ```
 
-{{"demo": "pages/system/display/Hiding.js"}}
-
 ## Im Druck anzeigen
+
+{{"demo": "pages/system/display/Print.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box display="block" displayPrint="none">
@@ -58,9 +65,9 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
 </Box>
 ```
 
-{{"demo": "pages/system/display/Print.js"}}
-
 ## Overflow
+
+{{"demo": "pages/system/display/Overflow.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" overflow="hidden">
@@ -71,9 +78,9 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
 </Box>
 ```
 
-{{"demo": "pages/system/display/Overflow.js"}}
-
 ## Text Overflow
+
+{{"demo": "pages/system/display/TextOverflow.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" textOverflow="clip">
@@ -84,9 +91,9 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
 </Box>
 ```
 
-{{"demo": "pages/system/display/TextOverflow.js"}}
-
 ## Visibility
+
+{{"demo": "pages/system/display/Visibility.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" visibility="visible">
@@ -97,9 +104,9 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
 </Box>
 ```
 
-{{"demo": "pages/system/display/Visibility.js"}}
-
 ## White Space
+
+{{"demo": "pages/system/display/WhiteSpace.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box component="div" whiteSpace="nowrap">
@@ -109,8 +116,6 @@ Verwenden Sie für eine schnellere, mobilere Entwicklung responsive Anzeigeklass
   White Space Normal
 </Box>
 ```
-
-{{"demo": "pages/system/display/WhiteSpace.js"}}
 
 ## API
 

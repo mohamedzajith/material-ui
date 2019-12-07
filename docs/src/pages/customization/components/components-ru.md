@@ -1,8 +1,8 @@
 # Customizing components
 
-<p class="description">You can easily customize the appearance of a Material-UI component.</p>
+<p class="description">Вы можете легко настроить внешний вид компонента Material-UI.</p>
 
-As components can be used in different contexts, there are several approaches to this. Going from the narrowest use-case to the broadest, these are:
+Поскольку компоненты могут использоваться в разных контекстах, существует несколько подходов к этому. Going from the narrowest use-case to the broadest, these are:
 
 1. [Конкретное изменение для единичного случая](#1-specific-variation-for-a-one-time-situation)
 2. [Динамическое изменение для единичного случая](#2-dynamic-variation-for-a-one-time-situation)
@@ -14,7 +14,7 @@ As components can be used in different contexts, there are several approaches to
 
 Возможно, вам придется изменить стиль компонента в конкретном месте. Для этого вам предоставляются следующие методы:
 
-### Overriding styles with class names
+### Переопределение стилей через имена классов
 
 Первый способ переопределения стиля компонента - использовать **имена классов**. Каждый компонент предоставляет свойство `className` которое всегда применяется к корневому элементу.
 
@@ -24,13 +24,19 @@ As components can be used in different contexts, there are several approaches to
 
 ### Overriding styles with classes
 
-Когда ` className ` свойства недостаточно, и вам нужен доступ ко вложенным элементам, вы можете воспользоваться свойством объекта `classes` для настройки всех CSS, внедренных через Material-UI для данного компонента. Список классов для каждого компонента описан в разделе **Компонент API**. Для примера можете взглянуть на [Button CSS API](/api/button/#css). Кроме того, вы можете воспользоваться [встроенными в браузер инструментами разработчика](#using-the-dev-tools).
+Когда ` className ` свойства недостаточно, и вам нужен доступ ко вложенным элементам, вы можете воспользоваться свойством объекта `classes` для настройки всех CSS, внедренных через Material-UI для данного компонента.
+
+Список классов, доступных для каждого компонента представлен на странице API-документации компонента. Обратитесь к разделу ** CSS ** и ищите в **столбце с именем правила**. Для примера можете взглянуть на [Button CSS API](/api/button/#css). Кроме того, вы можете воспользоваться [встроенными в браузер инструментами разработчика](#using-the-dev-tools).
 
 В этом примере также используется ` withStyles() ` (см. выше), но теперь ` ClassesNesting ` присваивает свойству `classes` компонета `Button` обьект сопоставляющий **имена переопределяемых классов** (стилевые правила) с **именам использумых классов CSS ** (значениями). Существующие классы компонента будут по прежнему внедряться, поэтому необходимо указать только те стили, которые вы хотите добавить или переопределить.
 
 Обратите внимание, что в дополнение к стилю кнопки, стиль текста кнопки был изменен на стиль с заглавными буквами:
 
 {{"demo": "pages/customization/components/ClassesNesting.js"}}
+
+### Переопределение стилей через глобальные имена классов
+
+[Подробности в этом разделе](/styles/advanced/#with-material-ui-core).
 
 ### Использование инструментов разработчика
 
@@ -71,15 +77,15 @@ const StyledButton = withStyles({
 
 ### Pseudo-classes
 
-The components special states, like *hover*, *focus*, *disabled* and *selected*, are styled with a higher CSS specificity. [Специфичность - это весовой коэффициент](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) применяемый к данной декларации CSS.
+Особые состояния компонент, такие как * наведение (hover)*, * фокус *, *disabled* и *selected*, стилизованы при помощи CSS с более высокой специфичностью. [Специфичность - это весовой коэффициент](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) применяемый к данной декларации CSS.
 
-In order to override the components special states, **you need to increase specificity**. Вот пример с *отключеным* состоянием и компонентом кнопка использующим **псевдокласс** (`:disabled`):
+Чтобы переопределить особые состояния компонентов, **вам нужно увеличить специфичность**. Вот пример с *disable* состоянием и компонентом кнопка использующим **псевдокласс** (`:disabled`):
 
 ```css
 .Button {
   color: black;
 }
-.Button:disabled { /* We increase the specificity */
+.Button:disabled { /* Increase the specificity */
   color: white;
 }
 ```
@@ -94,7 +100,7 @@ In order to override the components special states, **you need to increase speci
 .MenuItem {
   color: black;
 }
-.MenuItem.selected { /* We increase the specificity */
+.MenuItem.selected { /* Increase the specificity */
   color: blue;
 }
 ```
@@ -122,11 +128,12 @@ Instead of providing values to the `classes` prop API, you can rely on [the glob
 | expanded     | Mui-expanded      |
 | selected     | Mui-selected      |
 
+
 ```css
 .MenuItem {
   color: black;
 }
-.MenuItem.Mui-selected { /* We increase the specificity */
+.MenuItem.Mui-selected { /* Increase the specificity */
   color: blue;
 }
 ```
@@ -172,7 +179,7 @@ const styles = {
 
 {{"demo": "pages/customization/components/ClassesState.js"}}
 
-### Overriding with inline-styles
+### Переопределение с помощью встраиваемых (inline) стилей
 
 Второй способ переопределить стиль компонента – использовать подход **встроенного стиля**. Каждый компонент предоставляет свойство `style`. Эти свойства всегда применяются к корневому элементу.
 
@@ -228,7 +235,7 @@ The demos of this section covers how to the change the button's font size.
 
 ### Настраиваемые параметры темы
 
-You can adjusting the [theme configuration variables](/customization/themes/#theme-configuration-variables).
+You can adjust the [theme configuration variables](/customization/theming/#theme-configuration-variables).
 
 ```jsx
 const theme = createMuiTheme({
@@ -244,7 +251,7 @@ const theme = createMuiTheme({
 
 ### Глобальное переопределение CSS
 
-Вы также можете настроить все экземпляры компонента с помощью CSS. Для этого мы предоставляем [глобальные имена классов](/styles/advanced/#with-material-ui-core). Это очень похоже на настройку Bootstrap.
+Вы также можете настроить все экземпляры компонента с помощью CSS. Components expose [global class names](/styles/advanced/#with-material-ui-core) to enable this. Это очень похоже на настройку Bootstrap.
 
 ```jsx
 const GlobalCss = withStyles({

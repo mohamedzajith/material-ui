@@ -1,10 +1,8 @@
-/* eslint-disable no-underscore-dangle */
-
 import React from 'react';
 import { ServerStyleSheets } from '@material-ui/styles';
 import Document, { Head, Main, NextScript } from 'next/document';
-import { Router } from 'next/router';
-import { LANGUAGES } from 'docs/src/modules/constants';
+import { Router as Router2 } from 'next/router';
+import { LANGUAGES_SSR } from 'docs/src/modules/constants';
 import { pathnameToLanguage } from 'docs/src/modules/utils/helpers';
 import { themeColor } from 'docs/src/modules/components/ThemeContext';
 
@@ -30,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const GOOGLE_ID = process.env.NODE_ENV === 'production' ? 'UA-106598593-2' : 'UA-106598593-3';
 
-class MyDocument extends Document {
+export default class MyDocument extends Document {
   render() {
     const { canonical, userLanguage } = this.props;
 
@@ -55,20 +53,20 @@ class MyDocument extends Document {
           {/* SEO */}
           <link
             rel="canonical"
-            href={`https://material-ui.com${Router._rewriteUrlForNextExport(
+            href={`https://material-ui.com${Router2._rewriteUrlForNextExport(
               `${userLanguage === 'en' ? '' : `/${userLanguage}`}${canonical}`,
             )}`}
           />
           <link
             rel="alternate"
-            href={`https://material-ui.com${Router._rewriteUrlForNextExport(canonical)}`}
+            href={`https://material-ui.com${Router2._rewriteUrlForNextExport(canonical)}`}
             hrefLang="x-default"
           />
-          {LANGUAGES.map(userLanguage2 => (
+          {LANGUAGES_SSR.map(userLanguage2 => (
             <link
               key={userLanguage2}
               rel="alternate"
-              href={`https://material-ui.com${Router._rewriteUrlForNextExport(
+              href={`https://material-ui.com${Router2._rewriteUrlForNextExport(
                 `${userLanguage2 === 'en' ? '' : `/${userLanguage2}`}${canonical}`,
               )}`}
               hrefLang={userLanguage2}
@@ -92,8 +90,8 @@ class MyDocument extends Document {
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: `
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-window.ga('create','${GOOGLE_ID}','auto');
+                window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+                window.ga('create','${GOOGLE_ID}','auto');
               `,
             }}
           />
@@ -145,14 +143,14 @@ MyDocument.getInitialProps = async ctx => {
     ...initialProps,
     canonical: pathnameToLanguage(ctx.req.url).canonical,
     userLanguage: ctx.query.userLanguage || 'en',
-    styles: (
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
       <style
         id="jss-server-side"
+        key="jss-server-side"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: css }}
-      />
-    ),
+      />,
+    ],
   };
 };
-
-export default MyDocument;

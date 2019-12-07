@@ -19,7 +19,11 @@ Dado que la experiencia del usuario puede mejorarse en m√≥vil usando la selecci√
 
 {{"demo": "pages/components/selects/NativeSelects.js"}}
 
-## Selecciones personalizadas
+## Campos de texto
+
+El componente `TextField` es un control de formulario completo, incluyendo una etiqueta, el campo de texto y texto de ayuda. You can find an example with the select mode [in this section](/components/text-fields/#select).
+
+## Customized selects
 
 Here are some examples of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
 
@@ -45,6 +49,29 @@ While it's discouraged by the Material Design specification, you can use a selec
 
 {{"demo": "pages/components/selects/DialogSelect.js"}}
 
-## Campos de texto
+## Grouping
 
-El componente `TextField` es un control de formulario completo, incluyendo una etiqueta, el campo de texto y texto de ayuda. You can find an example with the select mode [in this section](/components/text-fields/#textfield).
+Display categories with the `ListSubheader` component or the native `<optgroup>` element.
+
+{{"demo": "pages/components/selects/GroupedSelect.js"}}
+
+## Accesibilidad
+
+To properly label your `Select` input you need an extra element with an `id` that contains a label. That `id` needs to match the `labelId` of the `Select` e.g.
+
+```jsx
+<InputLabel id="label">Age</InputLabel>
+<Select labelId="label" id="select" value="20">
+  <MenuItem value="10">Ten</MenuItem>
+  <MenuItem value="20">Twenty</MenuItem>
+</Select>
+```
+
+Alternatively a `TextField` with an `id` and `label` creates the proper markup and ids for you:
+
+```jsx
+<TextField id="select" label="Age" value="20">
+  <MenuItem value="10">Ten</MenuItem>
+  <MenuItem value="20">Twenty</MenuItem>
+</TextField>
+```

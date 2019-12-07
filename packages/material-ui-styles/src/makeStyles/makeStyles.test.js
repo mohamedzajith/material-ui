@@ -211,7 +211,7 @@ describe('makeStyles', () => {
       assert.deepEqual(sheetsRegistry.registry[0].classes, { root: 'makeStyles-root-1' });
       wrapper.setProps({ theme: createMuiTheme() });
       assert.strictEqual(sheetsRegistry.registry.length, 1);
-      assert.deepEqual(sheetsRegistry.registry[0].classes, { root: 'makeStyles-root-1' });
+      assert.deepEqual(sheetsRegistry.registry[0].classes, { root: 'makeStyles-root-2' });
 
       wrapper.unmount();
       assert.strictEqual(sheetsRegistry.registry.length, 0);
@@ -321,7 +321,7 @@ describe('makeStyles', () => {
       });
     });
 
-    it('should handle dynamic properties', () => {
+    it('should handle dynamic props', () => {
       const useStyles = makeStyles({
         root: props => ({ margin: 8, padding: props.padding || 8 }),
       });
@@ -492,14 +492,14 @@ describe('makeStyles', () => {
 
       StressTest = () => {
         const [backgroundColor, setBackgroundColor] = React.useState('black');
-        function handleBackgroundColorChange(event) {
+        const handleBackgroundColorChange = event => {
           setBackgroundColor(event.target.value);
-        }
+        };
 
         const [color, setColor] = React.useState('white');
-        function handleColorChange(event) {
+        const handleColorChange = event => {
           setColor(event.target.value);
-        }
+        };
 
         const theme = React.useMemo(() => ({ color }), [color]);
 

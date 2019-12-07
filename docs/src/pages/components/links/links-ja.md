@@ -4,26 +4,18 @@ components: Link
 
 # リンク
 
-<p class="description">The Link component allows you to easily customize anchor elements with your theme colors and typography styles.</p>
+<p class="description">Linkコンポーネントを使用すると、テーマの色とタイポグラフィスタイルでアンカー要素を簡単にカスタマイズできます。</p>
 
-## Simple links
+## 簡単なリンク
 
-The Link component is built on top of the [Typography](/api/typography/) component. You can leverage its properties.
+Linkコンポーネントは、 [Typography](/api/typography/) コンポーネントの上に構築されています。 そのプロパティを活用できます。
 
 {{"demo": "pages/components/links/Links.js"}}
 
-However, the Link component has different default properties than the Typography component:
+ただし、Linkコンポーネントには、Typographyコンポーネントとは異なるデフォルトプロパティがあります。
 
-- `color="primary"` as the link needs to stand out.
-- `variant="inherit"` as the link will, most of the time, be used as a child of a Typography component.
-
-## アクセシビリティ
-
-- When providing the content for the link, avoid generic descriptions like "click here" or "go to". Instead, use [specific descriptions](https://developers.google.com/web/tools/lighthouse/audits/descriptive-link-text).
-- For the best user experience, links should stand out from the text on the page.
-- If a link doesn't have a meaningful href, [it should be rendered using a `<button>` element](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md).
-
-{{"demo": "pages/components/links/ButtonLink.js"}}
+- リンクが目立つようにするには、`color="primary"`とします。
+- ほとんどの場合、リンクはタイポグラフィコンポーネントの子として使用されるため、`variant="inherit"` となります。
 
 ## Security
 
@@ -34,8 +26,16 @@ When you use `target="_blank"` with Links, it is [recommended](https://developer
 
 ## サードパーティ製ルーティングライブラリ
 
-One common use case is to perform the navigation on the client only, without doing a .html round-trip with the server. The `Link` component provides a property to handle this use case: `component`.
+One common use case is to perform navigation on the client only, without an HTTP round-trip to the server. The `Link` component provides a property to handle this use case: `component`.
 
-{{"demo": "pages/components/links/LinkRouter.js", "defaultCodeOpen": true}}
+Here is an [integration example with react-router](/guides/composition/#link).
 
-*Note: Creating the Link components is necessary to prevent unexpected unmounting. You can read more about it in our [component property guide](/guides/composition/#component-property).*
+## アクセシビリティ
+
+(WAI-ARIA: https://www.w3.org/TR/wai-aria-practices/#link)
+
+- When providing the content for the link, avoid generic descriptions like "click here" or "go to". Instead, use [specific descriptions](https://developers.google.com/web/tools/lighthouse/audits/descriptive-link-text).
+- For the best user experience, links should stand out from the text on the page.
+- If a link doesn't have a meaningful href, [it should be rendered using a `<button>` element](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md).
+
+{{"demo": "pages/components/links/ButtonLink.js"}}

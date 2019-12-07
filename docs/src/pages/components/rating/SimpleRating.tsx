@@ -20,11 +20,11 @@ export default function SimpleRating() {
       </Box>
       <Box component="fieldset" mb={3} borderColor="transparent">
         <Typography component="legend">Read only</Typography>
-        <Rating value={value} readOnly />
+        <Rating name="read-only" value={value} readOnly />
       </Box>
       <Box component="fieldset" mb={3} borderColor="transparent">
         <Typography component="legend">Disabled</Typography>
-        <Rating value={value} disabled />
+        <Rating name="disabled" value={value} disabled />
       </Box>
       <Box component="fieldset" mb={3} borderColor="transparent">
         <Typography component="legend">Pristine</Typography>

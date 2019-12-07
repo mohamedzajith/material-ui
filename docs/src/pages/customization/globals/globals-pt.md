@@ -9,9 +9,12 @@ Quando as variáveis de configuração não são poderosas o suficiente, você p
 ```js
 const theme = createMuiTheme({
   overrides: {
-    MuiButton: { // Nome do componente ⚛️ / folha de estilo
-      text: { // Nome da regra
-        color: 'white', // Um pouco de CSS
+    // Nome da folha de estilo ⚛️
+    MuiButton: {
+      // Nome da regra
+      text: {
+        // Algum CSS
+        color: 'white',
       },
     },
   },
@@ -24,7 +27,7 @@ A lista desses pontos de customização de cada componente está documentada na 
 
 ## Propriedades padrão
 
-Você pode alterar as propriedades padrão de todos os componentes de Material-UI. Nós expomos uma `props`, chave do `theme` para este caso de uso.
+Você pode alterar as propriedades padrão de todos os componentes de Material-UI. A chave `props` é exposta no `theme` para este caso de uso.
 
 ```js
 const theme = createMuiTheme({

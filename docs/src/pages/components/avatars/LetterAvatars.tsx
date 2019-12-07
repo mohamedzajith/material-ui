@@ -1,21 +1,21 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    avatar: {
-      margin: 10,
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
     },
-    orangeAvatar: {
-      margin: 10,
+    orange: {
       color: '#fff',
       backgroundColor: deepOrange[500],
     },
-    purpleAvatar: {
-      margin: 10,
+    purple: {
       color: '#fff',
       backgroundColor: deepPurple[500],
     },
@@ -26,10 +26,10 @@ export default function LetterAvatars() {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" alignItems="center">
-      <Avatar className={classes.avatar}>H</Avatar>
-      <Avatar className={classes.orangeAvatar}>N</Avatar>
-      <Avatar className={classes.purpleAvatar}>OP</Avatar>
-    </Grid>
+    <div className={classes.root}>
+      <Avatar>H</Avatar>
+      <Avatar className={classes.orange}>N</Avatar>
+      <Avatar className={classes.purple}>OP</Avatar>
+    </div>
   );
 }

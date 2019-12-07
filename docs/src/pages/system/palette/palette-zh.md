@@ -1,8 +1,10 @@
-# 调色板
+# Palette（调色）
 
 <p class="description">通过一些颜色实用程序类的颜色传达意义。 还包括支持带悬停状态的样式链接。</p>
 
 ## 颜色
+
+{{"demo": "pages/system/palette/Color.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box color="primary.main">…
@@ -14,9 +16,9 @@
 <Box color="text.hint">…
 ```
 
-{{"demo": "pages/system/palette/Color.js"}}
-
 ## 背景颜色
+
+{{"demo": "pages/system/palette/BackgroundColor.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box bgcolor="primary.main">…
@@ -27,8 +29,6 @@
 <Box bgcolor="text.disabled">…
 <Box bgcolor="text.hint">…
 ```
-
-{{"demo": "pages/system/palette/BackgroundColor.js"}}
 
 ## API
 

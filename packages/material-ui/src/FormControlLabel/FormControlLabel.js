@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import { useFormControl } from '../FormControl';
 import withStyles from '../styles/withStyles';
 import Typography from '../Typography';
-import { capitalize } from '../utils/helpers';
+import capitalize from '../utils/capitalize';
 
 export const styles = theme => ({
   /* Styles applied to the root element. */
@@ -14,7 +15,6 @@ export const styles = theme => ({
     cursor: 'pointer',
     // For correct alignment with the text.
     verticalAlign: 'middle',
-    // Remove grey highlight
     WebkitTapHighlightColor: 'transparent',
     marginLeft: -11,
     marginRight: 16, // used for row presentation of radio/checkbox
@@ -56,7 +56,7 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
   const {
     checked,
     classes,
-    className: classNameProp,
+    className,
     control,
     disabled: disabledProp,
     inputRef,
@@ -94,7 +94,7 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
           [classes[`labelPlacement${capitalize(labelPlacement)}`]]: labelPlacement !== 'end',
           [classes.disabled]: disabled,
         },
-        classNameProp,
+        className,
       )}
       ref={ref}
       {...other}
@@ -133,9 +133,9 @@ FormControlLabel.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /**
    * The text to be used in an enclosing label element.
    */
@@ -152,8 +152,7 @@ FormControlLabel.propTypes = {
    * Callback fired when the state is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
+   * You can pull out the new checked state by accessing `event.target.checked` (boolean).
    */
   onChange: PropTypes.func,
   /**

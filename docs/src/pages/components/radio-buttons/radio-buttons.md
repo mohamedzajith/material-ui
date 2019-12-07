@@ -3,7 +3,7 @@ title: Radio buttons React component
 components: Radio, RadioGroup, FormControl, FormLabel, FormControlLabel
 ---
 
-# Radio buttons
+# Radio
 
 <p class="description">Radio buttons allow the user to select one option from a set.</p>
 
@@ -28,11 +28,23 @@ You can change the placement of the label:
 
 {{"demo": "pages/components/radio-buttons/FormControlLabelPosition.js"}}
 
+## Customized radios
+
+Here is an example of customizing the component. You can learn more about this in the
+[overrides documentation page](/customization/components/).
+
+{{"demo": "pages/components/radio-buttons/CustomizedRadios.js"}}
+
+## When to use
+
+- [Checkboxes vs. Radio Buttons](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/)
+
 ## Accessibility
 
-All form controls should have labels, and this includes radio buttons, checkboxes, and switches. In most cases, this is done by using the `<label>` element ([FormControlLabel](/api/form-control-label/)).
+(WAI-ARIA: https://www.w3.org/TR/wai-aria-practices/#radiobutton)
 
-When a label can't be used, it's necessary to add an attribute directly to the input component.
+- All form controls should have labels, and this includes radio buttons, checkboxes, and switches. In most cases, this is done by using the `<label>` element ([FormControlLabel](/api/form-control-label/)).
+- When a label can't be used, it's necessary to add an attribute directly to the input component.
 In this case, you can apply the additional attribute (e.g. `aria-label`, `aria-labelledby`, `title`) via the `inputProps` property.
 
 ```jsx
@@ -41,7 +53,3 @@ In this case, you can apply the additional attribute (e.g. `aria-label`, `aria-l
   inputProps={{ 'aria-label': 'Radio A' }}
 />
 ```
-
-## Guidance
-
-- [Checkboxes vs. Radio Buttons](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/)

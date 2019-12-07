@@ -3,9 +3,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import withStyles from '../styles/withStyles';
 import { fade } from '../styles/colorManipulator';
-import { capitalize } from '../utils/helpers';
+import capitalize from '../utils/capitalize';
 import SwitchBase from '../internal/SwitchBase';
 
 export const styles = theme => ({
@@ -40,10 +41,8 @@ export const styles = theme => ({
     transition: theme.transitions.create(['left', 'transform'], {
       duration: theme.transitions.duration.shortest,
     }),
-    willChange: 'left, transform',
     '&$checked': {
-      left: '100%',
-      transform: 'translateX(-100%)',
+      transform: 'translateX(20px)',
     },
     '&$disabled': {
       color: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[800],
@@ -61,6 +60,9 @@ export const styles = theme => ({
       color: theme.palette.primary.main,
       '&:hover': {
         backgroundColor: fade(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        '@media (hover: none)': {
+          backgroundColor: 'transparent',
+        },
       },
     },
     '&$disabled': {
@@ -80,6 +82,9 @@ export const styles = theme => ({
       color: theme.palette.secondary.main,
       '&:hover': {
         backgroundColor: fade(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        '@media (hover: none)': {
+          backgroundColor: 'transparent',
+        },
       },
     },
     '&$disabled': {
@@ -104,6 +109,9 @@ export const styles = theme => ({
     },
     '& $switchBase': {
       padding: 4,
+      '&$checked': {
+        transform: 'translateX(16px)',
+      },
     },
   },
   /* Pseudo-class applied to the internal `SwitchBase` component's `checked` class. */
@@ -143,6 +151,7 @@ const Switch = React.forwardRef(function Switch(props, ref) {
     classes,
     className,
     color = 'secondary',
+    disabled = false,
     edge = false,
     size = 'medium',
     ...other
@@ -173,6 +182,7 @@ const Switch = React.forwardRef(function Switch(props, ref) {
           disabled: classes.disabled,
         }}
         ref={ref}
+        disabled={disabled}
         {...other}
       />
       <span className={classes.track} />
@@ -234,17 +244,20 @@ Switch.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /**
    * Callback fired when the state is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
+   * You can pull out the new checked state by accessing `event.target.checked` (boolean).
    */
   onChange: PropTypes.func,
+  /**
+   * If `true`, the `input` element will be required.
+   */
+  required: PropTypes.bool,
   /**
    * The size of the switch.
    * `small` is equivalent to the dense switch styling.
@@ -255,7 +268,7 @@ Switch.propTypes = {
    */
   type: PropTypes.string,
   /**
-   * The value of the component.
+   * The value of the component. The DOM API casts this to a string.
    */
   value: PropTypes.any,
 };

@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
-import { keys as breakpointKeys } from '../styles/createBreakpoints';
-import withWidth, { isWidthDown, isWidthUp } from '../withWidth';
 import { exactProp } from '@material-ui/utils';
+import withWidth, { isWidthDown, isWidthUp } from '../withWidth';
+import useTheme from '../styles/useTheme';
 
 /**
  * @ignore - internal component.
  */
 function HiddenJs(props) {
   const { children, only, width } = props;
+  const theme = useTheme();
 
   let visible = true;
 
@@ -29,8 +30,8 @@ function HiddenJs(props) {
   // Allow `only` to be combined with other props. If already hidden, no need to check others.
   if (visible) {
     // determine visibility based on the smallest size up
-    for (let i = 0; i < breakpointKeys.length; i += 1) {
-      const breakpoint = breakpointKeys[i];
+    for (let i = 0; i < theme.breakpoints.keys.length; i += 1) {
+      const breakpoint = theme.breakpoints.keys[i];
       const breakpointUp = props[`${breakpoint}Up`];
       const breakpointDown = props[`${breakpoint}Down`];
       if (
@@ -77,19 +78,19 @@ HiddenJs.propTypes = {
    */
   initialWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
   /**
-   * If true, screens this size and down will be hidden.
+   * If `true`, screens this size and down will be hidden.
    */
   lgDown: PropTypes.bool,
   /**
-   * If true, screens this size and up will be hidden.
+   * If `true`, screens this size and up will be hidden.
    */
   lgUp: PropTypes.bool,
   /**
-   * If true, screens this size and down will be hidden.
+   * If `true`, screens this size and down will be hidden.
    */
   mdDown: PropTypes.bool,
   /**
-   * If true, screens this size and up will be hidden.
+   * If `true`, screens this size and up will be hidden.
    */
   mdUp: PropTypes.bool,
   /**
@@ -100,11 +101,11 @@ HiddenJs.propTypes = {
     PropTypes.arrayOf(PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])),
   ]),
   /**
-   * If true, screens this size and down will be hidden.
+   * If `true`, screens this size and down will be hidden.
    */
   smDown: PropTypes.bool,
   /**
-   * If true, screens this size and up will be hidden.
+   * If `true`, screens this size and up will be hidden.
    */
   smUp: PropTypes.bool,
   /**
@@ -113,19 +114,19 @@ HiddenJs.propTypes = {
    */
   width: PropTypes.string.isRequired,
   /**
-   * If true, screens this size and down will be hidden.
+   * If `true`, screens this size and down will be hidden.
    */
   xlDown: PropTypes.bool,
   /**
-   * If true, screens this size and up will be hidden.
+   * If `true`, screens this size and up will be hidden.
    */
   xlUp: PropTypes.bool,
   /**
-   * If true, screens this size and down will be hidden.
+   * If `true`, screens this size and down will be hidden.
    */
   xsDown: PropTypes.bool,
   /**
-   * If true, screens this size and up will be hidden.
+   * If `true`, screens this size and up will be hidden.
    */
   xsUp: PropTypes.bool,
 };

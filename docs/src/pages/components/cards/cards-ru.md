@@ -9,31 +9,31 @@ components: Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedi
 
 [Карточки](https://material.io/design/components/cards.html) - это поверхности, которые отображают контент и действия относящиеся к одной теме / объекту.
 
-На них должно быть легко найти нужную информацию и нужные действия. Такие элементы, как текст и изображения, должны быть расположены на них так, чтобы иерархия четко прослеживалась.
+They should be easy to scan for relevant and actionable information. Elements, like text and images, should be placed on them in a way that clearly indicates hierarchy.
 
 ## Простая Карточка
 
 Несмотря на то, что на карточках можно располагать несколько действий, элементы управления и выпадающие меню, будьте сдержаны и помните, что карточки - это входные точки для более сложной и детальной информации.
 
-{{"demo": "pages/components/cards/SimpleCard.js"}}
+{{"demo": "pages/components/cards/SimpleCard.js", "bg": true}}
 
 ## Сложное взаимодействие
 
 В варианте для десктопа контент карточки может раздвигаться.
 
-{{"demo": "pages/components/cards/RecipeReviewCard.js"}}
+{{"demo": "pages/components/cards/RecipeReviewCard.js", "bg": true}}
 
 ## Медиа
 
 Пример карточки, использующей изображение, дополняющее контент.
 
-{{"demo": "pages/components/cards/MediaCard.js"}}
+{{"demo": "pages/components/cards/MediaCard.js", "bg": true}}
 
 По умолчанию мы используем комбинацию `<div>` элемента и *background image* для отображения медиа. Это может быть проблематично в некоторых ситуациях. Например, вам может понадобиться отобразить видео или адаптивное изображение. Используйте свойство `component` для этих случаев:
 
-{{"demo": "pages/components/cards/ImgMediaCard.js"}}
+{{"demo": "pages/components/cards/ImgMediaCard.js", "bg": true}}
 
-> ⚠️ Когда `component="img"`, CardMedia использует свойство `object-fit` для центрирования изображения. Оно не поддерживается в IE 11.
+> ⚠️ When `component="img"`, CardMedia relies on `object-fit` for centering the image. It's not supported by IE 11.
 
 ## Элементы управления
 
@@ -41,4 +41,4 @@ components: Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedi
 
 Вот пример карточки с элементами управления мультимедиа.
 
-{{"demo": "pages/components/cards/MediaControlCard.js"}}
+{{"demo": "pages/components/cards/MediaControlCard.js", "bg": true}}

@@ -1,15 +1,15 @@
 /* eslint-disable react/no-danger */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import warning from 'warning';
 import throttle from 'lodash/throttle';
 import clsx from 'clsx';
+import Box from '@material-ui/core/Box';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import textToHash from 'docs/src/modules/utils/textToHash';
+import DiamondSponsors from 'docs/src/modules/components/DiamondSponsors';
 import Link from 'docs/src/modules/components/Link';
 
 const useStyles = makeStyles(theme => ({
@@ -63,7 +63,14 @@ const useStyles = makeStyles(theme => ({
 const renderer = new marked.Renderer();
 
 function setRenderer(itemsCollector, unique) {
-  renderer.heading = (text, level) => {
+  renderer.heading = (text2, level) => {
+    const text = text2
+      .replace(
+        /([\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+        '',
+      ) // remove emojis
+      .replace(/<\/?[^>]+(>|$)/g, ''); // remove HTML
+
     if (level === 2) {
       itemsCollector.current.push({
         text,
@@ -135,9 +142,7 @@ function useThrottledOnScroll(callback, delay) {
 export default function AppTableOfContents(props) {
   const { contents } = props;
   const classes = useStyles();
-  const { t } = useSelector(state => ({
-    t: state.options.t,
-  }));
+  const t = useSelector(state => state.options.t);
 
   const itemsServer = React.useMemo(() => {
     const itemsCollectorRef = { current: [] };
@@ -169,7 +174,11 @@ export default function AppTableOfContents(props) {
 
       const item = itemsClientRef.current[i];
 
-      warning(item.node, `Missing node on the item ${JSON.stringify(item, null, 2)}`);
+      if (process.env.NODE_ENV !== 'production') {
+        if (!item.node) {
+          console.error(`Missing node on the item ${JSON.stringify(item, null, 2)}`);
+        }
+      }
 
       if (
         item.node &&
@@ -248,6 +257,9 @@ export default function AppTableOfContents(props) {
           </Typography>
         </React.Fragment>
       ) : null}
+      <Box mt={3} mb={2} mx={1.5}>
+        <DiamondSponsors />
+      </Box>
     </nav>
   );
 }

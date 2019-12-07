@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import InputBase from '../InputBase';
 import withStyles from '../styles/withStyles';
 
@@ -34,10 +35,16 @@ export const styles = theme => {
         backgroundColor: light ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
       },
     },
+    /* Styles applied to the root element if color secondary. */
+    colorSecondary: {
+      '&$underline:after': {
+        borderBottomColor: theme.palette.secondary.main,
+      },
+    },
     /* Styles applied to the root element if `disableUnderline={false}`. */
     underline: {
       '&:after': {
-        borderBottom: `2px solid ${theme.palette.primary[light ? 'dark' : 'light']}`,
+        borderBottom: `2px solid ${theme.palette.primary.main}`,
         left: 0,
         bottom: 0,
         // Doing the other way around crash on IE 11 "''" https://github.com/cssinjs/jss/issues/242
@@ -78,9 +85,9 @@ export const styles = theme => {
         borderBottomStyle: 'dotted',
       },
     },
-    /* Styles applied to the root element if the component is focused. */
+    /* Pseudo-class applied to the root element if the component is focused. */
     focused: {},
-    /* Styles applied to the root element if `disabled={true}`. */
+    /* Pseudo-class applied to the root element if `disabled={true}`. */
     disabled: {},
     /* Styles applied to the root element if `startAdornment` is provided. */
     adornedStart: {
@@ -105,6 +112,12 @@ export const styles = theme => {
     /* Styles applied to the `input` element. */
     input: {
       padding: '27px 12px 10px',
+      '&:-webkit-autofill': {
+        WebkitBoxShadow: theme.palette.type === 'dark' ? '0 0 0 100px #266798 inset' : null,
+        WebkitTextFillColor: theme.palette.type === 'dark' ? '#fff' : null,
+        borderTopLeftRadius: 'inherit',
+        borderTopRightRadius: 'inherit',
+      },
     },
     /* Styles applied to the `input` element if `margin="dense"`. */
     inputMarginDense: {
@@ -119,10 +132,6 @@ export const styles = theme => {
         paddingTop: 10,
         paddingBottom: 11,
       },
-    },
-    /* Styles applied to the `input` element if `select={true}`. */
-    inputSelect: {
-      paddingRight: 24,
     },
     /* Styles applied to the `input` element if `multiline={true}`. */
     inputMultiline: {
@@ -190,6 +199,10 @@ FilledInput.propTypes = {
    */
   className: PropTypes.string,
   /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: PropTypes.oneOf(['primary', 'secondary']),
+  /**
    * The default `input` element value. Use when the component is not controlled.
    */
   defaultValue: PropTypes.any,
@@ -228,9 +241,9 @@ FilledInput.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /**
    * If `dense`, will adjust vertical spacing. This is normally obtained via context from
    * FormControl.
@@ -248,7 +261,7 @@ FilledInput.propTypes = {
    * Callback fired when the value is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.value`.
+   * You can pull out the new value by accessing `event.target.value` (string).
    */
   onChange: PropTypes.func,
   /**

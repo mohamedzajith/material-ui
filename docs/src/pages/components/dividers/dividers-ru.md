@@ -11,22 +11,28 @@ components: Divider
 
 ## Разделители списков
 
-По умолчанию разделитель отображается как `<hr>`. Вместо этого Вы можете сформировать отображение этого DOM-элемента, используя свойство `divider` в компоненте `ListItem`.
+The divider renders as an `<hr>` by default. You can save rendering this DOM element by using the `divider` property on the `ListItem` component.
 
-{{"demo": "pages/components/dividers/ListDividers.js"}}
+{{"demo": "pages/components/dividers/ListDividers.js", "bg": true}}
 
 ## Спецификации HTML5
 
-Для соблюдения спецификации HTML5 нужно, чтобы `Разделитель` отрисовывался как `li`.
+In a list, you should ensure the `Divider` is rendered as an `<li>` to match the HTML5 specification. The examples below show two ways of achieving this.
 
 ## Вкладыш
 
-{{"demo": "pages/components/dividers/InsetDividers.js"}}
+{{"demo": "pages/components/dividers/InsetDividers.js", "bg": true}}
 
 ## Подтитульные разделлители
 
-{{"demo": "pages/components/dividers/SubheaderDividers.js"}}
+{{"demo": "pages/components/dividers/SubheaderDividers.js", "bg": true}}
 
 ## Центральные разделители
 
-{{"demo": "pages/components/dividers/MiddleDividers.js"}}
+{{"demo": "pages/components/dividers/MiddleDividers.js", "bg": true}}
+
+## Vertical Dividers
+
+You can also render a divider vertically using the `orientation` prop.
+
+{{"demo": "pages/components/dividers/VerticalDividers.js", "bg": true}}

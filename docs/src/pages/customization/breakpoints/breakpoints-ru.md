@@ -1,10 +1,10 @@
-# Точки останова
+# Контрольные точки
 
-<p class="description">API that enables the use of breakpoints in a wide variety of contexts.</p>
+<p class="description">API, позволяющее использовать контрольные точки во множестве контекстов.</p>
 
-For optimal user experience, material design interfaces need to be able to adapt their layout at various breakpoints. Material-UI uses a **simplified** implementation of the original [specification](https://material.io/design/layout/responsive-layout-grid.html#breakpoints).
+Для оптимального взаимодействия с пользователем material интерфейсы должны быть в состоянии адаптировать свое расположение в различных точках останова. Material-UI использует **упрощенную** реализацию оригинальной [спецификации](https://material.io/design/layout/responsive-layout-grid.html#breakpoints).
 
-Каждая точка останова (ключ) соответствует *фиксированной* ширине экрана (значению):
+Каждая контрольная точка (ключ) соответствует *фиксированной* ширине экрана (значению):
 
 - **xs,** extra-small: 0px
 - **sm,** small: 600px
@@ -12,7 +12,7 @@ For optimal user experience, material design interfaces need to be able to adapt
 - **lg,** large: 1280px
 - **xl,** extra-large: 1920px
 
-Эти [ значения точек останова ](/customization/default-theme/?expend-path=$.breakpoints.values) используются для определения диапазонов точек останова. Диапазон начинается с значения первой точки останова включительно до следующей точки останова не включая её:
+Эти [ значения контрольных точек](/customization/default-theme/?expend-path=$.breakpoints.values) используются для определения диапазонов. Диапазон начинается с значения первой точки (включительно) до следующей, но не включая её:
 
 ```js
 значение             |0px     600px    960px    1280px   1920px
@@ -27,14 +27,14 @@ The breakpoints are used internally in various components to make them responsiv
 
 ## CSS Media Queries
 
-CSS media queries is the idiomatic approach to make your UI responsive. We provide four styles helpers to do so:
+CSS media queries are the idiomatic approach to make your UI responsive. The theme provides four styles helpers to do so:
 
 - [theme.breakpoints.up(key)](#theme-breakpoints-up-key-media-query)
 - [theme.breakpoints.down(key)](#theme-breakpoints-down-key-media-query)
 - [theme.breakpoints.only(key)](#theme-breakpoints-only-key-media-query)
 - [theme.breakpoints.between(start, end)](#theme-breakpoints-between-start-end-media-query)
 
-In the following demo, we change the background color (red, blue & green) based on the screen width.
+В следующем примере мы изменяем фоновой цвет (красный, синий или зеленый) в зависимости от ширины экрана.
 
 ```jsx
 const styles = theme => ({
@@ -57,7 +57,7 @@ const styles = theme => ({
 
 ## JavaScript Media Queries
 
-Иногда использования CSS недостаточно. You might want to change the React rendering tree based on the breakpoint value, in JavaScript.
+Иногда использования CSS недостаточно. Во можете изменить дерево визуализации React'а основываясь на контрольных точках.
 
 ### useMediaQuery hook
 
@@ -201,10 +201,10 @@ type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 #### Аргументы
 
-1. `options` (*Object* [optional]): 
-    - `options.withTheme` (*Boolean* [optional]): Defaults to `false`. Provide the `theme` object to the component as a property.
-    - `options.noSSR` (*Boolean* [optional]): Defaults to `false`. In order to perform the server-side rendering reconciliation, it needs to render twice. A first time with nothing and a second time with the children. This double pass rendering cycle comes with a drawback. The UI might blink. You can set this flag to `true` if you are not doing server-side rendering.
-    - `options.initialWidth` (*Breakpoint* [optional]): As `window.innerWidth` is unavailable on the server, we default to rendering an empty component during the first mount. You might want to use an heuristic to approximate the screen width of the client browser screen width. For instance, you could be using the user-agent or the client-hints. https://caniuse.com/#search=client%20hint, we also can set the initial width globally using [`custom properties`](/customization/globals/#default-props) on the theme. In order to set the initialWidth we need to pass a custom property with this shape:
+1. `варианты` (*объекта* [optional]): 
+  - `options.withTheme` (*Boolean* [optional]): Defaults to `false`. Provide the `theme` object to the component as a property.
+  - `options.noSSR` (*Boolean* [optional]): Defaults to `false`. In order to perform the server-side rendering reconciliation, it needs to render twice. A first time with nothing and a second time with the children. This double pass rendering cycle comes with a drawback. The UI might blink. You can set this flag to `true` if you are not doing server-side rendering.
+  - `options.initialWidth` (*Breakpoint* [optional]): As `window.innerWidth` is unavailable on the server, we default to rendering an empty component during the first mount. You might want to use an heuristic to approximate the screen width of the client browser screen width. For instance, you could be using the user-agent or the client-hints. https://caniuse.com/#search=client%20hint, we also can set the initial width globally using [`custom properties`](/customization/globals/#default-props) on the theme. In order to set the initialWidth we need to pass a custom property with this shape:
 
 ```js
 const theme = createMuiTheme({
@@ -229,15 +229,17 @@ const theme = createMuiTheme({
 ```jsx
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
-class MyComponent extends React.Component {
-  render () {
-    if (isWidthUp('sm', this.props.width)) {
-      return <span />
-    }
-
-    return <div />;
+function MyComponent(props) {
+  if (isWidthUp('sm', props.width)) {
+    return <span />
   }
+
+  return <div />;
 }
 
 export default withWidth()(MyComponent);
 ```
+
+## Default values
+
+You can explore the default values of the breakpoints using [the theme explorer](/customization/default-theme/?expend-path=$.breakpoints) or by opening the dev tools console on this page (`window.theme.breakpoints`).

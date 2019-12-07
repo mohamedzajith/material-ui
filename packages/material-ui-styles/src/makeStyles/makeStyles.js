@@ -1,5 +1,4 @@
 import React from 'react';
-import warning from 'warning';
 import { getDynamicStyles } from 'jss';
 import mergeClasses from '../mergeClasses';
 import multiKeyStore from './multiKeyStore';
@@ -110,7 +109,6 @@ function attach({ state, theme, stylesOptions, stylesCreator, name }, props) {
       ...options,
     });
 
-    warning(props, 'Material-UI: properties missing.');
     dynamicSheet.update(props).attach();
 
     state.dynamicSheet = dynamicSheet;
@@ -201,10 +199,9 @@ function makeStyles(stylesOrCreator, options = {}) {
     meta: classNamePrefix,
     classNamePrefix,
   };
-  const listenToTheme = stylesCreator.themingEnabled || typeof name === 'string';
 
   return (props = {}) => {
-    const theme = (listenToTheme ? useTheme() : null) || defaultTheme;
+    const theme = useTheme() || defaultTheme;
     const stylesOptions = {
       ...React.useContext(StylesContext),
       ...stylesOptions2,

@@ -4,8 +4,23 @@
 
 Have a look at the [Create React App with TypeScript](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript) example. A minimum version of TypeScript 2.8 is required.
 
-Our definitions are tested with the following [tsconfig.json](https://github.com/mui-org/material-ui/tree/master/tsconfig.json).
-Using a less strict `tsconfig.json` or omitting some of the libraries might cause errors.
+In order for types to work, you have to at least have the following options enabled
+in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
+  }
+}
+```
+
+The strict mode options are the same that are required for every types package
+published in the `@types/` namespace. Using a less strict `tsconfig.json` or omitting some of the libraries might cause errors. To get the best type experience with the types we recommend
+setting `"strict": true`.
 
 ## Usage of `withStyles`
 
@@ -56,7 +71,7 @@ withStyles(({ palette, spacing }) => ({
 
 This is because TypeScript [widens the return types of function expressions](https://github.com/Microsoft/TypeScript/issues/241).
 
-Because of this, we recommend using our `createStyles` helper function to construct your style rules object:
+Because of this, using the `createStyles` helper function to construct your style rules object is recommended:
 
 ```ts
 // Non-dependent styles
@@ -248,10 +263,11 @@ import createMyTheme from './styles/createMyTheme';
 const theme = createMyTheme({ appDrawer: { breakpoint: 'md' }});
 ```
 
-## Usage of `component` property
-Material-UI allows you to replace a component's root node via a `component` property.
-For example, a `Button`'s root node can be replaced with a React Router `Link`, and any additional props that are passed to `Button`, such as `to`, will be spread to the `Link` component. For a code
-example concerning `Button` and `react-router-dom` checkout [this Button demo](/components/buttons/#third-party-routing-library).
+## Usage of `component` prop
+
+Material-UI allows you to replace a component's root node via a `component` prop.
+For example, a Button's root node can be replaced with a React Router's Link, and any additional props that are passed to Button, such as `to`, will be spread to the Link component.
+For a code example concerning Button and react-router-dom checkout [these demos](/guides/composition/#routing-libraries).
 
 Not every component fully supports any component type you pass in. If you encounter a
 component that rejects its `component` props in TypeScript please open an issue.
@@ -269,7 +285,7 @@ the soundest option is to type it as `unknown` and let the developer decide
 how they want to narrow that type down. We do not offer the possibility to use a generic
 type in those cases for [the same reasons `event.target` is not generic in React](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682).
 
-Our demos include typed variants that use type casting. It is an acceptable tradeoff
+The demos include typed variants that use type casting. It is an acceptable tradeoff
 because the types are all located in a single file and are very basic. You have to decide for yourself
-if the same tradeoff is acceptable for you. We want our library types to be strict
+if the same tradeoff is acceptable for you. The library types are be strict
 by default and loose via opt-in.

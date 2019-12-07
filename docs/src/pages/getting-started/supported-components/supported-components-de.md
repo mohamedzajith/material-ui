@@ -2,7 +2,7 @@
 
 <p class="description">Im Folgenden finden Sie eine Liste der Komponenten und Funktionen des Material Design. Die derzeit von Material-UI unterstützten Komponenten werden mit ✓ hervorgehoben.</p>
 
-Wir bemühen uns darum die Richtlinien soweit wie es praktisch möglich ist zu befolgen (gesunder Menschenverstand löst meist die Widersprüche der Richtlinien, welche öfter auftreten als man meinen mag), wir versuchen jedoch nicht jede Komponente, noch jede Funktion einer Komponente zu unterstützen, sondern stellen die Bausteine zur Verfügung, welche es Entwicklern ermöglicht überzeugende Benutzeroberflächen und Erlebnisse zu entwickeln.
+While we strive to follow the guidelines where practical (applying common sense where guidelines contradict - a more common occurrence than one might expect), we do not expect to support every component, nor every feature of every component, but rather to provide the building blocks to allow developers to create compelling user interfaces and experiences.
 
 Wenn Sie Unterstützung für eine Komponente oder ein Feature hinzufügen möchten, welche hier nicht markiert sind, suchen Sie bitte nach dem entsprechenden [GitHub-Issue](https://github.com/mui-org/material-ui/issues) oder erstellen Sie ein neues, um die Realisierung zu besprechen, bevor Sie ein Pull-Request absenden.
 
@@ -59,7 +59,7 @@ Wenn Sie Unterstützung für eine Komponente oder ein Feature hinzufügen möcht
     - **Switch ✓**
     - Reorder
 - **[Menus](https://material.io/design/components/menus.html) ✓** 
-  - **[Dropdown menu](https://material.io/design/components/menus.html#dropdown-menu) ✓** (Pode ser composto) 
+  - **[Dropdown menu](https://material.io/design/components/menus.html#dropdown-menu) ✓** (Can be composed) 
     - [Cascade](https://material.io/design/components/menus.html#dropdown-menu)
   - [Exposed dropdown menus](https://material.io/design/components/menus.html#exposed-dropdown-menu) 
     - **Text field dropdown menu ✓** (Select)
@@ -73,15 +73,15 @@ Wenn Sie Unterstützung für eine Komponente oder ein Feature hinzufügen möcht
   - **[Checkbox](https://material.io/design/components/selection-controls.html#checkboxes) ✓**
   - **[Radio button](https://material.io/design/components/selection-controls.html#radio-buttons) ✓**
   - **[Switch](https://material.io/design/components/selection-controls.html#switches) ✓**
-- **[Sliders](https://material.io/design/components/sliders.html) ~** ([Lab](/components/about-the-lab/)) 
+- **[Sliders](https://material.io/design/components/sliders.html) ✓** 
   - **[Continuous](https://material.io/design/components/sliders.html#continuous-slider) ✓**
-  - **[Discrete](https://material.io/design/components/sliders.html#discrete-slider) ~**
+  - **[Discrete](https://material.io/design/components/sliders.html#discrete-slider) ✓**
 - **[Snackbars](https://material.io/design/components/snackbars.html) ✓** (*Veraltetes Material v1*)
-- **[Subheaders](https://material.io/archive/guidelines/components/subheaders.html) ✓** (*Veraltetes Material v1*) 
+- **[Subheaders](https://material.io/archive/guidelines/components/subheaders.html) ✓** (*Legacy Material v1*) 
   - **[List](https://material.io/archive/guidelines/components/subheaders.html#subheaders-list-subheaders) ✓**
   - **[Grid](https://material.io/archive/guidelines/components/subheaders.html#subheaders-list-subheaders) ✓**
   - [Menu](https://material.io/archive/guidelines/components/subheaders.html#subheaders-list-subheaders)
-- **[Steppers](https://material.io/archive/guidelines/components/steppers.html) ✓** (*Veraltetes Material v1*) 
+- **[Steppers](https://material.io/archive/guidelines/components/steppers.html) ✓** (*Legacy Material v1*) 
   - **[Horizontal](https://material.io/archive/guidelines/components/steppers.html#steppers-types-of-steppers) ✓**
   - **[Vertical](https://material.io/archive/guidelines/components/steppers.html#steppers-types-of-steppers) ✓**
   - **[Mobile steps](https://material.io/archive/guidelines/components/steppers.html#steppers-types-of-steps) ✓**

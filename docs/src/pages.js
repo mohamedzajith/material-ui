@@ -12,6 +12,7 @@ const pages = [
       { pathname: '/getting-started/faq', title: 'FAQs' },
       { pathname: '/getting-started/supported-components' },
       { pathname: '/getting-started/supported-platforms' },
+      { pathname: '/getting-started/support' },
     ],
   },
   {
@@ -32,10 +33,9 @@ const pages = [
         pathname: '/components',
         subheader: '/components/inputs',
         children: [
-          { pathname: '/components/autocomplete' },
           { pathname: '/components/buttons' },
           { pathname: '/components/checkboxes' },
-          { pathname: '/components/pickers' },
+          { pathname: '/components/pickers', title: 'Date / Time' },
           { pathname: '/components/radio-buttons' },
           { pathname: '/components/selects' },
           { pathname: '/components/slider' },
@@ -85,6 +85,7 @@ const pages = [
           { pathname: '/components/chips' },
           { pathname: '/components/dividers' },
           { pathname: '/components/icons' },
+          { pathname: '/components/material-icons' },
           { pathname: '/components/lists' },
           { pathname: '/components/tables' },
           { pathname: '/components/tooltips' },
@@ -112,9 +113,12 @@ const pages = [
         subheader: '/components/lab',
         children: [
           { pathname: '/components/about-the-lab' },
+          { pathname: '/components/autocomplete' },
           { pathname: '/components/rating' },
+          { pathname: '/components/skeleton' },
           { pathname: '/components/speed-dial' },
           { pathname: '/components/toggle-button' },
+          { pathname: '/components/tree-view' },
         ],
       },
     ],
@@ -151,7 +155,7 @@ const pages = [
         pathname: '/customization',
         subheader: '/customization/theme',
         children: [
-          { pathname: '/customization/themes', title: 'Overview' },
+          { pathname: '/customization/theming' },
           { pathname: '/customization/palette' },
           { pathname: '/customization/typography' },
           { pathname: '/customization/spacing' },
@@ -176,9 +180,10 @@ const pages = [
       { pathname: '/guides/composition' },
       { pathname: '/guides/server-rendering' },
       { pathname: '/guides/responsive-ui', title: 'Responsive UI' },
-      { pathname: '/guides/migration-v3', title: 'Migration From v3 to v4' },
-      { pathname: '/guides/migration-v0x', title: 'Migration From v0.x to v1' },
+      { pathname: '/guides/migration-v3', title: 'Migration From v3' },
+      { pathname: '/guides/migration-v0x', title: 'Migration From v0.x' },
       { pathname: '/guides/testing' },
+      { pathname: '/guides/localization' },
       { pathname: '/guides/right-to-left', title: 'Right-to-left' },
       { pathname: '/guides/flow' },
     ],
@@ -189,7 +194,7 @@ const pages = [
     linkProps: {
       'data-ga-event-category': 'premium-themes',
       'data-ga-event-action': 'click',
-      'data-ga-event-label': 'home-link',
+      'data-ga-event-label': 'sidenav-link',
     },
   },
   {
@@ -201,7 +206,6 @@ const pages = [
       { pathname: '/discover-more/backers', title: 'Sponsors & Backers' },
       { pathname: '/discover-more/vision' },
       { pathname: '/discover-more/team' },
-      { pathname: '/discover-more/community' },
       { pathname: '/discover-more/changelog' },
       { pathname: '/discover-more/languages' },
       { pathname: '/discover-more/governance' },
@@ -210,6 +214,10 @@ const pages = [
   {
     pathname: '/blog',
     children: [
+      { pathname: '/blog/october-2019-update' },
+      { pathname: '/blog/september-2019-update' },
+      { pathname: '/blog/august-2019-update' },
+      { pathname: '/blog/july-2019-update' },
       { pathname: '/blog/june-2019-update' },
       { pathname: '/blog/may-2019-update' },
       {
@@ -219,6 +227,10 @@ const pages = [
       { pathname: '/blog/april-2019-update' },
       { pathname: '/blog/march-2019-update' },
       { pathname: '/blog/2019-developer-survey-results' },
+      {
+        pathname: '/blog/material-ui-v1-is-out',
+        title: 'Material-UI v1 is out',
+      },
     ],
   },
   { pathname: '/versions', displayNav: false },

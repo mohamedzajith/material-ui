@@ -2,7 +2,7 @@
 
 <p class="description">Nouveau sur Material-UI ? C'est facile à apprendre si vous savez par où commencer ! Ce guide vous aidera à démarrer rapidement.</p>
 
-Les utilisateurs de Material-UI viennent d'horizons et de styles d'apprentissage différents. Que vous préfériez une approche plus théorique ou pratique, nous espérons que cette section vous sera utile. Comme toute technologie inconnue, Material-UI a une courbe d'apprentissage. Avec de la pratique et un peu de patience, vous comprendrez vite.
+Developers come to Material-UI from different backgrounds and with different learning styles. Whether you prefer a more theoretical or practical approach, we hope you’ll find this section helpful. Comme toute technologie inconnue, Material-UI a une courbe d'apprentissage. Avec de la pratique et un peu de patience, vous comprendrez vite.
 
 ## Premier exemple
 
@@ -10,15 +10,15 @@ La page [d'utilisation](/getting-started/usage/#quick-start) contient un petit e
 
 ## Exemples de Projets
 
-Nous [hébergeons des exemples de projets](/getting-started/example-projects/) fournissant l'infrastructure nécessaire au développement et au déploiement de sites Web avec React.
+There are [some example projects](/getting-started/example-projects/) available, providing the infrastructure needed to develop and deploy websites in React.
 
-## Exemples de mise en page
+## Templates
 
-Nous avons une [sélection de mises en page de base](/getting-started/page-layout-examples/) pour vous aider à commencer à créer votre application.
+This [selection of basic templates](/getting-started/templates/) will help you get started building your app.
 
 ## Ressources recommandées
 
-Lors de la première utilisation de Material-UI, vous trouverez peut-être que les articles de blogs, livres et cours vidéo tiers sont plus utiles que la documentation officielle. Nous maintenons une liste de ressources de bonnes qualités, dont certaines sont gratuites.
+Lors de la première utilisation de Material-UI, vous trouverez peut-être que les articles de blogs, livres et cours vidéo tiers sont plus utiles que la documentation officielle. Here are some recommended resources, some of which are free.
 
 ### Gratuit
 
@@ -34,8 +34,13 @@ Lors de la première utilisation de Material-UI, vous trouverez peut-être que l
 
 ### Payant
 
-- **React Material-UI Cookbook**: Build modern day application by implementing Material Design principles in React applications using Material-UI. 
-  - 📘 [The book](https://www.amazon.com/gp/product/1789615224/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1789615224&linkCode=as2&tag=oliviertassin-20&linkId=79aec1cb9db829135838614ac1953380)
+- **Material-UI with React**: Material-UI is an excellent framework to develop beautiful React components faster! This course teaches the fundamentals of Google Material Design and how to develop an end-to-end flight search and booking application using Material-UI and React.
+  
+  - 📹 [Watch Course Trailer](https://www.youtube.com/watch?v=hhZ6yFvCWho)
+  - 💻 [The Course](https://bonsaiilabs.com/courseDetail/material-ui-with-react)
+- **React Material-UI Cookbook**: Build modern-day applications by implementing Material Design principles in React, using Material-UI.
+  
+  - 📘 [The book](https://www.amazon.com/gp/product/1789615224/)
 
 [![cookbook](/static/blog/material-ui-v4-is-out/cookbook.png)](https://www.amazon.com/gp/product/1789615224/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1789615224&linkCode=as2&tag=oliviertassin-20&linkId=79aec1cb9db829135838614ac1953380)
 

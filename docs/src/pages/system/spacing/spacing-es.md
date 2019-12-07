@@ -68,7 +68,9 @@ const theme = {
 <Box mx="auto" /> // margin-left: auto; margin-right: auto;
 ```
 
-## Example
+## Ejemplo
+
+{{"demo": "pages/system/spacing/Demo.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box p={1}>…
@@ -76,15 +78,13 @@ const theme = {
 <Box p={2}>…
 ```
 
-{{"demo": "pages/system/spacing/Demo.js"}}
-
 ## Horizontal centering
+
+{{"demo": "pages/system/spacing/HorizontalCentering.js", "defaultCodeOpen": false, "bg": true}}
 
 ```jsx
 <Box mx="auto">…
 ```
-
-{{"demo": "pages/system/spacing/HorizontalCentering.js"}}
 
 ## API
 
@@ -108,6 +108,7 @@ import { spacing } from '@material-ui/system';
 | `spacing`         | `pl` | `padding-left`                  | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
 | `spacing`         | `px` | `padding-left`, `padding-right` | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
 | `spacing`         | `py` | `padding-top`, `padding-bottom` | [`spacing`](/customization/default-theme/?expend-path=$.spacing) |
+
 
 *Some people find the prop shorthand confusing, you can use the full version if you prefer:*
 

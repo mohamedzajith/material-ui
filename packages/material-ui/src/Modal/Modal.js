@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { useTheme } from '@material-ui/styles';
+import { getThemeProps, useTheme } from '@material-ui/styles';
 import { elementAcceptingRef } from '@material-ui/utils';
 import ownerDocument from '../utils/ownerDocument';
 import Portal from '../Portal';
-import { createChainedFunction } from '../utils/helpers';
-import { useForkRef } from '../utils/reactHelpers';
+import createChainedFunction from '../utils/createChainedFunction';
+import useForkRef from '../utils/useForkRef';
 import useEventCallback from '../utils/useEventCallback';
 import zIndex from '../styles/zIndex';
 import ModalManager, { ariaHidden } from './ModalManager';
@@ -22,14 +22,9 @@ function getHasTransition(props) {
   return props.children ? props.children.props.hasOwnProperty('in') : false;
 }
 
+// A modal manager used to track and manage the state of open Modals.
 // Modals don't open on the server so this won't conflict with concurrent requests.
 const defaultManager = new ModalManager();
-
-function getModal(modal, mountNodeRef, modalRef) {
-  modal.current.modalRef = modalRef.current;
-  modal.current.mountNode = mountNodeRef.current;
-  return modal.current;
-}
 
 export const styles = theme => ({
   /* Styles applied to the root element. */
@@ -60,7 +55,9 @@ export const styles = theme => ({
  *
  * This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
  */
-const Modal = React.forwardRef(function Modal(props, ref) {
+const Modal = React.forwardRef(function Modal(inProps, ref) {
+  const theme = useTheme();
+  const props = getThemeProps({ name: 'MuiModal', props: { ...inProps }, theme });
   const {
     BackdropComponent = SimpleBackdrop,
     BackdropProps,
@@ -73,6 +70,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     disableEscapeKeyDown = false,
     disablePortal = false,
     disableRestoreFocus = false,
+    disableScrollLock = false,
     hideBackdrop = false,
     keepMounted = false,
     manager = defaultManager,
@@ -84,7 +82,6 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     ...other
   } = props;
 
-  const theme = useTheme();
   const [exited, setExited] = React.useState(true);
   const modal = React.useRef({});
   const mountNodeRef = React.useRef(null);
@@ -93,9 +90,14 @@ const Modal = React.forwardRef(function Modal(props, ref) {
   const hasTransition = getHasTransition(props);
 
   const getDoc = () => ownerDocument(mountNodeRef.current);
+  const getModal = () => {
+    modal.current.modalRef = modalRef.current;
+    modal.current.mountNode = mountNodeRef.current;
+    return modal.current;
+  };
 
   const handleMounted = () => {
-    manager.mount(getModal(modal, mountNodeRef, modalRef));
+    manager.mount(getModal(), { disableScrollLock });
 
     // Fix a bug on Chrome where the scroll isn't initially 0.
     modalRef.current.scrollTop = 0;
@@ -104,13 +106,15 @@ const Modal = React.forwardRef(function Modal(props, ref) {
   const handleOpen = useEventCallback(() => {
     const resolvedContainer = getContainer(container) || getDoc().body;
 
-    manager.add(getModal(modal, mountNodeRef, modalRef), resolvedContainer);
+    manager.add(getModal(), resolvedContainer);
 
     // The element was already mounted.
     if (modalRef.current) {
       handleMounted();
     }
   });
+
+  const isTopModal = React.useCallback(() => manager.isTopModal(getModal()), [manager]);
 
   const handlePortalRef = useEventCallback(node => {
     mountNodeRef.current = node;
@@ -123,7 +127,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
       onRendered();
     }
 
-    if (open) {
+    if (open && isTopModal()) {
       handleMounted();
     } else {
       ariaHidden(modalRef.current, true);
@@ -131,7 +135,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
   });
 
   const handleClose = React.useCallback(() => {
-    manager.remove(getModal(modal, mountNodeRef, modalRef));
+    manager.remove(getModal());
   }, [manager]);
 
   React.useEffect(() => {
@@ -147,11 +151,6 @@ const Modal = React.forwardRef(function Modal(props, ref) {
       handleClose();
     }
   }, [open, handleClose, hasTransition, closeAfterTransition, handleOpen]);
-
-  const isTopModal = React.useCallback(
-    () => manager.isTopModal(getModal(modal, mountNodeRef, modalRef)),
-    [manager],
-  );
 
   if (!keepMounted && !open && (!hasTransition || exited)) {
     return null;
@@ -208,11 +207,8 @@ const Modal = React.forwardRef(function Modal(props, ref) {
 
   const inlineStyle = styles(theme || { zIndex });
   const childProps = {};
-  if (children.role === undefined) {
-    childProps.role = children.role || 'document';
-  }
-  if (children.tabIndex === undefined) {
-    childProps.tabIndex = children.tabIndex || '-1';
+  if (children.props.tabIndex === undefined) {
+    childProps.tabIndex = children.props.tabIndex || '-1';
   }
 
   // It's a Transition like component
@@ -316,6 +312,10 @@ Modal.propTypes = {
    */
   disableRestoreFocus: PropTypes.bool,
   /**
+   * Disable the scroll lock behavior.
+   */
+  disableScrollLock: PropTypes.bool,
+  /**
    * If `true`, the backdrop is not rendered.
    */
   hideBackdrop: PropTypes.bool,
@@ -327,8 +327,6 @@ Modal.propTypes = {
   keepMounted: PropTypes.bool,
   /**
    * @ignore
-   *
-   * A modal manager used to track and manage the state of open Modals.
    */
   manager: PropTypes.object,
   /**
@@ -339,8 +337,8 @@ Modal.propTypes = {
    * Callback fired when the component requests to be closed.
    * The `reason` parameter can optionally be used to control the response to `onClose`.
    *
-   * @param {object} event The event source of the callback
-   * @param {string} reason Can be:`"escapeKeyDown"`, `"backdropClick"`
+   * @param {object} event The event source of the callback.
+   * @param {string} reason Can be:`"escapeKeyDown"`, `"backdropClick"`.
    */
   onClose: PropTypes.func,
   /**

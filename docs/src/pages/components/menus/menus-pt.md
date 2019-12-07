@@ -7,7 +7,7 @@ components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 
 <p class="description">Os menus exibem uma lista de opções em superfícies temporárias.</p>
 
-Um [Menu](https://material.io/design/components/menus.html) exibe uma lista de opções em uma superfície temporária. Elas aparecem quando os usuários interagem com um botão, ou outro controle.
+O [Menu](https://material.io/design/components/menus.html) exibe uma lista de opções em uma superfície temporária. Aparece quando o usuário interage com um botão ou outro controle.
 
 ## Menu simples
 
@@ -21,8 +21,7 @@ Escolhendo uma opção deve confirmar imediatamente a opção e fechar o menu.
 
 ## Menus Selecionados
 
-Se usado para a seleção de itens, quando abertos, menus simples tentam alinhar verticalmente o item de menu atualmente selecionado com o elemento de âncora, e o foco inicial será colocado no item de menu selecionado. O item de menu atualmente selecionado é definido usando a propriedade</code>selected`(de <a href="/api/list-item/">ListItem</a>).
-Para usar um item de menu selecionado sem afetar o foco inicial ou o posicionamento vertical do menu, defina a propriedade <code>variant` como `menu`.
+Se usado para a seleção de itens, quando abertos, menus simples tentam alinhar verticalmente o item de menu atualmente selecionado com o elemento de âncora, e o foco inicial será colocado no item de menu selecionado. O item de menu atualmente selecionado é definido usando a propriedade`selected`(de [ListItem](/api/list-item/)). Para usar um item de menu selecionado sem afetar o foco inicial ou o posicionamento vertical do menu, defina a propriedade `variant` como `menu`.
 
 {{"demo": "pages/components/menus/SimpleListMenu.js"}}
 
@@ -32,15 +31,15 @@ O componente `Menu` usa o componente `Popover` internamente. No entanto, você p
 
 A principal responsabilidade do componente `MenuList` é manipular o foco.
 
-{{"demo": "pages/components/menus/MenuListComposition.js"}}
+{{"demo": "pages/components/menus/MenuListComposition.js", "bg": true}}
 
 ## Menus Customizados
 
-Aqui está um exemplo de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescrita](/customization/components/).
+Aqui está um exemplo de customização do componente. Você pode aprender mais sobre isso na [página de documentação de sobrescritas](/customization/components/).
 
 {{"demo": "pages/components/menus/CustomizedMenus.js"}}
 
-O `MenuItem` é um wrapper em torno do `ListItem` com alguns estilos adicionais. Você pode usar os mesmos recursod de composição de lista com o componente `MenuItem`:
+O `MenuItem` é um encapsulador em torno de `ListItem` com alguns estilos adicionais. Você pode usar os mesmos recursos de composição de lista com o componente `MenuItem`:
 
 ## Altura máxima dos menus
 
@@ -52,7 +51,7 @@ Se a altura de um menu impede que todos os itens de menu sejam exibidos, o menu 
 
 Existe [um erro com flexbox](https://bugs.chromium.org/p/chromium/issues/detail?id=327437) que impede `text-overflow: ellipsis` de funcionar em um leiaute flexbox. Você pode usar o componente `Typography` com `noWrap` para solucionar esse problema:
 
-{{"demo": "pages/components/menus/TypographyMenu.js"}}
+{{"demo": "pages/components/menus/TypographyMenu.js", "bg": true}}
 
 ## Trocar transição
 
@@ -60,12 +59,18 @@ Use uma transição diferente.
 
 {{"demo": "pages/components/menus/FadeMenu.js"}}
 
+## Context menu
+
+Here is an example of a context menu. (Right click to open.)
+
+{{"demo": "pages/components/menus/ContextMenu.js"}}
+
 ## Projetos Complementares
 
 Para usos mais avançados, você pode tirar vantagem com:
 
 ### PopupState helper
 
-Existe um pacote de terceiros [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) que cuida do estado do menu para você na maioria dos casos.
+There is a 3rd party package [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) that takes care of menu state for you in most cases.
 
 {{"demo": "pages/components/menus/MenuPopupState.js"}}

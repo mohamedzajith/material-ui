@@ -9,9 +9,23 @@ components: Badge
 
 ## Emblemas Simples
 
-Ejemplos de badges que contienen texto, usando los colores primarios y secundarios de la paleta de colores.
+Ejemplos de insignias que contienen texto, utilizando colores primarios y secundarios. La insignia se aplica a sus hijos.
 
-{{"demo": "pages/components/badges/SimpleBadge.js"}}
+{{"demo": "pages/demos/badges/SimpleBadge.js"}}
+
+## Placas personalizadas
+
+Here are some examples of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
+
+{{"demo": "pages/demos/badges/CustomizedBadge.js"}}
+
+## Visibilidad de la placa
+
+La visibilidad del badge puede ser controlada usando la propiedad `invisible`.
+
+La insignia se oculta automáticamente con badgeContent es cero. Puede anular esto con la propiedad `showZero`.
+
+{{"demo": "pages/demos/badges/BadgeVisibility.js"}}
 
 ## Valor Máximo
 
@@ -21,20 +35,18 @@ Puedes usar la propiedad `max` para limitar el valor máximo del contenido del b
 
 ## Badge de punto
 
-La propiedad `dot` cambia el aspecto del badge a un punto pequeño y puede ser usado como notificación de que algo a cambiado sin mostrar más información.
+La propiedad `punto` cambia un badge a un pequeño punto. Esto se puede usar como una notificación de que algo ha cambiado sin contar.
 
 {{"demo": "pages/components/badges/DotBadge.js"}}
 
-## Visibilidad del Badge
+## Superposición de insignia
 
-La visibilidad del badge puede ser controlada usando la propiedad `invisible`.
+Puede usar la propiedad `overlap` para colocar la insignia relativa a la esquina del elemento envuelto.
 
-El badge se auto oculta usando la propiedad `badgeContent={0}`. Puedes sobreescribir este comportamiento usando la propiedad `showZero`.
+{{"demo": "pages/components/badges/BadgeOverlap.js"}}
 
-{{"demo": "pages/components/badges/BadgeVisibility.js"}}
+## Alineación de la insignia
 
-## Customized badges
+Puede usar las propiedades `horizontalAlignment` y `verticalAlignment` para mover la insignia a cualquier esquina del elemento envuelto.
 
-Here is an example of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
-
-{{"demo": "pages/components/badges/CustomizedBadges.js"}}
+{{"demo": "pages/components/badges/BadgeAlignment.js"}}

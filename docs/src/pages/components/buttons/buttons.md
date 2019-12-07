@@ -3,7 +3,7 @@ title: Button React component
 components: Button, ButtonGroup, Fab, IconButton, ButtonBase, Zoom
 ---
 
-# Buttons
+# Button
 
 <p class="description">Buttons allow users to take actions, and make choices, with a single tap.</p>
 
@@ -58,7 +58,7 @@ The ButtonGroup component can be used to group outlined (the default) or contain
 
 ## Split Button
 
-ButtonGroup can also be used to create a split button. The dropdown can change the button action (as in this example), or be use to immediately trigger a related action.
+ButtonGroup can also be used to create a split button. The dropdown can change the button action (as in this example), or be used to immediately trigger a related action.
 
 {{"demo": "pages/components/buttons/SplitButton.js"}}
 
@@ -84,7 +84,11 @@ The Zoom transition can be used to achieve this. Note that since both the exitin
 animations are triggered at the same time, we use `enterDelay` to allow the outgoing Floating Action Button's
 animation to finish before the new one enters.
 
-{{"demo": "pages/components/buttons/FloatingActionButtonZoom.js"}}
+{{"demo": "pages/components/buttons/FloatingActionButtonZoom.js", "bg": true}}
+
+## Upload button
+
+{{"demo": "pages/components/buttons/UploadButtons.js"}}
 
 ## Sizes
 
@@ -112,7 +116,7 @@ deselected, such as adding or removing a star to an item.
 Here are some examples of customizing the component. You can learn more about this in the
 [overrides documentation page](/customization/components/).
 
-{{"demo": "pages/components/buttons/CustomizedButtons.js"}}
+{{"demo": "pages/components/buttons/CustomizedButtons.js", "defaultCodeOpen": false}}
 
 👑 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/components/button).
 
@@ -125,15 +129,46 @@ You can take advantage of this lower level component to build custom interaction
 
 ## Third-party routing library
 
-One common use case is to use the button to trigger a navigation to a new page.
+One common use case is to use the button to trigger navigation to a new page.
 The `ButtonBase` component provides a property to handle this use case: `component`.
 However for certain focus polyfills `ButtonBase` requires the DOM node of the provided
 component. This is achieved by attaching a ref to the component and expecting that the
 component forwards this ref to the underlying DOM node.
-Given that a lot of our interactive components rely on `ButtonBase`, you should be
-able to take advantage of it everywhere:
+Given that many of the interactive components rely on `ButtonBase`, you should be
+able to take advantage of it everywhere.
 
-{{"demo": "pages/components/buttons/ButtonRouter.js", "defaultCodeOpen": true}}
+Here is an [integration example with react-router](/guides/composition/#button).
 
-_Note: Creating the Button components is necessary to prevent unexpected unmounting.
-You can read more about it in our [component property guide](/guides/composition/#component-property)._
+## Limitations
+
+### Cursor not-allowed
+
+The ButtonBase component sets `pointer-events: none;` on disabled buttons, which prevents the appearance of a disabled cursor.
+
+If you wish to use `not-allowed`, you have two options:
+
+1. **CSS only**. You can remove the pointer events style on the disabled state of the `<button>` element:
+
+  ```css
+  .MuiButtonBase-root:disabled {
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+  ```
+
+  However:
+
+  - You should add `pointer-events: none;` back when you need to display [tooltips on disabled elements](/components/tooltips/#disabled-elements)
+  - The cursor won't change if you render something other than a button element, for instance, a link `<a>` element.
+
+2. **DOM change**. You can wrap the button:
+
+  ```jsx
+  <span style={{ cursor: 'not-allowed' }}>
+    <Button component={Link} disabled>
+      disabled
+    </Button>
+  </span>
+  ```
+
+  This has the advantage of supporting any element, for instance, a link `<a>` element.

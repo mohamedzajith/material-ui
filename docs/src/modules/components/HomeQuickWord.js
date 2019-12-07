@@ -8,15 +8,10 @@ import Link from 'docs/src/modules/components/Link';
 
 const backers = [
   {
-    href: 'https://www.creative-tim.com/?partner=104080',
-    alt: 'creative-tim',
-    title: 'Creative Tim — Premium Themes',
-  },
-  {
     href:
       'https://tidelift.com/subscription/pkg/npm-material-ui?utm_source=material_ui&utm_medium=referral&utm_campaign=homepage',
     alt: 'tidelift',
-    title: 'Tidelift — Get Professionally Supported Material-UI',
+    title: 'Tidelift — Enterprise-ready open source software',
   },
   {
     href: 'https://bit.dev',
@@ -27,16 +22,6 @@ const backers = [
     href: 'https://www.call-em-all.com',
     alt: 'callemall',
     title: 'Call-Em-All - The easy way to message your group',
-  },
-  {
-    href: 'https://localizejs.com',
-    alt: 'localize',
-    title: 'Localize — Application translation & localization platform',
-  },
-  {
-    href: 'https://blokt.com',
-    alt: 'blokt',
-    title: 'Leading Cryptocurrency News',
   },
 ];
 
@@ -50,8 +35,8 @@ const styles = theme => ({
 
 function HomeQuickWord(props) {
   const { classes } = props;
-  const { t } = useSelector(state => ({ t: state.options.t }));
-  const backer = backers[Math.round((backers.length - 1) * Math.random())];
+  const t = useSelector(state => state.options.t);
+  const backer = backers[Math.floor(backers.length * Math.random())];
 
   return (
     <div className={classes.root}>

@@ -5,11 +5,11 @@ components: Snackbar, SnackbarContent
 
 # Snackbars
 
-<p class="description">Snackbars liefern kurze Nachrichten zu App-Prozessen - normalerweise am unteren Bildschirmrand.</p>
+<p class="description">Snackbars provide brief messages about app processes. The component is also known as a toast.</p>
 
 [Snackbars](https://material.io/design/components/snackbars.html) informieren Benutzer über einen Prozess, den eine App ausgeführt hat oder ausführen wird. Sie erscheinen vorübergehend am unteren Rand des Bildschirms. Sie sollten die Benutzererfahrung nicht unterbrechen und erfordern keine Benutzereingaben, um verschwinden zu können.
 
-Snackbars enthalten eine einzelne Textzeile, die sich direkt auf die ausgeführte Operation bezieht. Sie können eine Textaktion enthalten, jedoch keine Symbole. Sie können sie verwenden, um Benachrichtigungen anzuzeigen.
+Snackbars contain a single line of text directly related to the operation performed. They may contain a text action, but no icons. You can use them to display notifications.
 
 #### Häufigkeit
 
@@ -23,7 +23,7 @@ Eine einfache Snackbar, die das Verhalten der Snackbar von Google Keep reproduzi
 
 ## Benutzerdefinierte Snackbars
 
-Hier einige Beispiele zum Anpassen der Komponente. Mehr dazu erfahren Sie auf der [Überschreibungsdokumentationsseite](/customization/components/).
+Hier sind einige Beispiele, wie man die Komponente anpassen kann. Mehr dazu erfahren Sie auf der [Überschreibungsdokumentationsseite](/customization/components/).
 
 {{"demo": "pages/components/snackbars/CustomizedSnackbars.js"}}
 
@@ -73,6 +73,35 @@ Für fortgeschrittenere Anwendungsfälle können Ihnen folgende Projekte helfen:
 
 ![stars](https://img.shields.io/github/stars/iamhosseindhv/notistack.svg?style=social&label=Stars) ![npm downloads](https://img.shields.io/npm/dm/notistack.svg)
 
-Im folgenden Beispiel demonstrieren wir, wie man [notistack](https://github.com/iamhosseindhv/notistack) benutzt. Notistack macht es einfach, Snackbars anzuzeigen (damit Sie sich nicht mit dem Öffnen / Schließen-Status befassen müssen). Außerdem können Sie sie übereinander stapeln (wird jedoch von der Spezifikation nicht empfohlen).
+This example demonstrates how to use [notistack](https://github.com/iamhosseindhv/notistack). notistack has an **imperative API** that makes it easy to display snackbars, without having to handle their open/close state. It also enables you to **stack** them on top of one another (although this is discouraged by the Material Design specification).
 
-{{"demo": "pages/components/snackbars/IntegrationNotistack.js"}}
+{{"demo": "pages/components/snackbars/IntegrationNotistack.js", "defaultCodeOpen": false}}
+
+## Barrierefreiheit
+
+(WAI-ARIA: https://www.w3.org/TR/wai-aria-1.1/#alert)
+
+- Since alerts are not required to receive focus, content authors should not require users to close a Snackbar if the role is set to `alert` through the SnackbarContent `role` prop. This is the default role.
+- If a Snackbar requires focus to close it, then content authors should use the `role` of `alertdialog`.
+
+```jsx
+<SnackbarContent
+  message="This is a Snackbar message."
+  role="alert"
+/>
+```
+
+```jsx
+<Snackbar
+  ContentProps={{
+    'aria-describedby': 'snackbar-fab-message-id',
+    'role': 'alertdialog',
+  }}
+  message={<span id="snackbar-fab-message-id">Archived</span>}
+  action={
+    <Button color="inherit" size="small">
+      Undo
+    </Button>
+  }
+/>
+```

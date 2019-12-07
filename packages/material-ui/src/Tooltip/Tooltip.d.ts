@@ -4,7 +4,8 @@ import { TransitionProps } from '../transitions/transition';
 import { PopperProps } from '../Popper/Popper';
 
 export interface TooltipProps
-  extends StandardProps<React.HTMLAttributes<HTMLDivElement>, TooltipClassKey, 'title', false> {
+  extends StandardProps<React.HTMLAttributes<HTMLDivElement>, TooltipClassKey, 'title'> {
+  arrow?: boolean;
   children: React.ReactElement;
   disableFocusListener?: boolean;
   disableHoverListener?: boolean;
@@ -41,6 +42,8 @@ export type TooltipClassKey =
   | 'popper'
   | 'popperInteractive'
   | 'tooltip'
+  | 'tooltipArrow'
+  | 'arrow'
   | 'touch'
   | 'tooltipPlacementLeft'
   | 'tooltipPlacementRight'

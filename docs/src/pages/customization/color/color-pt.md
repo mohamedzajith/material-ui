@@ -49,7 +49,7 @@ Para testar um esquema de cores do [material.io/design/color](https://material.i
 
 {{"demo": "pages/customization/color/ColorTool.js", "hideHeader": true}}
 
-A saída exibida na amostra de cores pode ser colada diretamente em uma função [`createMuiTheme()`](/customization/themes/#createmuitheme-options-theme) (para ser usada com [`MuiThemeProvider`](/customization/themes/#theme-provider)):
+The output shown in the color sample can be pasted directly into a [`createMuiTheme()`](/customization/theming/#createmuitheme-options-theme) function (to be used with [`ThemeProvider`](/customization/theming/#theme-provider)):
 
 ```jsx
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -73,7 +73,7 @@ Se você estiver usando os tons primário e / ou secundário por padrão, fornec
 
 A equipe do Material Design também criou uma ferramenta de configuração de paleta incrível: [material.io/tools/color](https://material.io/tools/color/). Isso pode ajudar você a criar uma paleta de cores para sua UI, bem como medir o nível de acessibilidade de qualquer combinação de cores.
 
-<a href="https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=3F51B5&secondary.color=F44336">
+<a href="https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=3F51B5&secondary.color=F44336" target="_blank" rel="noopener nofollow">
   <img src="/static/images/color/colorTool.png" alt="Ferramenta oficial de cores" style="width: 574px" />
 </a>
 
@@ -102,6 +102,6 @@ const theme = createMuiTheme({
 
 ### Ferramentas da comunidade
 
-- [create-mui-theme](https://react-theming.github.io/create-mui-theme/) É uma ferramenta online para criar temas de Material-UI por meio da ferramenta de cor do Material Design.
-- [material-ui-tema-editor](https://in-your-saas.github.io/material-ui-theme-editor/) Uma ferramenta para gerar temas para seus aplicativos de Material-UI, basta selecionar as cores e ter uma visualização ao vivo.
+- [create-mui-theme](https://react-theming.github.io/create-mui-theme/): É uma ferramenta online para criar temas de Material-UI por meio da ferramenta de cor do Material Design.
+- [material-ui-tema-editor](https://in-your-saas.github.io/material-ui-theme-editor/): Uma ferramenta para gerar temas para seus aplicativos de Material-UI, basta selecionar as cores e ter uma visualização ao vivo.
 - [Material palette generator](https://material.io/inline-tools/color/): O gerador de paleta do Material pode ser usado para gerar uma paleta para qualquer cor que você inserir.

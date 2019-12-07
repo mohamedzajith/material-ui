@@ -12,7 +12,7 @@ Make sure the `dir` attribute is set on the body, otherwise native components wi
 <body dir="rtl">
 ```
 
-### 2. Theme
+### 2. テーマ
 
 Set the direction in your custom theme:
 
@@ -32,12 +32,12 @@ npm install jss-rtl
 
 Having installed the plugin in your project, Material-UI components still require it to be loaded by the jss instance, as described below. Internally, withStyles is using this JSS plugin when `direction: 'rtl'` is set on the theme. Head to the [plugin README](https://github.com/alitaheri/jss-rtl) to learn more about it.
 
-Once you have created a new JSS instance with the plugin, you need to make it available to all the components in the component tree. We have a [`StylesProvider`](/styles/api/#stylesprovider) component for this:
+Once you have created a new JSS instance with the plugin, you need to make it available to all the components in the component tree. The [`StylesProvider`](/styles/api/#stylesprovider) component enables this:
 
 ```jsx
 import { create } from 'jss';
 import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/styles';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });

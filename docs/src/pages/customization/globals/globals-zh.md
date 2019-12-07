@@ -9,9 +9,12 @@
 ```js
 const theme = createMuiTheme({
   overrides: {
-    MuiButton: { // 组件的名称 ⚛️ / 样式表
-      text: { // 规则的名称
-        color: 'white', // 一些CSS
+    // Style sheet name ⚛️
+    MuiButton: {
+      // Name of the rule
+      text: {
+        // Some CSS
+        color: 'white',
       },
     },
   },
@@ -24,7 +27,7 @@ const theme = createMuiTheme({
 
 ## 默认属性
 
-您可以更改所有Material-UI组件的默认属性。 在`theme`上有一个键值`props`是用来作这个用途的。
+您可以更改所有Material-UI组件的默认属性。 A `props` key is exposed in the `theme` for this use case.
 
 ```js
 const theme = createMuiTheme({

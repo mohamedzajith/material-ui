@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { chainPropTypes } from '@material-ui/utils';
 import withStyles from '../styles/withStyles';
-import { capitalize } from '../utils/helpers';
+import capitalize from '../utils/capitalize';
 
 const SIZE = 44;
 
 function getRelativeValue(value, min, max) {
-  const clampedValue = Math.min(Math.max(min, value), max);
-  return (clampedValue - min) / (max - min);
+  return (Math.min(Math.max(min, value), max) - min) / (max - min);
 }
 
 function easeOut(t) {
@@ -27,7 +26,6 @@ export const styles = theme => ({
   /* Styles applied to the root element. */
   root: {
     display: 'inline-block',
-    lineHeight: 1, // Keep the progress centered
   },
   /* Styles applied to the root element if `variant="static"`. */
   static: {
@@ -35,10 +33,7 @@ export const styles = theme => ({
   },
   /* Styles applied to the root element if `variant="indeterminate"`. */
   indeterminate: {
-    animation: 'mui-progress-circular-rotate 1.4s linear infinite',
-    // Backward compatible logic between JSS v9 and v10.
-    // To remove with the release of Material-UI v4
-    animationName: '$mui-progress-circular-rotate',
+    animation: '$circular-rotate 1.4s linear infinite',
   },
   /* Styles applied to the root element if `color="primary"`. */
   colorPrimary: {
@@ -49,7 +44,9 @@ export const styles = theme => ({
     color: theme.palette.secondary.main,
   },
   /* Styles applied to the `svg` element. */
-  svg: {},
+  svg: {
+    display: 'block', // Keeps the progress centered
+  },
   /* Styles applied to the `circle` svg path. */
   circle: {
     stroke: 'currentColor',
@@ -62,20 +59,17 @@ export const styles = theme => ({
   },
   /* Styles applied to the `circle` svg path if `variant="indeterminate"`. */
   circleIndeterminate: {
-    animation: 'mui-progress-circular-dash 1.4s ease-in-out infinite',
-    // Backward compatible logic between JSS v9 and v10.
-    // To remove with the release of Material-UI v4
-    animationName: '$mui-progress-circular-dash',
+    animation: '$circular-dash 1.4s ease-in-out infinite',
     // Some default value that looks fine waiting for the animation to kicks in.
     strokeDasharray: '80px, 200px',
     strokeDashoffset: '0px', // Add the unit to fix a Edge 16 and below bug.
   },
-  '@keyframes mui-progress-circular-rotate': {
+  '@keyframes circular-rotate': {
     '100%': {
       transform: 'rotate(360deg)',
     },
   },
-  '@keyframes mui-progress-circular-dash': {
+  '@keyframes circular-dash': {
     '0%': {
       strokeDasharray: '1px, 200px',
       strokeDashoffset: '0px',
@@ -202,6 +196,8 @@ CircularProgress.propTypes = {
   }),
   /**
    * The size of the circle.
+   * If using a number, the pixel unit is assumed.
+   * If using a string, you need to provide the CSS unit, e.g '3rem'.
    */
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**

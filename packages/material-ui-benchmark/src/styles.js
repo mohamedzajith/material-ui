@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import Benchmark from 'benchmark';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -25,7 +24,7 @@ align-items: center;
 justify-content: center;
 position: relative;
 background-color: transparent;
-outline: none;
+outline: 0;
 border: 0;
 margin: 0;
 border-radius: 0;
@@ -45,7 +44,7 @@ const cssObject = {
     position: 'relative',
     WebkitTapHighlightColor: 'transparent',
     backgroundColor: 'transparent',
-    outline: 'none',
+    outline: 0,
     border: 0,
     margin: 0,
     borderRadius: 0,

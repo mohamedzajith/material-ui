@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { refType } from '@material-ui/utils';
 import SwitchBase from '../internal/SwitchBase';
 import CheckBoxOutlineBlankIcon from '../internal/svg-icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '../internal/svg-icons/CheckBox';
 import { fade } from '../styles/colorManipulator';
 import IndeterminateCheckBoxIcon from '../internal/svg-icons/IndeterminateCheckBox';
-import { capitalize } from '../utils/helpers';
+import capitalize from '../utils/capitalize';
 import withStyles from '../styles/withStyles';
 
 export const styles = theme => ({
@@ -63,17 +64,18 @@ const Checkbox = React.forwardRef(function Checkbox(props, ref) {
     checkedIcon = defaultCheckedIcon,
     classes,
     color = 'secondary',
+    disabled = false,
     icon = defaultIcon,
     indeterminate = false,
     indeterminateIcon = defaultIndeterminateIcon,
     inputProps,
+    size = 'medium',
     ...other
   } = props;
 
   return (
     <SwitchBase
       type="checkbox"
-      checkedIcon={indeterminate ? indeterminateIcon : checkedIcon}
       classes={{
         root: clsx(classes.root, classes[`color${capitalize(color)}`], {
           [classes.indeterminate]: indeterminate,
@@ -86,8 +88,14 @@ const Checkbox = React.forwardRef(function Checkbox(props, ref) {
         'data-indeterminate': indeterminate,
         ...inputProps,
       }}
-      icon={indeterminate ? indeterminateIcon : icon}
+      icon={React.cloneElement(indeterminate ? indeterminateIcon : icon, {
+        fontSize: size === 'small' ? 'small' : 'default',
+      })}
+      checkedIcon={React.cloneElement(indeterminate ? indeterminateIcon : checkedIcon, {
+        fontSize: size === 'small' ? 'small' : 'default',
+      })}
       ref={ref}
+      disabled={disabled}
       {...other}
     />
   );
@@ -143,17 +151,25 @@ Checkbox.propTypes = {
    */
   inputProps: PropTypes.object,
   /**
-   * This prop can be used to pass a ref callback to the `input` element.
+   * Pass a ref to the `input` element.
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  inputRef: refType,
   /**
    * Callback fired when the state is changed.
    *
    * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
+   * You can pull out the new checked state by accessing `event.target.checked` (boolean).
    */
   onChange: PropTypes.func,
+  /**
+   * If `true`, the `input` element will be required.
+   */
+  required: PropTypes.bool,
+  /**
+   * The size of the checkbox.
+   * `small` is equivalent to the dense checkbox styling.
+   */
+  size: PropTypes.oneOf(['small', 'medium']),
   /**
    * The input component prop `type`.
    */

@@ -12,23 +12,21 @@ Möglicherweise kennen Sie [normalize.css](https://github.com/necolas/normalize.
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-function MyApp() {
+export default function MyApp() {
   return (
     <React.Fragment>
       <CssBaseline />
-      {/* Der Rest deiner Applikation */}
+      {/* The rest of your application */}
     </React.Fragment>
   );
 }
-
-export default MyApp;
 ```
 
 ## Ansatz
 
 ### Seite
 
-Die Elemente `<html>` und `<body>` werden aktualisiert, um bessere seitenweite Standardeinstellungen zu erhalten. Genauer:
+The `<html>` and `<body>` elements are updated to provide better page-wide defaults. More specifically:
 
 - Der Rand in allen Browsern wird entfernt.
 - Die Standardhintergrundfarbe des Materialdesigns wird angewendet. Es verwendet [`theme.palette.background.default`](/customization/default-theme/?expend-path=$.palette.background) für Standardgeräte und einen weißen Hintergrund für Druckgeräte.

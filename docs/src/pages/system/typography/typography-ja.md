@@ -1,8 +1,10 @@
 # タイポグラフィ
 
-<p class="description">Documentation and examples for common text utilities to control alignment, wrapping, weight, and more.</p>
+<p class="description">位置合わせ、ラッピング、重みなどをコントロールする一般的なテキストユーティリティのドキュメントと例。</p>
 
-## Text alignment
+## テキストの位置
+
+{{"demo": "pages/system/typography/TextAlignment.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box textAlign="left">…
@@ -10,9 +12,9 @@
 <Box textAlign="right">…
 ```
 
-{{"demo": "pages/system/typography/TextAlignment.js"}}
-
 ## Font weight
+
+{{"demo": "pages/system/typography/FontWeight.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box fontWeight="fontWeightLight">…
@@ -22,9 +24,9 @@
 <Box fontWeight="fontWeightBold">…
 ```
 
-{{"demo": "pages/system/typography/FontWeight.js"}}
+## フォントサイズ
 
-## Font size
+{{"demo": "pages/system/typography/FontSize.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box fontSize="fontSize">…
@@ -32,9 +34,9 @@
 <Box fontSize={16}>…
 ```
 
-{{"demo": "pages/system/typography/FontSize.js"}}
+## フォントスタイル
 
-## Font Style
+{{"demo": "pages/system/typography/FontStyle.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box fontStyle="normal">…
@@ -42,34 +44,32 @@
 <Box fontStyle="oblique">…
 ```
 
-{{"demo": "pages/system/typography/FontStyle.js"}}
+## フォントファミリー
 
-## Font family
+{{"demo": "pages/system/typography/FontFamily.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box fontFamily="fontFamily">…
 <Box fontFamily="Monospace">…
 ```
 
-{{"demo": "pages/system/typography/FontFamily.js"}}
+## 文字間隔
 
-## Letter Spacing
+{{"demo": "pages/system/typography/LetterSpacing.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box letterSpacing={6}>…
 <Box letterSpacing={10}>…
 ```
 
-{{"demo": "pages/system/typography/LetterSpacing.js"}}
+## 行の高さ
 
-## Line Height
+{{"demo": "pages/system/typography/LineHeight.js", "defaultCodeOpen": false}}
 
 ```jsx
 <Box lineHeight="normal">…
 <Box lineHeight={10}>…
 ```
-
-{{"demo": "pages/system/typography/LineHeight.js"}}
 
 ## API
 

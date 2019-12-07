@@ -32,8 +32,8 @@ for controlling the layout of your application through the [Grid](/components/gr
 
 ## CSS Media Queries
 
-CSS media queries is the idiomatic approach to make your UI responsive.
-We provide four styles helpers to do so:
+CSS media queries are the idiomatic approach to make your UI responsive.
+The theme provides four styles helpers to do so:
 
 - [theme.breakpoints.up(key)](#theme-breakpoints-up-key-media-query)
 - [theme.breakpoints.down(key)](#theme-breakpoints-down-key-media-query)
@@ -251,15 +251,17 @@ const theme = createMuiTheme({
 ```jsx
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
-class MyComponent extends React.Component {
-  render () {
-    if (isWidthUp('sm', this.props.width)) {
-      return <span />
-    }
-
-    return <div />;
+function MyComponent(props) {
+  if (isWidthUp('sm', props.width)) {
+    return <span />
   }
+
+  return <div />;
 }
 
 export default withWidth()(MyComponent);
 ```
+
+## Default values
+
+You can explore the default values of the breakpoints using [the theme explorer](/customization/default-theme/?expend-path=$.breakpoints) or by opening the dev tools console on this page (`window.theme.breakpoints`).

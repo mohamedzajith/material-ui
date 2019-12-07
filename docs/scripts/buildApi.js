@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-
 import { mkdir, readFileSync, writeFileSync } from 'fs';
-import { EOL } from 'os';
+import { getLineFeed } from './helpers';
 import path from 'path';
 import kebabCase from 'lodash/kebabCase';
 import { defaultHandlers, parse as docgenParse } from 'react-docgen';
@@ -79,14 +78,6 @@ function getInheritance(testInfo, src) {
     component: inheritedComponentName,
     pathname,
   };
-}
-
-function getLineFeed(source) {
-  const match = source.match(/\r?\n/);
-  if (match === null) {
-    return EOL;
-  }
-  return match[0];
 }
 
 async function buildDocs(options) {
@@ -177,7 +168,6 @@ async function buildDocs(options) {
   const testInfo = await parseTest(componentObject.filename);
   // no Object.assign to visually check for collisions
   reactAPI.forwardsRefTo = testInfo.forwardsRefTo;
-  reactAPI.strictModeReady = testInfo.strictModeReady;
 
   // if (reactAPI.name !== 'TableCell') {
   //   return;
@@ -207,17 +197,13 @@ async function buildDocs(options) {
     );
     writeFileSync(
       path.resolve(docsApiDirectory, `${kebabCase(reactAPI.name)}.js`),
-      `import 'docs/src/modules/components/bootstrap';
-// --- Post bootstrap -----
-import React from 'react';
+      `import React from 'react';
 import MarkdownDocs from 'docs/src/modules/components/MarkdownDocs';
 import markdown from './${kebabCase(reactAPI.name)}.md';
 
-function Page() {
+export default function Page() {
   return <MarkdownDocs markdown={markdown} />;
 }
-
-export default Page;
 `.replace(/\r?\n/g, reactAPI.EOL),
     );
 

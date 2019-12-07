@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { isFilled, isAdornedStart } from '../InputBase/utils';
 import withStyles from '../styles/withStyles';
-import { capitalize } from '../utils/helpers';
-import { isMuiElement } from '../utils/reactHelpers';
+import capitalize from '../utils/capitalize';
+import isMuiElement from '../utils/isMuiElement';
 import FormControlContext from './FormControlContext';
 
 export const styles = {
@@ -64,6 +64,7 @@ const FormControl = React.forwardRef(function FormControl(props, ref) {
     children,
     classes,
     className,
+    color = 'primary',
     component: Component = 'div',
     disabled = false,
     error = false,
@@ -71,10 +72,12 @@ const FormControl = React.forwardRef(function FormControl(props, ref) {
     hiddenLabel = false,
     margin = 'none',
     required = false,
+    size,
     variant = 'standard',
     ...other
   } = props;
-  const [adornedStart] = React.useState(() => {
+
+  const [adornedStart, setAdornedStart] = React.useState(() => {
     // We need to iterate through the children and find the Input in order
     // to fully support server-side rendering.
     let initialAdornedStart = false;
@@ -121,38 +124,55 @@ const FormControl = React.forwardRef(function FormControl(props, ref) {
     setFocused(false);
   }
 
-  const handleFocus = () => {
-    setFocused(true);
-  };
+  let registerEffect;
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const registeredInput = React.useRef(false);
+    registerEffect = () => {
+      if (registeredInput.current) {
+        console.error(
+          [
+            'Material-UI: there are multiple InputBase components inside a FormControl.',
+            'This is not supported. It might cause infinite rendering loops.',
+            'Only use one InputBase.',
+          ].join('\n'),
+        );
+      }
 
-  const handleBlur = () => {
-    setFocused(false);
-  };
+      registeredInput.current = true;
+      return () => {
+        registeredInput.current = false;
+      };
+    };
+  }
 
-  const handleDirty = () => {
-    if (!filled) {
-      setFilled(true);
-    }
-  };
+  const onFilled = React.useCallback(() => {
+    setFilled(true);
+  }, []);
 
-  const handleClean = () => {
-    if (filled) {
-      setFilled(false);
-    }
-  };
+  const onEmpty = React.useCallback(() => {
+    setFilled(false);
+  }, []);
 
   const childContext = {
     adornedStart,
+    setAdornedStart,
+    color,
     disabled,
     error,
     filled,
     focused,
     hiddenLabel,
-    margin,
-    onBlur: handleBlur,
-    onEmpty: handleClean,
-    onFilled: handleDirty,
-    onFocus: handleFocus,
+    margin: (size === 'small' ? 'dense' : undefined) || margin,
+    onBlur: () => {
+      setFocused(false);
+    },
+    onEmpty,
+    onFilled,
+    onFocus: () => {
+      setFocused(true);
+    },
+    registerEffect,
     required,
     variant,
   };
@@ -192,6 +212,10 @@ FormControl.propTypes = {
    */
   className: PropTypes.string,
   /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: PropTypes.oneOf(['primary', 'secondary']),
+  /**
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
@@ -222,6 +246,10 @@ FormControl.propTypes = {
    * If `true`, the label will indicate that the input is required.
    */
   required: PropTypes.bool,
+  /**
+   * The size of the text field.
+   */
+  size: PropTypes.oneOf(['small', 'medium']),
   /**
    * The variant to use.
    */

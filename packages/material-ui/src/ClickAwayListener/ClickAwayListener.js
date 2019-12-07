@@ -2,21 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ownerDocument from '../utils/ownerDocument';
-import { useForkRef } from '../utils/reactHelpers';
+import useForkRef from '../utils/useForkRef';
+import setRef from '../utils/setRef';
 import useEventCallback from '../utils/useEventCallback';
 import { elementAcceptingRef, exactProp } from '@material-ui/utils';
-
-function useMountedRef() {
-  const mountedRef = React.useRef(false);
-  React.useEffect(() => {
-    mountedRef.current = true;
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
-
-  return mountedRef;
-}
 
 function mapEventPropToEvent(eventProp) {
   return eventProp.substring(2).toLowerCase();
@@ -26,17 +15,28 @@ function mapEventPropToEvent(eventProp) {
  * Listen for click events that occur somewhere in the document, outside of the element itself.
  * For instance, if you need to hide a menu when people click anywhere else on your page.
  */
-function ClickAwayListener(props) {
+const ClickAwayListener = React.forwardRef(function ClickAwayListener(props, ref) {
   const { children, mouseEvent = 'onClick', touchEvent = 'onTouchEnd', onClickAway } = props;
-  const mountedRef = useMountedRef();
   const movedRef = React.useRef(false);
-
   const nodeRef = React.useRef(null);
-  // can be removed once we drop support for non ref forwarding class components
-  const handleOwnRef = React.useCallback(instance => {
-    // #StrictMode ready
-    nodeRef.current = ReactDOM.findDOMNode(instance);
+  const mountedRef = React.useRef(false);
+
+  React.useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
+
+  const handleNodeRef = useForkRef(nodeRef, ref);
+  // can be removed once we drop support for non ref forwarding class components
+  const handleOwnRef = React.useCallback(
+    instance => {
+      // #StrictMode ready
+      setRef(handleNodeRef, ReactDOM.findDOMNode(instance));
+    },
+    [handleNodeRef],
+  );
   const handleRef = useForkRef(children.ref, handleOwnRef);
 
   const handleClickAway = useEventCallback(event => {
@@ -56,18 +56,18 @@ function ClickAwayListener(props) {
       return;
     }
 
-    const { current: node } = nodeRef;
     // The child might render null.
-    if (!node) {
+    if (!nodeRef.current) {
       return;
     }
 
-    const doc = ownerDocument(node);
+    // Multi window support
+    const doc = ownerDocument(nodeRef.current);
 
     if (
       doc.documentElement &&
       doc.documentElement.contains(event.target) &&
-      !node.contains(event.target)
+      !nodeRef.current.contains(event.target)
     ) {
       onClickAway(event);
     }
@@ -80,13 +80,14 @@ function ClickAwayListener(props) {
   React.useEffect(() => {
     if (touchEvent !== false) {
       const mappedTouchEvent = mapEventPropToEvent(touchEvent);
+      const doc = ownerDocument(nodeRef.current);
 
-      document.addEventListener(mappedTouchEvent, handleClickAway);
-      document.addEventListener('touchmove', handleTouchMove);
+      doc.addEventListener(mappedTouchEvent, handleClickAway);
+      doc.addEventListener('touchmove', handleTouchMove);
 
       return () => {
-        document.removeEventListener(mappedTouchEvent, handleClickAway);
-        document.removeEventListener('touchmove', handleTouchMove);
+        doc.removeEventListener(mappedTouchEvent, handleClickAway);
+        doc.removeEventListener('touchmove', handleTouchMove);
       };
     }
 
@@ -96,10 +97,12 @@ function ClickAwayListener(props) {
   React.useEffect(() => {
     if (mouseEvent !== false) {
       const mappedMouseEvent = mapEventPropToEvent(mouseEvent);
-      document.addEventListener(mappedMouseEvent, handleClickAway);
+      const doc = ownerDocument(nodeRef.current);
+
+      doc.addEventListener(mappedMouseEvent, handleClickAway);
 
       return () => {
-        document.removeEventListener(mappedMouseEvent, handleClickAway);
+        doc.removeEventListener(mappedMouseEvent, handleClickAway);
       };
     }
 
@@ -107,7 +110,7 @@ function ClickAwayListener(props) {
   }, [handleClickAway, mouseEvent]);
 
   return <React.Fragment>{React.cloneElement(children, { ref: handleRef })}</React.Fragment>;
-}
+});
 
 ClickAwayListener.propTypes = {
   /**

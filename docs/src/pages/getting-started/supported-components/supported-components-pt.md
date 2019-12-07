@@ -2,7 +2,7 @@
 
 <p class="description">A seguir, uma lista de componentes e recursos do Material Design. Aqueles atualmente suportados pelo Material-UI são destacados com ✓.</p>
 
-Nós trabalhamos para seguir as orientações sempre que possível (aplicando senso comum onde as diretrizes contradizem - uma ocorrência mais comum do que se poderia esperar), não esperamos suportar cada componente, ou cada característica de cada componente, mas sim fornecer os blocos de construção que permitem que os desenvolvedores criem interfaces e experiências de usuário atraentes.
+While we strive to follow the guidelines where practical (applying common sense where guidelines contradict - a more common occurrence than one might expect), we do not expect to support every component, nor every feature of every component, but rather to provide the building blocks to allow developers to create compelling user interfaces and experiences.
 
 Se você deseja adicionar suporte a um componente ou recurso não destacado aqui, pesquise o problema relevante no [GitHub](https://github.com/mui-org/material-ui/issues) ou crie um novo para discutir a abordagem antes de enviar um pull request.
 
@@ -73,15 +73,15 @@ Se você deseja adicionar suporte a um componente ou recurso não destacado aqui
   - **[Checkbox](https://material.io/design/components/selection-controls.html#checkboxes) ✓**
   - **[Radio button](https://material.io/design/components/selection-controls.html#radio-buttons) ✓**
   - **[Switch](https://material.io/design/components/selection-controls.html#switches) ✓**
-- **[Sliders](https://material.io/design/components/sliders.html) ~** ([Lab](/components/about-the-lab/)) 
+- **[Sliders](https://material.io/design/components/sliders.html) ✓** 
   - **[Continuous](https://material.io/design/components/sliders.html#continuous-slider) ✓**
-  - **[Discrete](https://material.io/design/components/sliders.html#discrete-slider) ~**
+  - **[Discrete](https://material.io/design/components/sliders.html#discrete-slider) ✓**
 - **[Snackbars](https://material.io/design/components/snackbars.html) ✓** (*Legado Material v1*)
-- **[Subheaders](https://material.io/archive/guidelines/components/subheaders.html) ✓** (*Legado Material v1*) 
+- **[Subheaders](https://material.io/archive/guidelines/components/subheaders.html) ✓** (*Legacy Material v1*) 
   - **[List](https://material.io/archive/guidelines/components/subheaders.html#subheaders-list-subheaders) ✓**
   - **[Grid](https://material.io/archive/guidelines/components/subheaders.html#subheaders-list-subheaders) ✓**
   - [Menu](https://material.io/design/components/menus.html#exposed-dropdown-menu)
-- **[Steppers](https://material.io/archive/guidelines/components/steppers.html) ✓** (*Legado Material v1*) 
+- **[Steppers](https://material.io/archive/guidelines/components/steppers.html) ✓** (*Legacy Material v1*) 
   - **[Horizontal](https://material.io/archive/guidelines/components/steppers.html#steppers-types-of-steppers) ✓**
   - **[Vertical](https://material.io/archive/guidelines/components/steppers.html#steppers-types-of-steppers) ✓**
   - **[Mobile steps](https://material.io/archive/guidelines/components/steppers.html#steppers-types-of-steps) ✓**
@@ -92,7 +92,7 @@ Se você deseja adicionar suporte a um componente ou recurso não destacado aqui
   - **[Standard](https://material.io/archive/guidelines/components/text-fields.html) ✓** (Legado Material v1)
   - **[Filled](https://material.io/design/components/text-fields.html#filled-text-field) ✓**
   - **[Outline](https://material.io/design/components/text-fields.html#outlined-text-field) ✓**
-  - [Types](https://material.io/archive/guidelines/components/subheaders.html#subheaders-list-subheaders): 
+  - [Types](https://material.io/design/components/text-fields.html#input-types): 
     - **Single-line ✓**
     - **Multi-line ✓**
     - Text-area

@@ -2,7 +2,7 @@
 
 <p class="description">虽然使用由 Material-UI 提供的基于JSS的样式解决方案来设置您的应用程序样式比较简单，但您依旧可以在从纯 CSS 到任意数量的 CSS-in-JS 库的方案中选择，来实现您所偏好的样式方案。</p>
 
-本指南旨在归档当前比较流行的一些替代方案，但是您应该可以发现在这里运用的法则也可以在其他库里适用。 我们为以下的样式方案提供了一些方案：
+本指南旨在归档当前比较流行的一些替代方案，但是您应该可以发现在这里运用的法则也可以在其他库里适用。 There are examples for the following styling solutions:
 
 - [纯 CSS](#plain-css)
 - [全局 CSS](#global-css)
@@ -14,7 +14,7 @@
 
 ## 纯 CSS
 
-没有什么特别花哨的，只是普通的旧版 CSS。 大家已经用它了几十年了，何必多此一举呢？
+Nothing fancy, plain old CSS.
 
 **PlainCssButton.css**
 
@@ -34,7 +34,7 @@
 
 ```jsx
 import React from 'react';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 export default function PlainCssButton() {
   return (
@@ -72,7 +72,7 @@ export default function PlainCssButton() {
 
 ```jsx
 import React from 'react';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 export default function GlobalCssButton() {
   return (
@@ -91,34 +91,9 @@ export default function GlobalCssButton() {
 
 ![评星](https://img.shields.io/github/stars/styled-components/styled-components.svg?style=social&label=Star) ![npm](https://img.shields.io/npm/dm/styled-components.svg?)
 
-`styled()` 方法适用于我们所有的组件。
+The `styled()` method works perfectly on all of the components.
 
-```jsx
-import React from 'react';
-import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-
-const StyledButton = styled(Button)`
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border-radius: 3px;
-  border: 0;
-  color: white;
-  height: 48px;
-  padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
-`;
-
-export default function StyledComponents() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <StyledButton>Styled Components</StyledButton>
-    </div>
-  );
-}
-```
-
-{{"demo": "pages/guides/interoperability/StyledComponents.js", "hideHeader": true}}
+{{"demo": "pages/guides/interoperability/StyledComponents.js", "defaultCodeOpen": true}}
 
 [![编辑按钮](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/k553lz1qrv)
 
@@ -127,15 +102,15 @@ export default function StyledComponents() {
 **请注意：** styled-components 和 JSS 都在 `<head>` 的底部注入其样式表。 若想要 styled-components 的样式在最后加载，我们推荐的最佳方法是更改 [CSS 的注入顺序](/styles/advanced/#css-injection-order)，如下演示：
 
 ```jsx
-import { StylesProvider } from '@material-ui/styles';
+import { StylesProvider } from '@material-ui/core/styles';
 
 <StylesProvider injectFirst>
-  {/* 你的组件树。
+  {/* Your component tree.
       样式化组件可以覆盖 Material-UI 的样式。 */}
 </StylesProvider>
 ```
 
-另外一个在 styled-components 中使用 `&&` 字符的方案则是通过重复类名来[增强特征](https://www.styled-components.com/docs/advanced#issues-with-specificity)。 You should avoid the usage of `!important`.
+另外一个在 styled-components 中使用 `&&` 字符的方案则是通过重复类名来[增强特征](https://www.styled-components.com/docs/advanced#issues-with-specificity)。 Avoid the usage of `!important`.
 
 ### 更深层的元素
 
@@ -143,42 +118,14 @@ import { StylesProvider } from '@material-ui/styles';
 
 以下示例除了影响按钮本身的自定义样式外，还会覆盖 `Button` 的 `label` 样式。 通过”消耗”一些不应该传递到底层组件的属性，它还解决了[这个 styled-components 的问题](https://github.com/styled-components/styled-components/issues/439)。
 
-```jsx
-import React from 'react';
-import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-
-const StyledButton = styled(({ color, ...other }) => <Button {...other} />)`
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border: 0;
-  color: white;
-  height: 48px;
-  padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
-
-  & .MuiButton-label {
-    color: ${props => props.color};
-  }
-`;
-
-export default function StyledComponentsDeep() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <StyledButton color="papayawhip">Styled Components</StyledButton>
-    </div>
-  );
-}
-```
-
-{{"demo": "pages/guides/interoperability/StyledComponentsDeep.js", "hideHeader": true}}
+{{"demo": "pages/guides/interoperability/StyledComponentsDeep.js", "defaultCodeOpen": true}}
 
 以上的例子依赖于[默认的`类`的值](/styles/advanced/#with-material-ui-core)，但是您也可以提供自定义的类名：`.label`。
 
 ```jsx
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const StyledButton = styled(({ color, ...other }) => (
   <Button classes={{ label: 'label' }} {...other} />
@@ -264,7 +211,7 @@ const StyledMenu = styled(({ className, ...props }) => (
 import React from 'react';
 // webpack, parcel or else will inject the CSS into the page
 import styles from './CssModulesButton.css';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 export default function CssModulesButton() {
   return (
@@ -288,35 +235,7 @@ export default function CssModulesButton() {
 
 Emotion的 **css()** 方法与Material-UI无缝协作。
 
-```jsx
-/** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { Button } from '@material-ui/core';
-
-// We just assign them the Button's className attribute
-export default function EmotionButton() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <Button
-        css={css`
-          background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-          border-radius: 3px;
-          border: 0;
-          color: white;
-          height: 48px;
-          padding: 0 30px;
-          box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
-        `}
-      >
-        Emotion
-      </Button>
-    </div>
-  );
-}
-```
-
-{{“demo”：“pages/guides/interoperability/EmotionCSS.js”，“hideHeader”：true}}
+{{"demo": "pages/guides/interoperability/EmotionCSS.js", "defaultCodeOpen": true}}
 
 [![编辑按钮](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/yw93kl7y0j)
 
@@ -330,13 +249,13 @@ export default function EmotionButton() {
 
 ![评星](https://img.shields.io/github/stars/cssinjs/jss.svg?style=social&label=Star) ![npm](https://img.shields.io/npm/dm/react-jss.svg?)
 
-Material-UI 的样式方案与 [react-jss](https://github.com/cssinjs/react-jss) 共享了许多代码块。 为了解决我们独特的需求，我们继续开发并且克隆了项目，但是我们仍致力于合并那些从 Material-UI 返回到 react-jss 的变动和修复。
+Material-UI 的样式方案与 [react-jss](https://github.com/cssinjs/react-jss) 共享了许多代码块。 A fork was needed in order to handle Material-UI's unique needs, but with the intent to merge the changes and fixes from Material-UI back to react-jss.
 
 ```jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   button: {
@@ -367,39 +286,3 @@ export default injectSheet(styles)(ReactJssButton);
 ```
 
 [![编辑按钮](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/24kllqxvmp)
-
-## Glamor
-
-![评星](https://img.shields.io/github/stars/threepointone/glamor.svg?style=social&label=Star) ![npm](https://img.shields.io/npm/dm/glamor.svg?)
-
-使用 Glamour 应用样式的一个好的办法是利用 **css()** 函数，然后使用 **classnames** 将它们打包为字符串：
-
-```jsx
-import React from 'react';
-import { css } from 'glamor';
-import { Button } from '@material-ui/core';
-
-const buttonStyles = {
-  background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-  borderRadius: 3,
-  border: 0,
-  color: "white",
-  height: 48,
-  padding: "0 30px",
-  boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .30)"
-};
-
-// 接着我们只需要将它们传入Button 的 className 属性中
-export default function GlamorButton() {
-  return (
-    <div>
-      <Button>Material-UI</Button>
-      <Button {...css(buttonStyles)}>Glamor</Button>
-    </div>
-  );
-}
-```
-
-[![编辑按钮](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vp2znmj40)
-
-**请注意：** Glamor 和 JSS 都在 `<head>` 底部注入其样式表。 如果您不想使用 **!important** 来标记样式属性，您则需要更改 [CSS 的注入顺序](/styles/advanced/#css-injection-order)，如上所示。
